@@ -226,8 +226,13 @@ namespace WorkDivision
             lvinDivision.Columns.Add("id");
             lvinDivision.Columns.Add("Ном.пер.");
             lvinDivision.Columns.Add("Операция");
-            lvinDivision.Columns.Add("Время обработки");
-            lvinDivision.Columns.Add("Стоимость обработки");
+            lvinDivision.Columns.Add("Расход ткани");
+            lvinDivision.Columns.Add("Разряд");
+            lvinDivision.Columns.Add("Норма времени");
+            lvinDivision.Columns.Add("Кол-во раб.");
+            lvinDivision.Columns.Add("Расценка на 1м");
+            lvinDivision.Columns.Add("Норма врем на 1ед.");
+            lvinDivision.Columns.Add("Стоимость 1ед.");
             autoResizeColumns(lvinDivision);
 
 
@@ -1445,7 +1450,12 @@ namespace WorkDivision
         {
             if (lvDivision.SelectedItems.Count > 0)
             {
-                lvDivision_MouseDoubleClick(this, null);
+                fAddDivision.id_rec = lvDivision.SelectedItems[0].SubItems[0].Text;
+                fAddDivision.StartPosition = FormStartPosition.CenterParent;
+                fAddDivision.Text = "Изменить";
+                fAddDivision.ShowDialog();
+                lvDivision.Items.Clear();
+                LoadDivisions();
             }
             else
             {
@@ -1467,6 +1477,7 @@ namespace WorkDivision
                 tpinDivision.Parent = tabControl1;
                 tpinDivision.Text = @"Разделение труда по модели " + lvDivision.SelectedItems[0].SubItems[1].Text;
                 tabControl1.SelectedTab = tpinDivision;
+                LoadOpersByDivision(lvDivision.SelectedItems[0].SubItems[0].Text);
                 //tabControl2.SelectedTab = tabTitul;
                 //getPatientData(lvList.SelectedItems[0].SubItems[0].Text);
                 //getVisits(tbID.Text);
@@ -1524,6 +1535,53 @@ namespace WorkDivision
             fOpersList.ShowDialog();
             //getDiagsByVisit(Patient.id_visit);
         }
+
+        public async void LoadOpersByDivision(string id_div)
+        {
+            lvinDivision.Items.Clear();  //Чистим listview
+
+            try
+            {
+                string query = @"SELECT i.id,dop.PER,dop.Name,'' as NMAT,i.rank,i.NVR,i.workers_cnt
+                                FROM inDivision as i 
+                                LEFT JOIN DirOpers as dop on i.id_oper=dop.id
+                                WHERE id_division=" + id_div +" ORDER BY dop.PER";
+
+                m_sqlCmd = new SQLiteCommand(query, dblite);
+                m_sqlCmd.Connection = dblite;
+
+                sqlReader = m_sqlCmd.ExecuteReader();
+
+                while (await sqlReader.ReadAsync())
+                {
+                    ListViewItem item = new ListViewItem(new string[] {
+                    Convert.ToString(sqlReader["id"]),
+                    Convert.ToString(sqlReader["PER"]),
+                    Convert.ToString(sqlReader["Name"]),
+                    Convert.ToString(sqlReader["NMAT"]),
+                    Convert.ToString(sqlReader["rank"]),
+                    Convert.ToString(sqlReader["NVR"]),
+                    Convert.ToString(sqlReader["workers_cnt"])
+                    });
+                    item.Font = new Font(lvDivision.Font, FontStyle.Regular);
+                    lvinDivision.Items.Add(item);
+                }
+
+                autoResizeColumns(lvinDivision);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка 5.09.07", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (sqlReader != null && !sqlReader.IsClosed)
+                    sqlReader.Close();
+            }
+            toolStripStatusLabel1.Text = "Кол-во строк: " + lvinDivision.Items.Count;
+        }
+
     }
     class Division
     {
