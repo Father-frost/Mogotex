@@ -224,7 +224,8 @@ namespace WorkDivision
             lvinDivision.View = View.Details;
             lvinDivision.Font = new Font(lvinDivision.Font, FontStyle.Bold);
             lvinDivision.Columns.Add("id");
-            lvinDivision.Columns.Add("Ном.пер.");
+            lvinDivision.Columns.Add("№ пп");
+            lvinDivision.Columns.Add("Участок");
             lvinDivision.Columns.Add("Операция");
             lvinDivision.Columns.Add("Расход ткани");
             lvinDivision.Columns.Add("Разряд");
@@ -725,14 +726,18 @@ namespace WorkDivision
 
         private void lvDirOpers_MouseDoubleClick(object sender, MouseEventArgs e)
         {
+            int item = 0;
             if (lvDirOpers.SelectedItems.Count > 0)
             {
+                item = Convert.ToInt32(lvDirOpers.SelectedItems[0].Index);
                 fAddOper.id_rec = Convert.ToString(lvDirOpers.SelectedItems[0].SubItems[0].Text);
                 fAddOper.StartPosition = FormStartPosition.CenterParent;
                 fAddOper.Text = "Изменить";
                 fAddOper.ShowDialog();
                 lvDirOpers.Items.Clear();
                 LoadDirOpers();
+                lvDirOpers.Items[item].Selected = true;
+                //lvDirOpers.Items[item].Focused = true;
             }
         }
 
@@ -761,6 +766,10 @@ namespace WorkDivision
                     });
                     item.Font = new Font(lvDirOpers.Font, FontStyle.Regular);
                     lvDirOpers.Items.Add(item);
+                    if (Convert.ToInt32(sqlReader["UCH"]) % 2 == 0)  // Выделение цветом нечетных заходов
+                    {
+                        item.BackColor = Color.LightBlue;
+                    }
                 }
 
                 autoResizeColumns(lvDirOpers);
@@ -1542,10 +1551,10 @@ namespace WorkDivision
         public async void LoadOpersByDivision(string id_div)
         {
             lvinDivision.Items.Clear();  //Чистим listview
-
+            int counter = 0;
             try
             {
-                string query = @"SELECT i.id,d.PER,d.Name,'' as NMAT,i.rank,i.NVR,i.workers_cnt
+                string query = @"SELECT i.id,d.UCH,d.Name,'' as NMAT,i.rank,i.NVR,i.workers_cnt
                                 FROM inDivision as i 
                                 LEFT JOIN DirOpers as d on d.id=i.id_oper
                                 WHERE id_division='" + id_div +@"' ORDER BY d.PER";
@@ -1557,9 +1566,11 @@ namespace WorkDivision
 
                 while (await sqlReader.ReadAsync())
                 {
+                    counter++;
                     ListViewItem item = new ListViewItem(new string[] {
                     Convert.ToString(sqlReader["id"]),
-                    Convert.ToString(sqlReader["PER"]),
+                    Convert.ToString(counter),
+                    Convert.ToString(sqlReader["UCH"]),
                     Convert.ToString(sqlReader["Name"]),
                     Convert.ToString(sqlReader["NMAT"]),
                     Convert.ToString(sqlReader["rank"]),
@@ -1568,6 +1579,10 @@ namespace WorkDivision
                     });
                     item.Font = new Font(lvDivision.Font, FontStyle.Regular);
                     lvinDivision.Items.Add(item);
+                    if (Convert.ToInt32(sqlReader["UCH"]) % 2 == 0)  // Выделение цветом нечетных заходов
+                    {
+                        item.BackColor = Color.LightBlue;
+                    }
                 }
 
                 autoResizeColumns(lvinDivision);

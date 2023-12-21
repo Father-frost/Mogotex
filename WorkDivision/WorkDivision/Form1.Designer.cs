@@ -151,17 +151,13 @@
             this.toolStripButton6 = new System.Windows.Forms.ToolStripButton();
             this.lvinDivision = new System.Windows.Forms.ListView();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.btnSave = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.настройкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.SettingsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.ConnectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.настройкиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.UpdateProductsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.UploadWithoutGTINtsItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1.SuspendLayout();
             this.tpDivision.SuspendLayout();
@@ -1300,23 +1296,12 @@
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.AutoSize = true;
-            this.panel1.Controls.Add(this.btnSave);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.dateTimePicker1);
             this.panel1.Location = new System.Drawing.Point(1, 26);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1132, 56);
             this.panel1.TabIndex = 20;
-            // 
-            // btnSave
-            // 
-            this.btnSave.Location = new System.Drawing.Point(413, 14);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(126, 32);
-            this.btnSave.TabIndex = 8;
-            this.btnSave.Text = "Разделить";
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // label1
             // 
@@ -1366,40 +1351,17 @@
             // настройкаToolStripMenuItem
             // 
             this.настройкаToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.SettingsToolStripMenuItem1,
-            this.ConnectToolStripMenuItem,
             this.настройкиToolStripMenuItem,
-            this.UpdateProductsToolStripMenuItem,
             this.UploadWithoutGTINtsItem});
             this.настройкаToolStripMenuItem.Name = "настройкаToolStripMenuItem";
             this.настройкаToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
             this.настройкаToolStripMenuItem.Text = "Сервис";
-            // 
-            // SettingsToolStripMenuItem1
-            // 
-            this.SettingsToolStripMenuItem1.Name = "SettingsToolStripMenuItem1";
-            this.SettingsToolStripMenuItem1.Size = new System.Drawing.Size(269, 22);
-            this.SettingsToolStripMenuItem1.Text = "Проверить подключение к камере";
-            this.SettingsToolStripMenuItem1.Visible = false;
-            // 
-            // ConnectToolStripMenuItem
-            // 
-            this.ConnectToolStripMenuItem.Name = "ConnectToolStripMenuItem";
-            this.ConnectToolStripMenuItem.Size = new System.Drawing.Size(269, 22);
-            this.ConnectToolStripMenuItem.Text = "Проверить подключение к сканеру";
-            this.ConnectToolStripMenuItem.Visible = false;
             // 
             // настройкиToolStripMenuItem
             // 
             this.настройкиToolStripMenuItem.Name = "настройкиToolStripMenuItem";
             this.настройкиToolStripMenuItem.Size = new System.Drawing.Size(269, 22);
             this.настройкиToolStripMenuItem.Text = "Настройки";
-            // 
-            // UpdateProductsToolStripMenuItem
-            // 
-            this.UpdateProductsToolStripMenuItem.Name = "UpdateProductsToolStripMenuItem";
-            this.UpdateProductsToolStripMenuItem.Size = new System.Drawing.Size(269, 22);
-            this.UpdateProductsToolStripMenuItem.Text = "Обновить справочник продукции";
             // 
             // UploadWithoutGTINtsItem
             // 
@@ -1499,13 +1461,9 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem настройкаToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem SettingsToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem ConnectToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem настройкиToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem UpdateProductsToolStripMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripMenuItem UploadWithoutGTINtsItem;
         private System.Windows.Forms.TabControl tabControl2;
