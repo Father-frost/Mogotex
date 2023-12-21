@@ -1463,12 +1463,14 @@ namespace WorkDivision
             }
         }
 
+        //Переход к операциям по разделению
         private void lvDivision_MouseDoubleClick(object sender, MouseEventArgs e)
         {
 
 
             if (lvDivision.SelectedItems.Count > 0)
             {
+                Division.id = lvDivision.SelectedItems[0].SubItems[0].Text;   //id разделения
                 //fAddCard.id_rec = lvList.SelectedItems[0].SubItems[0].Text;
                 //fAddCard.StartPosition = FormStartPosition.CenterParent;
                 //fAddCard.Text = "Изменить";
@@ -1520,6 +1522,7 @@ namespace WorkDivision
             }
         }
 
+        //Переход к операциям по разделению
         private void tsBtnGotoDivision_Click(object sender, EventArgs e)
         {
             lvDivision_MouseDoubleClick(this, null);
@@ -1533,7 +1536,7 @@ namespace WorkDivision
 
             fOpersList.StartPosition = FormStartPosition.CenterParent;
             fOpersList.ShowDialog();
-            //getDiagsByVisit(Patient.id_visit);
+            LoadOpersByDivision(Division.id);
         }
 
         public async void LoadOpersByDivision(string id_div)
@@ -1542,10 +1545,10 @@ namespace WorkDivision
 
             try
             {
-                string query = @"SELECT i.id,dop.PER,dop.Name,'' as NMAT,i.rank,i.NVR,i.workers_cnt
+                string query = @"SELECT i.id,d.PER,d.Name,'' as NMAT,i.rank,i.NVR,i.workers_cnt
                                 FROM inDivision as i 
-                                LEFT JOIN DirOpers as dop on i.id_oper=dop.id
-                                WHERE id_division=" + id_div +" ORDER BY dop.PER";
+                                LEFT JOIN DirOpers as d on d.id=i.id_oper
+                                WHERE id_division='" + id_div +@"' ORDER BY d.PER";
 
                 m_sqlCmd = new SQLiteCommand(query, dblite);
                 m_sqlCmd.Connection = dblite;
@@ -1582,6 +1585,40 @@ namespace WorkDivision
             toolStripStatusLabel1.Text = "Кол-во строк: " + lvinDivision.Items.Count;
         }
 
+        private async void tsBtnDelOperInDivision_Click(object sender, EventArgs e)
+        {
+            if (lvinDivision.SelectedItems.Count > 0)
+            {
+                DialogResult res = MessageBox.Show("Вы действительно хотите удалить эту строку?", "Удаление...", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+
+                switch (res)
+                {
+                    case DialogResult.OK:
+
+                        SQLiteCommand delArrCommand = new SQLiteCommand("DELETE FROM inDivision WHERE id=@id", dblite);
+
+                        delArrCommand.Parameters.AddWithValue("id", Convert.ToString(lvinDivision.SelectedItems[0].SubItems[0].Text));
+
+                        try
+                        {
+                            await delArrCommand.ExecuteNonQueryAsync();
+                        }
+                        catch (SQLiteException ex)
+                        {
+                            MessageBox.Show(ex.Message, "Ошибка 5.10.04", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+
+                        // автообновление после удаления
+                        LoadOpersByDivision(Division.id);
+
+                        break;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Выберите строку для удаления.", "Ошибка 5.10.05", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
     }
     class Division
     {

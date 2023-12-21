@@ -1248,6 +1248,7 @@
             this.tsBtnDelOperInDivision.Name = "tsBtnDelOperInDivision";
             this.tsBtnDelOperInDivision.Size = new System.Drawing.Size(135, 24);
             this.tsBtnDelOperInDivision.Text = "Удалить операцию";
+            this.tsBtnDelOperInDivision.Click += new System.EventHandler(this.tsBtnDelOperInDivision_Click);
             // 
             // toolStripSeparator33
             // 
