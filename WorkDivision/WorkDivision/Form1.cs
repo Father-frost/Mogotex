@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.IO;
-using Settings2Ini;
+//using Settings2Ini;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SQLite;
@@ -34,9 +34,10 @@ namespace WorkDivision
         public fAddNormControl fAddNormControl;
         public fAddDivision fAddDivision;
         public fOpersList fOpersList;
+        public fEditOperByDivision fEditOperByDivision;
         //public fAuth fAuth;
 
-        IniFile MyIni = new IniFile("Settings.ini");
+        //IniFile MyIni = new IniFile("Settings.ini");
 
         public Form1()
         {
@@ -53,6 +54,7 @@ namespace WorkDivision
             fAddNormControl= new fAddNormControl();
             fAddDivision= new fAddDivision();
             fOpersList = new fOpersList();
+            fEditOperByDivision = new fEditOperByDivision();
             //fAuth = new fAuth();
 
         }
@@ -109,7 +111,7 @@ namespace WorkDivision
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            tabControl1.TabPages[2].Parent = null;  //Скрываем вкладку 
+            tpinDivision.Parent = null;  //Скрываем вкладку 
             dblite = new SQLiteConnection("Data Source=divisionDB.db;Version=3;");
             dblite.Open();
 
@@ -737,6 +739,7 @@ namespace WorkDivision
                 lvDirOpers.Items.Clear();
                 LoadDirOpers();
                 lvDirOpers.Items[item].Selected = true;
+                lvDirOpers.EnsureVisible(item);
                 //lvDirOpers.Items[item].Focused = true;
             }
         }
@@ -873,6 +876,7 @@ namespace WorkDivision
                     });
                     item.Font = new Font(lvDirModels.Font, FontStyle.Regular);
                     lvDirModels.Items.Add(item);
+
                 }
 
                 autoResizeColumns(lvDirModels);
@@ -892,14 +896,18 @@ namespace WorkDivision
 
         private void lvDirModels_MouseDoubleClick(object sender, MouseEventArgs e)
         {
+            int item = 0;
             if (lvDirModels.SelectedItems.Count > 0)
             {
+                item = Convert.ToInt32(lvDirModels.SelectedItems[0].Index);
                 fAddModel.id_rec = Convert.ToString(lvDirModels.SelectedItems[0].SubItems[0].Text);
                 fAddModel.StartPosition = FormStartPosition.CenterParent;
                 fAddModel.Text = "Изменить";
                 fAddModel.ShowDialog();
                 lvDirModels.Items.Clear();
                 LoadDirModels();
+                lvDirModels.Items[item].Selected = true;
+                lvDirModels.EnsureVisible(item);
             }
         }
 
@@ -1486,6 +1494,8 @@ namespace WorkDivision
                 //fAddCard.ShowDialog();
                 //LoadPatientsList();
                 tpinDivision.Parent = tabControl1;
+                tpDirs.Parent = null;
+                tpDirs.Parent = tabControl1;
                 tpinDivision.Text = @"Разделение труда по модели " + lvDivision.SelectedItems[0].SubItems[1].Text;
                 tabControl1.SelectedTab = tpinDivision;
                 LoadOpersByDivision(lvDivision.SelectedItems[0].SubItems[0].Text);
@@ -1632,6 +1642,24 @@ namespace WorkDivision
             else
             {
                 MessageBox.Show("Выберите строку для удаления.", "Ошибка 5.10.05", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        // Ввод параметров по каждой операции в разделении
+        private void tsBtnEditOperInDivision_Click(object sender, EventArgs e)
+        {
+            if (lvinDivision.SelectedItems.Count > 0)
+            {
+                fEditOperByDivision.id_rec = lvinDivision.SelectedItems[0].SubItems[0].Text;
+                fEditOperByDivision.StartPosition = FormStartPosition.CenterParent;
+                fEditOperByDivision.Text = "Изменить";
+                fEditOperByDivision.ShowDialog();
+                lvinDivision.Items.Clear();
+                LoadOpersByDivision(Division.id);
+            }
+            else
+            {
+                MessageBox.Show("Выберите строку для редактирования.", "Ошибка 5.09.05", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
     }
