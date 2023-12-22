@@ -138,7 +138,9 @@
     <Compile Include="fAddWorker.Designer.cs">
       <DependentUpon>fAddWorker.cs</DependentUpon>
     </Compile>
-    <Compile Include="fAuth.cs" />
+    <Compile Include="fAuth.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="fAuth.Designer.cs">
       <DependentUpon>fAuth.cs</DependentUpon>
     </Compile>

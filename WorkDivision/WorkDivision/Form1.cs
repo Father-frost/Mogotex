@@ -1547,6 +1547,7 @@ namespace WorkDivision
             lvDivision_MouseDoubleClick(this, null);
         }
 
+        //Отбор операция для разделения
         private void tsBtnAddOperInDivision_Click(object sender, EventArgs e)
         {
             Division.id = lvDivision.SelectedItems[0].SubItems[0].Text;
@@ -1557,6 +1558,8 @@ namespace WorkDivision
             fOpersList.ShowDialog();
             LoadOpersByDivision(Division.id);
         }
+
+
 
         public async void LoadOpersByDivision(string id_div)
         {
@@ -1610,6 +1613,9 @@ namespace WorkDivision
             toolStripStatusLabel1.Text = "Кол-во строк: " + lvinDivision.Items.Count;
         }
 
+
+
+        //Удалить операцию из распределения
         private async void tsBtnDelOperInDivision_Click(object sender, EventArgs e)
         {
             if (lvinDivision.SelectedItems.Count > 0)
@@ -1661,6 +1667,11 @@ namespace WorkDivision
             {
                 MessageBox.Show("Выберите строку для редактирования.", "Ошибка 5.09.05", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+        }
+
+        private void lvinDivision_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            tsBtnEditOperInDivision_Click(this,null);
         }
     }
     class Division

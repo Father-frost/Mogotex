@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using System.Data.SQLite;
 using System.Xml;
 using System.Globalization;
+using System.Net.Security;
 
 namespace WorkDivision
 {
@@ -61,6 +62,7 @@ namespace WorkDivision
             {
                     //MessageBox.Show(id_rec.ToString());
                 GetOperByDivision();
+                
             }
             else
             {
@@ -79,7 +81,7 @@ namespace WorkDivision
             {
                 //dblite = new SQLiteConnection("Data Source=divisionDB.db;Version=3;");
                 //dblite.Open();
-                string query = @"SELECT i.id,d.UCH,d.Name,'' as NMAT,i.rank,i.NVR,i.workers_cnt
+                string query = @"SELECT i.id,d.UCH,i.id_oper,d.Name,'' as NMAT,i.rank,i.NVR,i.workers_cnt
                                 FROM inDivision as i 
                                 LEFT JOIN DirOpers as d on d.id=i.id_oper
                                 WHERE i.id =" + id_rec;
@@ -97,8 +99,28 @@ namespace WorkDivision
                     tbWorkersCnt.Text = "";
                     tbNVR.Text = Convert.ToString(sqlReader["NVR"]);
                     tbCost.Text = "";
+                    lbUCH.Text = Convert.ToString(sqlReader["UCH"]);
 
                 }
+                cbSelectMat.Items.Clear();
+                //Если участок контроля или настилания
+                if (Convert.ToInt32(lbUCH.Text) <= 2)
+                {
+                    if (Convert.ToInt32(lbUCH.Text) == 1)
+                    {
+                        m_sqlCmd = new SQLiteCommand(@"SELECT VIDTK FROM DirNormControl ORDER BY VIDTK", dblite);
+                    }
+                    else if (Convert.ToInt32(lbUCH.Text) == 2)
+                    {
+                        m_sqlCmd = new SQLiteCommand(@"SELECT VIDTK FROM DirNormNastil ORDER BY VIDTK", dblite);
+                    }
+                    sqlReader = m_sqlCmd.ExecuteReader();
+                    while (await sqlReader.ReadAsync())
+                    {
+                        cbSelectMat.Items.Add(Convert.ToString(sqlReader["VIDTK"]));
+                    }
+                }
+                
 
             }
             catch (Exception ex)
@@ -112,9 +134,15 @@ namespace WorkDivision
             }
         }
 
+
         private void label4_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void cbSelectMat_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            tbMatRate.Text = cbSelectMat.SelectedItem.ToString();
         }
     }
 }
