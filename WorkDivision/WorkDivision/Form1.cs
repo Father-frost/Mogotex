@@ -1567,7 +1567,7 @@ namespace WorkDivision
             int counter = 0;
             try
             {
-                string query = @"SELECT i.id,d.UCH,d.Name,'' as NMAT,i.rank,i.NVR,i.workers_cnt
+                string query = @"SELECT i.id,d.UCH,d.Name,i.MatRate,i.rank,i.NVRforOper,i.workers_cnt
                                 FROM inDivision as i 
                                 LEFT JOIN DirOpers as d on d.id=i.id_oper
                                 WHERE id_division='" + id_div +@"' ORDER BY d.PER";
@@ -1585,9 +1585,9 @@ namespace WorkDivision
                     Convert.ToString(counter),
                     Convert.ToString(sqlReader["UCH"]),
                     Convert.ToString(sqlReader["Name"]),
-                    Convert.ToString(sqlReader["NMAT"]),
+                    Convert.ToString(sqlReader["MatRate"]),
                     Convert.ToString(sqlReader["rank"]),
-                    Convert.ToString(sqlReader["NVR"]),
+                    Convert.ToString(sqlReader["NVRforOper"]),
                     Convert.ToString(sqlReader["workers_cnt"])
                     });
                     item.Font = new Font(lvDivision.Font, FontStyle.Regular);
@@ -1656,7 +1656,10 @@ namespace WorkDivision
         {
             if (lvinDivision.SelectedItems.Count > 0)
             {
-                fEditOperByDivision.id_rec = lvinDivision.SelectedItems[0].SubItems[0].Text;
+
+                fEditOperByDivision.id_rec = lvinDivision.SelectedItems[0].SubItems[0].Text;   //id записи
+                fEditOperByDivision.number = lvinDivision.SelectedItems[0].SubItems[1].Text;   //номер по порядку                
+                fEditOperByDivision.rank = lvinDivision.SelectedItems[0].SubItems[5].Text;   //разряд               
                 fEditOperByDivision.StartPosition = FormStartPosition.CenterParent;
                 fEditOperByDivision.Text = "Изменить";
                 fEditOperByDivision.ShowDialog();
