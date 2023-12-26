@@ -145,7 +145,7 @@ namespace WorkDivision
                         cbSelectMat.DisplayMember = "VIDTK";
                         cbSelectMat.ValueMember = "NORMVR";
                         cbSelectMat.SelectedIndex = -1;   //Выбираем пустое значение для списка материалов
-                        tbMatRate.Text = matRate;
+                        tbMatRate.Text = matRate;         //Расход материала из БД
                     }
                     catch (Exception ex)
                     {
@@ -380,9 +380,6 @@ namespace WorkDivision
             m_sqlCmd.Parameters.AddWithValue("@NVRforOper", NVRforOper);
             m_sqlCmd.Parameters.AddWithValue("@workers_cnt", wcount);
             m_sqlCmd.Parameters.AddWithValue("@MatRate", MatRate);
-           // m_sqlCmd.Parameters.AddWithValue("@NST", tbNST.Text);
-           // m_sqlCmd.Parameters.AddWithValue("@KOEF", tbKOEF.Text.Replace(",", "."));
-            //m_sqlCmd.Parameters.AddWithValue("@NVR", tbNVR.Text.Replace(",", "."));
         
             try
             {

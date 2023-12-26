@@ -101,3 +101,4 @@ D:\Mogotex\WorkDivision\WorkDivision\obj\Debug\WorkDivision.csproj.CoreCompileIn
 D:\Mogotex\WorkDivision\WorkDivision\obj\Debug\WorkDivision.csproj.CopyComplete
 D:\Mogotex\WorkDivision\WorkDivision\obj\Debug\WorkDivision.exe
 D:\Mogotex\WorkDivision\WorkDivision\obj\Debug\WorkDivision.pdb
+D:\git_dev\Development\Mogotex\WorkDivision\WorkDivision\obj\Debug\WorkDivision.fEditOperByDivision.resources

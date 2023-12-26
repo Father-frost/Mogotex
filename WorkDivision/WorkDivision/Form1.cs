@@ -1551,8 +1551,8 @@ namespace WorkDivision
         private void tsBtnAddOperInDivision_Click(object sender, EventArgs e)
         {
             Division.id = lvDivision.SelectedItems[0].SubItems[0].Text;
-            Division.mm = dateTimePicker1.Value.Day.ToString();
-            Division.yy = dateTimePicker1.Value.Month.ToString();
+            Division.mm = dateTimePicker1.Value.Month.ToString();
+            Division.yy = dateTimePicker1.Value.Year.ToString();
 
             fOpersList.StartPosition = FormStartPosition.CenterParent;
             fOpersList.ShowDialog();
@@ -1567,9 +1567,14 @@ namespace WorkDivision
             int counter = 0;
             try
             {
-                string query = @"SELECT i.id,d.UCH,d.Name,i.MatRate,i.rank,i.NVRforOper,i.workers_cnt
+                string query = @"SELECT i.id,d.UCH,d.Name,i.MatRate,i.rank,dt.TAR_VR,i.NVRforOper,i.workers_cnt,
+                                ROUND(i.NVRforOper * dt.TAR_VR,5) as Cost,
+                                CASE WHEN d.UCH between 1 and 2 THEN ROUND(i.NVRforOper * i.MatRate * i.workers_cnt,2) ELSE NVRforOper END as NVRbyItem,
+                                CASE WHEN d.UCH between 1 and 2 THEN ROUND(ROUND(i.NVRforOper * dt.TAR_VR,5) * i.MatRate * i.workers_cnt,5) 
+                                    ELSE ROUND(i.NVRforOper * dt.TAR_VR * i.workers_cnt,5) END as SumItem
                                 FROM inDivision as i 
                                 LEFT JOIN DirOpers as d on d.id=i.id_oper
+                                LEFT JOIN DirTarif as dt on dt.rank=i.rank
                                 WHERE id_division='" + id_div +@"' ORDER BY d.PER";
 
                 m_sqlCmd = new SQLiteCommand(query, dblite);
@@ -1588,7 +1593,10 @@ namespace WorkDivision
                     Convert.ToString(sqlReader["MatRate"]),
                     Convert.ToString(sqlReader["rank"]),
                     Convert.ToString(sqlReader["NVRforOper"]),
-                    Convert.ToString(sqlReader["workers_cnt"])
+                    Convert.ToString(sqlReader["workers_cnt"]),
+                    Convert.ToString(sqlReader["Cost"]),
+                    Convert.ToString(sqlReader["NVRbyItem"]),
+                    Convert.ToString(sqlReader["SumItem"])
                     });
                     item.Font = new Font(lvDivision.Font, FontStyle.Regular);
                     lvinDivision.Items.Add(item);
