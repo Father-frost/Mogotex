@@ -242,6 +242,8 @@ namespace WorkDivision
             dateTimePicker1_ValueChanged(this, null);
 
             tabControl1.SelectedIndex = 0;
+            tsStatusNVRbyItem.Text = "";
+            tsStatusSumItem.Text = "";
         }
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
@@ -305,6 +307,8 @@ namespace WorkDivision
                 {
                     toolStripStatusLabel1.Text = "Кол-во строк: "+ lvDivision.Items.Count;
                 }
+                tsStatusNVRbyItem.Text = "";
+                tsStatusSumItem.Text = "";
             }
             if (tabControl1.SelectedTab == tpDirs)  //Если выбрана закладка справочники
             {
@@ -312,6 +316,13 @@ namespace WorkDivision
                 {
                     LoadDirWorkers();
                 }
+                tsStatusNVRbyItem.Text = "";
+                tsStatusSumItem.Text = "";
+            }
+            if (tabControl1.SelectedTab == tpinDivision)
+            {
+                tsStatusNVRbyItem.Text = "Время обработки: ";
+                tsStatusSumItem.Text = "Стоимость обработки: ";
             }
 
             
@@ -1499,6 +1510,8 @@ namespace WorkDivision
                 tpinDivision.Text = @"Разделение труда по модели " + lvDivision.SelectedItems[0].SubItems[1].Text;
                 tabControl1.SelectedTab = tpinDivision;
                 LoadOpersByDivision(lvDivision.SelectedItems[0].SubItems[0].Text);
+                tsStatusNVRbyItem.Text = "Время обработки: ";
+                tsStatusSumItem.Text = "Стоимость обработки: ";
                 //tabControl2.SelectedTab = tabTitul;
                 //getPatientData(lvList.SelectedItems[0].SubItems[0].Text);
                 //getVisits(tbID.Text);

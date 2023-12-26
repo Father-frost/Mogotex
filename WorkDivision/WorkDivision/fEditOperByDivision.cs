@@ -31,31 +31,6 @@ namespace WorkDivision
             
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            //dblite = new SQLiteConnection("Data Source=divisionDB.db;Version=3;");
-            //dblite.Open();
-            //string querySQLite = @"UPDATE DirOpers SET Name=@Name, UCH=@UCH, PER=@PER, NST=@NST, KOEF=@KOEF, NVR=@NVR WHERE id=" + id_rec;
-            //m_sqlCmd = new SQLiteCommand(querySQLite, dblite);
-            //m_sqlCmd.Parameters.AddWithValue("@Name", tbOperName.Text);
-            //m_sqlCmd.Parameters.AddWithValue("@UCH", tbMatRate.Text);
-            //m_sqlCmd.Parameters.AddWithValue("@PER", tbTarif.Text);
-            //m_sqlCmd.Parameters.AddWithValue("@NST", tbWorkersCnt.Text);
-            //m_sqlCmd.Parameters.AddWithValue("@KOEF", tbNVR.Text.Replace(",", "."));
-            //m_sqlCmd.Parameters.AddWithValue("@NVR", tbCost.Text.Replace(",","."));
-            //try
-            //{
-            //    m_sqlCmd.Prepare();
-            //    m_sqlCmd.ExecuteNonQuery();
-            //    this.Close();
-
-            //}
-            //catch (SQLiteException ex)
-            //{
-            //    MessageBox.Show(ex.Message, "Ошибка 5.21.07", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //}
-        }
-
         public string id_rec { get; set; }
         public string number { get; set; }
         public string rank { get; set; }
@@ -93,7 +68,11 @@ namespace WorkDivision
             int parent=1;
             try
             {
-                string query = @"SELECT i.id,d.UCH,i.id_oper,d.Name,i.rank,i.MatRate,dt.TAR_VR,i.NVRforOper,i.workers_cnt,parent
+                string query = @"SELECT i.id,d.UCH,i.id_oper,d.Name,i.rank,i.MatRate,dt.TAR_VR,i.NVRforOper,i.workers_cnt,parent,
+                                ROUND(i.NVRforOper * dt.TAR_VR,5) as Cost,
+                                CASE WHEN d.UCH between 1 and 2 THEN ROUND(i.NVRforOper * i.MatRate * i.workers_cnt,2) ELSE NVRforOper END as NVRbyItem,
+                                CASE WHEN d.UCH between 1 and 2 THEN ROUND(ROUND(i.NVRforOper * dt.TAR_VR,5) * i.MatRate * i.workers_cnt,5) 
+                                    ELSE ROUND(i.NVRforOper * dt.TAR_VR * i.workers_cnt,5) END as SumItem
                                 FROM inDivision as i 
                                 LEFT JOIN DirOpers as d on d.id=i.id_oper
                                 LEFT JOIN DirTarif as dt on dt.rank=i.rank
@@ -114,9 +93,9 @@ namespace WorkDivision
                     tbWorkersCnt.Text = Convert.ToString(sqlReader["workers_cnt"]); //Кол-во работников
                     tbNVR.Text = Convert.ToString(sqlReader["NVRforOper"]);                //Норма времени
                     matRate = Convert.ToString(sqlReader["MatRate"]);               //Расход ткани
-                    tbCost.Text = "";                                               //Расценка на 1м
-                    tbNVRbyItem.Text = "";                                          //Норма времени на 1ед
-                    tbSumItem.Text = "";                                            //Стоимость 1ед
+                    tbCost.Text = Convert.ToString(sqlReader["cost"]);              //Расценка на 1м
+                    tbNVRbyItem.Text = Convert.ToString(sqlReader["NVRbyItem"]);     //Норма времени на 1ед
+                    tbSumItem.Text = Convert.ToString(sqlReader["SumItem"]);       //Стоимость 1ед
                     parent = Convert.ToInt32(sqlReader["parent"]);                //Родитель
                 }
                 //Если участок контроля или настилания
@@ -483,6 +462,18 @@ namespace WorkDivision
                     }
                 }
             }
+        }
+
+        private void btnNext_Click(object sender, EventArgs e)
+        {
+            string query = @"SELECT i.id FROM inDivision as i
+                            LEFT JOIN DirOpers as d on d.id=i.id_oper
+                            WHERE i.id>" + id_rec+ @" ORDER BY d.PER ASC LIMIT 1";
+            m_sqlCmd = new SQLiteCommand(query, dblite);
+            //m_sqlCmd.Connection = dblite;
+
+            id_rec = Convert.ToString(m_sqlCmd.ExecuteScalar());
+            GetOperByDivision();
         }
     }
 }

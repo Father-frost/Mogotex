@@ -75,9 +75,9 @@
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(384, 46);
             this.btnNext.TabIndex = 15;
-            this.btnNext.Text = "Перейти к следующей операции";
+            this.btnNext.Text = "Перейти к следующей операции   >>";
             this.btnNext.UseVisualStyleBackColor = true;
-            this.btnNext.Click += new System.EventHandler(this.button1_Click);
+            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
             // 
             // label1
             // 

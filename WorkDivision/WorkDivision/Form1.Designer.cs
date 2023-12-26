@@ -159,6 +159,8 @@
             this.настройкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.настройкиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.UploadWithoutGTINtsItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsStatusNVRbyItem = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tsStatusSumItem = new System.Windows.Forms.ToolStripStatusLabel();
             this.tabControl1.SuspendLayout();
             this.tpDivision.SuspendLayout();
             this.toolStrip2.SuspendLayout();
@@ -198,7 +200,7 @@
             this.tabControl1.Controls.Add(this.tpinDivision);
             this.tabControl1.Controls.Add(this.tpDirs);
             this.tabControl1.Location = new System.Drawing.Point(1, 108);
-            this.tabControl1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(1508, 543);
@@ -210,9 +212,9 @@
             this.tpDivision.Controls.Add(this.toolStrip2);
             this.tpDivision.Controls.Add(this.lvDivision);
             this.tpDivision.Location = new System.Drawing.Point(4, 25);
-            this.tpDivision.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tpDivision.Margin = new System.Windows.Forms.Padding(4);
             this.tpDivision.Name = "tpDivision";
-            this.tpDivision.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tpDivision.Padding = new System.Windows.Forms.Padding(4);
             this.tpDivision.Size = new System.Drawing.Size(1500, 514);
             this.tpDivision.TabIndex = 0;
             this.tpDivision.Text = "Разделение";
@@ -237,7 +239,7 @@
             this.toolStripButton8});
             this.toolStrip2.Location = new System.Drawing.Point(4, 4);
             this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(1492, 31);
+            this.toolStrip2.Size = new System.Drawing.Size(1492, 27);
             this.toolStrip2.TabIndex = 0;
             this.toolStrip2.Text = "toolStrip2";
             // 
@@ -246,68 +248,68 @@
             this.tsBtnAddDivision.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnAddDivision.Image")));
             this.tsBtnAddDivision.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnAddDivision.Name = "tsBtnAddDivision";
-            this.tsBtnAddDivision.Size = new System.Drawing.Size(100, 28);
+            this.tsBtnAddDivision.Size = new System.Drawing.Size(100, 24);
             this.tsBtnAddDivision.Text = "Добавить";
             this.tsBtnAddDivision.Click += new System.EventHandler(this.tsBtnAddDivision_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 31);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 27);
             // 
             // tsBtnEditDivision
             // 
             this.tsBtnEditDivision.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnEditDivision.Image")));
             this.tsBtnEditDivision.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnEditDivision.Name = "tsBtnEditDivision";
-            this.tsBtnEditDivision.Size = new System.Drawing.Size(102, 28);
+            this.tsBtnEditDivision.Size = new System.Drawing.Size(102, 24);
             this.tsBtnEditDivision.Text = "Изменить";
             this.tsBtnEditDivision.Click += new System.EventHandler(this.tsBtnEditDivision_Click);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 31);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 27);
             // 
             // tsBtnDelDivision
             // 
             this.tsBtnDelDivision.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnDelDivision.Image")));
             this.tsBtnDelDivision.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnDelDivision.Name = "tsBtnDelDivision";
-            this.tsBtnDelDivision.Size = new System.Drawing.Size(89, 28);
+            this.tsBtnDelDivision.Size = new System.Drawing.Size(89, 24);
             this.tsBtnDelDivision.Text = "Удалить";
             this.tsBtnDelDivision.Click += new System.EventHandler(this.tsBtnDelDivision_Click);
             // 
             // toolStripSeparator34
             // 
             this.toolStripSeparator34.Name = "toolStripSeparator34";
-            this.toolStripSeparator34.Size = new System.Drawing.Size(6, 31);
+            this.toolStripSeparator34.Size = new System.Drawing.Size(6, 27);
             // 
             // toolStripLabel2
             // 
             this.toolStripLabel2.Name = "toolStripLabel2";
-            this.toolStripLabel2.Size = new System.Drawing.Size(0, 28);
+            this.toolStripLabel2.Size = new System.Drawing.Size(0, 24);
             // 
             // tsBtnGotoDivision
             // 
             this.tsBtnGotoDivision.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnGotoDivision.Image")));
             this.tsBtnGotoDivision.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnGotoDivision.Name = "tsBtnGotoDivision";
-            this.tsBtnGotoDivision.Size = new System.Drawing.Size(191, 28);
+            this.tsBtnGotoDivision.Size = new System.Drawing.Size(191, 24);
             this.tsBtnGotoDivision.Text = "Перейти в разделение";
             this.tsBtnGotoDivision.Click += new System.EventHandler(this.tsBtnGotoDivision_Click);
             // 
             // toolStripSeparator6
             // 
             this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 31);
+            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 27);
             // 
             // toolStripButton5
             // 
             this.toolStripButton5.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton5.Image")));
             this.toolStripButton5.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton5.Name = "toolStripButton5";
-            this.toolStripButton5.Size = new System.Drawing.Size(156, 28);
+            this.toolStripButton5.Size = new System.Drawing.Size(156, 24);
             this.toolStripButton5.Text = "Выгрузить в файл";
             this.toolStripButton5.Click += new System.EventHandler(this.toolStripButton5_Click);
             // 
@@ -315,7 +317,7 @@
             // 
             this.toolStripTextBox2.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolStripTextBox2.Name = "toolStripTextBox2";
-            this.toolStripTextBox2.Size = new System.Drawing.Size(132, 31);
+            this.toolStripTextBox2.Size = new System.Drawing.Size(132, 27);
             // 
             // toolStripButton8
             // 
@@ -323,7 +325,7 @@
             this.toolStripButton8.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton8.Image")));
             this.toolStripButton8.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton8.Name = "toolStripButton8";
-            this.toolStripButton8.Size = new System.Drawing.Size(76, 28);
+            this.toolStripButton8.Size = new System.Drawing.Size(76, 24);
             this.toolStripButton8.Text = "Найти";
             // 
             // lvDivision
@@ -334,7 +336,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lvDivision.HideSelection = false;
             this.lvDivision.Location = new System.Drawing.Point(-4, 41);
-            this.lvDivision.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.lvDivision.Margin = new System.Windows.Forms.Padding(4);
             this.lvDivision.Name = "lvDivision";
             this.lvDivision.Size = new System.Drawing.Size(1500, 470);
             this.lvDivision.TabIndex = 1;
@@ -453,7 +455,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lvinDivision.HideSelection = false;
             this.lvinDivision.Location = new System.Drawing.Point(0, 37);
-            this.lvinDivision.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.lvinDivision.Margin = new System.Windows.Forms.Padding(4);
             this.lvinDivision.Name = "lvinDivision";
             this.lvinDivision.Size = new System.Drawing.Size(1500, 469);
             this.lvinDivision.TabIndex = 2;
@@ -464,7 +466,7 @@
             // 
             this.tpDirs.Controls.Add(this.tabControl2);
             this.tpDirs.Location = new System.Drawing.Point(4, 25);
-            this.tpDirs.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tpDirs.Margin = new System.Windows.Forms.Padding(4);
             this.tpDirs.Name = "tpDirs";
             this.tpDirs.Size = new System.Drawing.Size(1500, 514);
             this.tpDirs.TabIndex = 1;
@@ -486,7 +488,7 @@
             this.tabControl2.Controls.Add(this.tpDirNormNastil);
             this.tabControl2.Controls.Add(this.tpDirNormControl);
             this.tabControl2.Location = new System.Drawing.Point(0, 0);
-            this.tabControl2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabControl2.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
             this.tabControl2.Size = new System.Drawing.Size(1503, 516);
@@ -498,9 +500,9 @@
             this.tpDirWorkers.Controls.Add(this.toolStrip3);
             this.tpDirWorkers.Controls.Add(this.lvDirWorkers);
             this.tpDirWorkers.Location = new System.Drawing.Point(4, 25);
-            this.tpDirWorkers.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tpDirWorkers.Margin = new System.Windows.Forms.Padding(4);
             this.tpDirWorkers.Name = "tpDirWorkers";
-            this.tpDirWorkers.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tpDirWorkers.Padding = new System.Windows.Forms.Padding(4);
             this.tpDirWorkers.Size = new System.Drawing.Size(1495, 487);
             this.tpDirWorkers.TabIndex = 0;
             this.tpDirWorkers.Text = "Работники";
@@ -578,7 +580,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lvDirWorkers.HideSelection = false;
             this.lvDirWorkers.Location = new System.Drawing.Point(0, 38);
-            this.lvDirWorkers.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.lvDirWorkers.Margin = new System.Windows.Forms.Padding(4);
             this.lvDirWorkers.Name = "lvDirWorkers";
             this.lvDirWorkers.Size = new System.Drawing.Size(1491, 441);
             this.lvDirWorkers.TabIndex = 0;
@@ -590,9 +592,9 @@
             this.tpDirBrigs.Controls.Add(this.tsDirBrigs);
             this.tpDirBrigs.Controls.Add(this.lvDirBrigs);
             this.tpDirBrigs.Location = new System.Drawing.Point(4, 25);
-            this.tpDirBrigs.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tpDirBrigs.Margin = new System.Windows.Forms.Padding(4);
             this.tpDirBrigs.Name = "tpDirBrigs";
-            this.tpDirBrigs.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tpDirBrigs.Padding = new System.Windows.Forms.Padding(4);
             this.tpDirBrigs.Size = new System.Drawing.Size(1495, 487);
             this.tpDirBrigs.TabIndex = 1;
             this.tpDirBrigs.Text = "Бригады";
@@ -670,7 +672,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lvDirBrigs.HideSelection = false;
             this.lvDirBrigs.Location = new System.Drawing.Point(3, 39);
-            this.lvDirBrigs.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.lvDirBrigs.Margin = new System.Windows.Forms.Padding(4);
             this.lvDirBrigs.Name = "lvDirBrigs";
             this.lvDirBrigs.Size = new System.Drawing.Size(1491, 441);
             this.lvDirBrigs.TabIndex = 4;
@@ -696,7 +698,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lvDirProfs.HideSelection = false;
             this.lvDirProfs.Location = new System.Drawing.Point(0, 37);
-            this.lvDirProfs.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.lvDirProfs.Margin = new System.Windows.Forms.Padding(4);
             this.lvDirProfs.Name = "lvDirProfs";
             this.lvDirProfs.Size = new System.Drawing.Size(1491, 441);
             this.lvDirProfs.TabIndex = 7;
@@ -787,7 +789,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lvDirOpers.HideSelection = false;
             this.lvDirOpers.Location = new System.Drawing.Point(0, 37);
-            this.lvDirOpers.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.lvDirOpers.Margin = new System.Windows.Forms.Padding(4);
             this.lvDirOpers.Name = "lvDirOpers";
             this.lvDirOpers.Size = new System.Drawing.Size(1491, 441);
             this.lvDirOpers.TabIndex = 7;
@@ -864,7 +866,7 @@
             this.tpDirModels.Controls.Add(this.lvDirModels);
             this.tpDirModels.Controls.Add(this.tsDirModels);
             this.tpDirModels.Location = new System.Drawing.Point(4, 25);
-            this.tpDirModels.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tpDirModels.Margin = new System.Windows.Forms.Padding(4);
             this.tpDirModels.Name = "tpDirModels";
             this.tpDirModels.Size = new System.Drawing.Size(1495, 487);
             this.tpDirModels.TabIndex = 4;
@@ -878,7 +880,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lvDirModels.HideSelection = false;
             this.lvDirModels.Location = new System.Drawing.Point(0, 37);
-            this.lvDirModels.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.lvDirModels.Margin = new System.Windows.Forms.Padding(4);
             this.lvDirModels.Name = "lvDirModels";
             this.lvDirModels.Size = new System.Drawing.Size(1491, 441);
             this.lvDirModels.TabIndex = 7;
@@ -955,7 +957,7 @@
             this.tpDirProducts.Controls.Add(this.lvDirProducts);
             this.tpDirProducts.Controls.Add(this.tsDirProducts);
             this.tpDirProducts.Location = new System.Drawing.Point(4, 25);
-            this.tpDirProducts.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tpDirProducts.Margin = new System.Windows.Forms.Padding(4);
             this.tpDirProducts.Name = "tpDirProducts";
             this.tpDirProducts.Size = new System.Drawing.Size(1495, 487);
             this.tpDirProducts.TabIndex = 5;
@@ -969,7 +971,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lvDirProducts.HideSelection = false;
             this.lvDirProducts.Location = new System.Drawing.Point(0, 37);
-            this.lvDirProducts.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.lvDirProducts.Margin = new System.Windows.Forms.Padding(4);
             this.lvDirProducts.Name = "lvDirProducts";
             this.lvDirProducts.Size = new System.Drawing.Size(1491, 441);
             this.lvDirProducts.TabIndex = 9;
@@ -1060,7 +1062,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lvDirTarif.HideSelection = false;
             this.lvDirTarif.Location = new System.Drawing.Point(11, 57);
-            this.lvDirTarif.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.lvDirTarif.Margin = new System.Windows.Forms.Padding(4);
             this.lvDirTarif.Name = "lvDirTarif";
             this.lvDirTarif.Size = new System.Drawing.Size(1491, 441);
             this.lvDirTarif.TabIndex = 11;
@@ -1151,7 +1153,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lvDirNormNastil.HideSelection = false;
             this.lvDirNormNastil.Location = new System.Drawing.Point(0, 41);
-            this.lvDirNormNastil.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.lvDirNormNastil.Margin = new System.Windows.Forms.Padding(4);
             this.lvDirNormNastil.Name = "lvDirNormNastil";
             this.lvDirNormNastil.Size = new System.Drawing.Size(1491, 441);
             this.lvDirNormNastil.TabIndex = 11;
@@ -1242,7 +1244,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lvDirNormControl.HideSelection = false;
             this.lvDirNormControl.Location = new System.Drawing.Point(0, 41);
-            this.lvDirNormControl.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.lvDirNormControl.Margin = new System.Windows.Forms.Padding(4);
             this.lvDirNormControl.Name = "lvDirNormControl";
             this.lvDirNormControl.Size = new System.Drawing.Size(1491, 441);
             this.lvDirNormControl.TabIndex = 11;
@@ -1322,7 +1324,7 @@
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.dateTimePicker1);
             this.panel1.Location = new System.Drawing.Point(1, 32);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1509, 69);
             this.panel1.TabIndex = 20;
@@ -1340,7 +1342,7 @@
             // dateTimePicker1
             // 
             this.dateTimePicker1.Location = new System.Drawing.Point(75, 22);
-            this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(4);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(196, 22);
             this.dateTimePicker1.TabIndex = 0;
@@ -1350,18 +1352,20 @@
             // 
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 660);
+            this.toolStripStatusLabel1,
+            this.tsStatusNVRbyItem,
+            this.tsStatusSumItem});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 656);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 19, 0);
-            this.statusStrip1.Size = new System.Drawing.Size(1511, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1511, 26);
             this.statusStrip1.TabIndex = 21;
             this.statusStrip1.Text = "statusStrip1";
             // 
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 16);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 20);
             // 
             // menuStrip1
             // 
@@ -1395,6 +1399,18 @@
             this.UploadWithoutGTINtsItem.Name = "UploadWithoutGTINtsItem";
             this.UploadWithoutGTINtsItem.Size = new System.Drawing.Size(167, 26);
             // 
+            // tsStatusNVRbyItem
+            // 
+            this.tsStatusNVRbyItem.Name = "tsStatusNVRbyItem";
+            this.tsStatusNVRbyItem.Size = new System.Drawing.Size(126, 20);
+            this.tsStatusNVRbyItem.Text = "Норма времени:";
+            // 
+            // tsStatusSumItem
+            // 
+            this.tsStatusSumItem.Name = "tsStatusSumItem";
+            this.tsStatusSumItem.Size = new System.Drawing.Size(86, 20);
+            this.tsStatusSumItem.Text = "Стоимость:";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1406,7 +1422,7 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.tabControl1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = "Разделение труда";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
@@ -1602,6 +1618,8 @@
         private System.Windows.Forms.ToolStripButton toolStripButton6;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator34;
         private System.Windows.Forms.ToolStripButton tsBtnGotoDivision;
+        private System.Windows.Forms.ToolStripStatusLabel tsStatusNVRbyItem;
+        private System.Windows.Forms.ToolStripStatusLabel tsStatusSumItem;
     }
 }
 
