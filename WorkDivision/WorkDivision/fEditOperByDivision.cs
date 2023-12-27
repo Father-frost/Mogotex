@@ -32,7 +32,7 @@ namespace WorkDivision
         }
 
         public string id_rec { get; set; }
-        public string number { get; set; }
+        public int number { get; set; }
         public string rank { get; set; }
 
         private void fAddOper_Load(object sender, EventArgs e)
@@ -46,8 +46,7 @@ namespace WorkDivision
             if (id_rec != "")
             {
                 
-                cbRank.Text = rank;        //Выбираем пустое значение для списка разрядов 
-                lbNumber.Text = number;
+                //cbRank.Text = rank;        //Выбираем пустое значение для списка разрядов 
                 GetOperByDivision();
             }
             else
@@ -69,10 +68,10 @@ namespace WorkDivision
             try
             {
                 string query = @"SELECT i.id,d.UCH,i.id_oper,d.Name,i.rank,i.MatRate,dt.TAR_VR,i.NVRforOper,i.workers_cnt,parent,
-                                ROUND(i.NVRforOper * dt.TAR_VR,5) as Cost,
-                                CASE WHEN d.UCH between 1 and 2 THEN ROUND(i.NVRforOper * i.MatRate * i.workers_cnt,2) ELSE NVRforOper END as NVRbyItem,
-                                CASE WHEN d.UCH between 1 and 2 THEN ROUND(ROUND(i.NVRforOper * dt.TAR_VR,5) * i.MatRate * i.workers_cnt,5) 
-                                    ELSE ROUND(i.NVRforOper * dt.TAR_VR * i.workers_cnt,5) END as SumItem
+                                IFNULL(ROUND(i.NVRforOper * dt.TAR_VR,5),0) as Cost,
+                                CASE WHEN d.UCH between 1 and 2 THEN IFNULL(ROUND(i.NVRforOper * i.MatRate * i.workers_cnt,2),0) ELSE NVRforOper END as NVRbyItem,
+                                CASE WHEN d.UCH between 1 and 2 THEN IFNULL(ROUND(ROUND(i.NVRforOper * dt.TAR_VR,5) * i.MatRate * i.workers_cnt,5),0) 
+                                    ELSE IFNULL(ROUND(i.NVRforOper * dt.TAR_VR * i.workers_cnt,5),0) END as SumItem
                                 FROM inDivision as i 
                                 LEFT JOIN DirOpers as d on d.id=i.id_oper
                                 LEFT JOIN DirTarif as dt on dt.rank=i.rank
@@ -88,7 +87,7 @@ namespace WorkDivision
                 {
                     lbUCH.Text = Convert.ToString(sqlReader["UCH"]);                //Номер участка
                     tbOperName.Text = Convert.ToString(sqlReader["Name"]);          //Название операции
-                    cbRank.Text = Convert.ToString(sqlReader["rank"]);              //Разряд
+                    rank = Convert.ToString(sqlReader["rank"]);              //Разряд
                     tbTarif.Text = Convert.ToString(sqlReader["TAR_VR"]);           //Тарифная ставка
                     tbWorkersCnt.Text = Convert.ToString(sqlReader["workers_cnt"]); //Кол-во работников
                     tbNVR.Text = Convert.ToString(sqlReader["NVRforOper"]);                //Норма времени
@@ -97,11 +96,15 @@ namespace WorkDivision
                     tbNVRbyItem.Text = Convert.ToString(sqlReader["NVRbyItem"]);     //Норма времени на 1ед
                     tbSumItem.Text = Convert.ToString(sqlReader["SumItem"]);       //Стоимость 1ед
                     parent = Convert.ToInt32(sqlReader["parent"]);                //Родитель
+                    lbNumber.Text = number.ToString();     //порядковый номер операции в разделении
                 }
                 //Если участок контроля или настилания
                 //Заполнение выпадающего списка видами ткани из БД 
                 if ((Convert.ToInt32(lbUCH.Text) <= 2) && (Convert.ToInt32(lbUCH.Text) > 0))
                 {
+                    //Если участок 1 или 2, включаем выбор ткани и ввод расхода
+                    cbSelectMat.Enabled = true;
+                    tbMatRate.Enabled = true;
                     if (Convert.ToInt32(lbUCH.Text) == 1)
                     {
                         query = @"SELECT NORMVR,VIDTK FROM DirNormControl ORDER BY VIDTK";
@@ -470,10 +473,17 @@ namespace WorkDivision
                             LEFT JOIN DirOpers as d on d.id=i.id_oper
                             WHERE i.id>" + id_rec+ @" ORDER BY d.PER ASC LIMIT 1";
             m_sqlCmd = new SQLiteCommand(query, dblite);
-            //m_sqlCmd.Connection = dblite;
-
+            //m_sqlCmd.Connection = dblite; 
             id_rec = Convert.ToString(m_sqlCmd.ExecuteScalar());
-            GetOperByDivision();
+            if (id_rec == "")
+            {
+                this.Close();
+            }
+            else
+            {
+                number++;
+                GetOperByDivision();
+            }
         }
     }
 }

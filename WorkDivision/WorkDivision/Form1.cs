@@ -319,11 +319,6 @@ namespace WorkDivision
                 tsStatusNVRbyItem.Text = "";
                 tsStatusSumItem.Text = "";
             }
-            if (tabControl1.SelectedTab == tpinDivision)
-            {
-                tsStatusNVRbyItem.Text = "Время обработки: ";
-                tsStatusSumItem.Text = "Стоимость обработки: ";
-            }
 
             
         }
@@ -1431,13 +1426,21 @@ namespace WorkDivision
 
             try
             {
-                string query = @"SELECT div.id,div.work_time,div.cost,dm.name as mName,
-                    dp.Name as pName, dc.category, dg.GRP FROM Division as div 
+                string query = @"SELECT div.id,dm.name as mName,
+                    dp.Name as pName, dc.category, dg.GRP,
+                    (SELECT SUM(CASE WHEN d.UCH between 1 and 2 THEN ifnull(ROUND(i.NVRforOper * i.MatRate * i.workers_cnt,2),0) ELSE NVRforOper END)
+                    FROM inDivision as i LEFT JOIN DirOpers as d on d.id=i.id_oper LEFT JOIN DirTarif as dt on dt.rank=i.rank
+                    WHERE id_division=div.id) as work_time,
+                    (SELECT SUM(CASE WHEN d.UCH between 1 and 2 THEN ifnull(ROUND(ROUND(i.NVRforOper * dt.TAR_VR,5) * i.MatRate * i.workers_cnt,5),0) 
+                    ELSE ifnull(ROUND(i.NVRforOper * dt.TAR_VR * i.workers_cnt,5),0) END)
+                    FROM inDivision as i LEFT JOIN DirOpers as d on d.id=i.id_oper LEFT JOIN DirTarif as dt on dt.rank=i.rank
+                    WHERE id_division=div.id) as cost
+                    FROM Division as div
                     LEFT JOIN DirModels as dm on div.id_model=dm.id 
                     LEFT JOIN DirProducts as dp on dm.id_product=dp.id
                     LEFT JOIN DirProdCat as dc on dm.id_cat=dc.id
                     LEFT JOIN DirProdGRP as dg on dm.id_grp=dg.id
-                    WHERE mm="+dateTimePicker1.Value.Month.ToString()+" and yy="
+                    WHERE div.mm=" + dateTimePicker1.Value.Month.ToString()+" and div.yy="
                     + dateTimePicker1.Value.Year.ToString() +
                     " ORDER BY div.id";
 
@@ -1510,8 +1513,6 @@ namespace WorkDivision
                 tpinDivision.Text = @"Разделение труда по модели " + lvDivision.SelectedItems[0].SubItems[1].Text;
                 tabControl1.SelectedTab = tpinDivision;
                 LoadOpersByDivision(lvDivision.SelectedItems[0].SubItems[0].Text);
-                tsStatusNVRbyItem.Text = "Время обработки: ";
-                tsStatusSumItem.Text = "Стоимость обработки: ";
                 //tabControl2.SelectedTab = tabTitul;
                 //getPatientData(lvList.SelectedItems[0].SubItems[0].Text);
                 //getVisits(tbID.Text);
@@ -1581,10 +1582,10 @@ namespace WorkDivision
             try
             {
                 string query = @"SELECT i.id,d.UCH,d.Name,i.MatRate,i.rank,dt.TAR_VR,i.NVRforOper,i.workers_cnt,
-                                ROUND(i.NVRforOper * dt.TAR_VR,5) as Cost,
-                                CASE WHEN d.UCH between 1 and 2 THEN ROUND(i.NVRforOper * i.MatRate * i.workers_cnt,2) ELSE NVRforOper END as NVRbyItem,
-                                CASE WHEN d.UCH between 1 and 2 THEN ROUND(ROUND(i.NVRforOper * dt.TAR_VR,5) * i.MatRate * i.workers_cnt,5) 
-                                    ELSE ROUND(i.NVRforOper * dt.TAR_VR * i.workers_cnt,5) END as SumItem
+                                IFNULL(ROUND(i.NVRforOper * dt.TAR_VR,5),0) as Cost,
+                                CASE WHEN d.UCH between 1 and 2 THEN ifnull(ROUND(i.NVRforOper * i.MatRate * i.workers_cnt,2),0) ELSE NVRforOper END as NVRbyItem,
+                                CASE WHEN d.UCH between 1 and 2 THEN ifnull(ROUND(ROUND(i.NVRforOper * dt.TAR_VR,5) * i.MatRate * i.workers_cnt,5),0) 
+                                    ELSE ifnull(ROUND(i.NVRforOper * dt.TAR_VR * i.workers_cnt,5),0) END as SumItem
                                 FROM inDivision as i 
                                 LEFT JOIN DirOpers as d on d.id=i.id_oper
                                 LEFT JOIN DirTarif as dt on dt.rank=i.rank
@@ -1632,6 +1633,18 @@ namespace WorkDivision
                     sqlReader.Close();
             }
             toolStripStatusLabel1.Text = "Кол-во строк: " + lvinDivision.Items.Count;
+
+            double absSumNVR = 0;
+            double absSumItem = 0;
+
+            for (int i = 0; i < lvinDivision.Items.Count; i++)
+            {
+                absSumNVR += double.Parse(lvinDivision.Items[i].SubItems[9].Text);
+                absSumItem += double.Parse(lvinDivision.Items[i].SubItems[10].Text);
+
+            }
+            tsStatusNVRbyItem.Text = "Время обработки: " +absSumNVR.ToString();
+            tsStatusSumItem.Text = "Стоимость обработки: " +absSumItem.ToString();
         }
 
 
@@ -1679,7 +1692,7 @@ namespace WorkDivision
             {
 
                 fEditOperByDivision.id_rec = lvinDivision.SelectedItems[0].SubItems[0].Text;   //id записи
-                fEditOperByDivision.number = lvinDivision.SelectedItems[0].SubItems[1].Text;   //номер по порядку                
+                fEditOperByDivision.number = int.Parse(lvinDivision.SelectedItems[0].SubItems[1].Text); //номер по порядку                
                 fEditOperByDivision.rank = lvinDivision.SelectedItems[0].SubItems[5].Text;   //разряд               
                 fEditOperByDivision.StartPosition = FormStartPosition.CenterParent;
                 fEditOperByDivision.Text = "Изменить";
@@ -1696,6 +1709,18 @@ namespace WorkDivision
         private void lvinDivision_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             tsBtnEditOperInDivision_Click(this,null);
+        }
+
+        private void BackUpDBItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                File.Copy(Application.StartupPath.ToString() + "\\divisionDB.db", Application.StartupPath.ToString() + "\\DBbackups\\div_" + DateTime.Now.ToString() + ".db", true);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
     class Division
