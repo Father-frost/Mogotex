@@ -37,8 +37,6 @@ namespace WorkDivision
         public fEditOperByDivision fEditOperByDivision;
         //public fAuth fAuth;
 
-        //IniFile MyIni = new IniFile("Settings.ini");
-
         public Form1()
         {
             InitializeComponent();
@@ -277,22 +275,17 @@ namespace WorkDivision
         }
 
         //Выгрузить в файл
-        private async void toolStripButton5_Click(object sender, EventArgs e)
-        {
-            if (lvDivision.SelectedItems.Count > 0)
-            {
-                //Globals.batcharr = Convert.ToString(listView2.SelectedItems[0].SubItems[2].Text);
-                //Globals.kprarr = Convert.ToString(listView2.SelectedItems[0].SubItems[0].Text);
-                //Globals.trmdaysarr = Convert.ToString(listView2.SelectedItems[0].SubItems[4].Text);
-                //Globals.gtinarr = Convert.ToString(listView2.SelectedItems[0].SubItems[6].Text);
-                //string query = @"SELECT Code FROM MarkingTasks WHERE SUBSTR(Code,4,13)='" + Globals.gtinarr + @"' AND dtOutput=" + Globals.datearr + @" AND KPR =" + Globals.kprarr + @" AND batch='" + Globals.batcharr + "'";
-                //await Codes2File(query);
-            }
-            else
-            {
-                MessageBox.Show("Выберите запись для выгрузки!");
-            }
-        }
+        //private async void toolStripButton5_Click(object sender, EventArgs e)
+        //{
+        //    if (lvDivision.SelectedItems.Count > 0)
+        //    {
+
+        //    }
+        //    else
+        //    {
+        //        MessageBox.Show("Выберите запись для выгрузки!");
+        //    }
+        //}
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -322,23 +315,6 @@ namespace WorkDivision
 
             
         }
-
-        //private async void UploadWithoutGTINtsItem_Click(object sender, EventArgs e)
-        //{
-        //    if (listView2.SelectedItems.Count > 0)
-        //    {
-        //        Globals.batcharr = Convert.ToString(listView2.SelectedItems[0].SubItems[2].Text);
-        //        Globals.kprarr = Convert.ToString(listView2.SelectedItems[0].SubItems[0].Text);
-        //        Globals.trmdaysarr = Convert.ToString(listView2.SelectedItems[0].SubItems[4].Text);
-        //        Globals.gtinarr = Convert.ToString(listView2.SelectedItems[0].SubItems[6].Text);
-        //        string query = @"SELECT Code FROM MarkingTasks WHERE dtOutput=" + Globals.datearr + @" AND KPR =" + Globals.kprarr + @" AND batch='" + Globals.batcharr + "'";
-        //        await Codes2File(query);
-        //    }
-        //    else
-        //    {
-        //        MessageBox.Show("Выберите запись для выгрузки!");
-        //    }
-        //}
 
         private async void tabControl2_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1501,22 +1477,15 @@ namespace WorkDivision
 
             if (lvDivision.SelectedItems.Count > 0)
             {
-                Division.id = lvDivision.SelectedItems[0].SubItems[0].Text;   //id разделения
-                //fAddCard.id_rec = lvList.SelectedItems[0].SubItems[0].Text;
-                //fAddCard.StartPosition = FormStartPosition.CenterParent;
-                //fAddCard.Text = "Изменить";
-                //fAddCard.ShowDialog();
-                //LoadPatientsList();
+                Division.id = lvDivision.SelectedItems[0].SubItems[0].Text;
+                Division.mm = dateTimePicker1.Value.Month.ToString();
+                Division.yy = dateTimePicker1.Value.Year.ToString();
                 tpinDivision.Parent = tabControl1;
                 tpDirs.Parent = null;
                 tpDirs.Parent = tabControl1;
                 tpinDivision.Text = @"Разделение труда по модели " + lvDivision.SelectedItems[0].SubItems[1].Text;
                 tabControl1.SelectedTab = tpinDivision;
                 LoadOpersByDivision(lvDivision.SelectedItems[0].SubItems[0].Text);
-                //tabControl2.SelectedTab = tabTitul;
-                //getPatientData(lvList.SelectedItems[0].SubItems[0].Text);
-                //getVisits(tbID.Text);
-                //treeView1.SelectedNode = treeView1.Nodes[0];
             }
         }
 
@@ -1564,9 +1533,6 @@ namespace WorkDivision
         //Отбор операция для разделения
         private void tsBtnAddOperInDivision_Click(object sender, EventArgs e)
         {
-            Division.id = lvDivision.SelectedItems[0].SubItems[0].Text;
-            Division.mm = dateTimePicker1.Value.Month.ToString();
-            Division.yy = dateTimePicker1.Value.Year.ToString();
 
             fOpersList.StartPosition = FormStartPosition.CenterParent;
             fOpersList.ShowDialog();

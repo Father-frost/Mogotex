@@ -302,15 +302,6 @@ namespace WorkDivision
                 e.Handled = true;
             }
 
-            // запрет таких значений как 03.xx 09999.xx После 0 должа быть точка. 
-            //if (tbNVR.Text == "0")
-            //{
-            //    if (e.KeyChar != ',' & e.KeyChar != (char)Keys.Back && e.KeyChar != (char)Keys.Delete)
-            //    {
-            //        e.Handled = true;
-            //    }
-            //}
-
             //Ввод только 1 разделителя
             if (e.KeyChar == ',')
             {
@@ -389,15 +380,6 @@ namespace WorkDivision
                 e.Handled = true;
             }
 
-            // запрет таких значений как 03.xx 09999.xx После 0 должа быть точка. 
-            //if (tbMatRate.Text == "0")
-            //{
-            //    if (e.KeyChar != ',' & e.KeyChar != (char)Keys.Back && e.KeyChar != (char)Keys.Delete)
-            //    {
-            //        e.Handled = true;
-            //    }
-            //}
-
             //Ввод только 1 разделителя
             if (e.KeyChar == ',')
             {
@@ -434,15 +416,6 @@ namespace WorkDivision
             {
                 e.Handled = true;
             }
-
-            // запрет таких значений как 03.xx 09999.xx После 0 должа быть точка. 
-            //if (tbWorkersCnt.Text == "0")
-            //{
-            //    if (e.KeyChar != ',' & e.KeyChar != (char)Keys.Back && e.KeyChar != (char)Keys.Delete)
-            //    {
-            //        e.Handled = true;
-            //    }
-            //}
 
             //Ввод только 1 разделителя
             if (e.KeyChar == ',')
