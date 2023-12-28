@@ -18,17 +18,17 @@ namespace WorkDivision
         private SQLiteConnection dblite;
         private SQLiteDataReader sqlReader;
         SQLiteCommand m_sqlCmd = null;
-        
+        liteDB liteDB = new liteDB();
 
         public fAddProd()
         {
             InitializeComponent();
         }
 
+        public string id_rec { get; set; }
+
         private void button1_Click(object sender, EventArgs e)
         {
-            dblite = new SQLiteConnection("Data Source=divisionDB.db;Version=3;");
-            dblite.Open();
             if (id_rec == "")  //Если  id записи не передан (новая запись) 
             {
                 string querySQLite = @"INSERT INTO DirProducts (Name) VALUES (@Name)";
@@ -53,16 +53,14 @@ namespace WorkDivision
             }
         }
 
-        public string id_rec { get; set; }
-
         private void fAddProd_Load(object sender, EventArgs e)
         {
-            dblite = new SQLiteConnection("Data Source=divisionDB.db;Version=3;");
+            //Подключение к БД
+            dblite = liteDB.GetConn();
             dblite.Open();
             //Если выбран существующий интервал, загружаем параметры
             if (id_rec != "")
                 {
-                    //MessageBox.Show(id_rec.ToString());
                     GetProd();
                 }
                 else
@@ -75,15 +73,9 @@ namespace WorkDivision
         {
             try
             {
-                //dblite = new SQLiteConnection("Data Source=divisionDB.db;Version=3;");
-                //dblite.Open();
                 string query = @"SELECT * FROM DirProducts WHERE id =" + id_rec;
-
                 m_sqlCmd = new SQLiteCommand(query, dblite);
-                //m_sqlCmd.Connection = dblite;
-
                 sqlReader = m_sqlCmd.ExecuteReader();
-
                 while (await sqlReader.ReadAsync())
                 {
                     tbName.Text = Convert.ToString(sqlReader["Name"]);

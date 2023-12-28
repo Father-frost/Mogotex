@@ -23,22 +23,20 @@ namespace WorkDivision
         private SQLiteConnection dblite;
         private SQLiteDataReader sqlReader;
         SQLiteCommand m_sqlCmd = null;
-        
+        liteDB liteDB = new liteDB();
 
         public fEditOperByDivision()
         {
-            InitializeComponent();
-            
+            InitializeComponent();           
         }
-
         public string id_rec { get; set; }
         public int number { get; set; }
         public string rank { get; set; }
 
         private void fAddOper_Load(object sender, EventArgs e)
         {
-            
-            dblite = new SQLiteConnection("Data Source=divisionDB.db;Version=3;");
+            //Подключение к БД
+            dblite = liteDB.GetConn();
             dblite.Open();
             tbMatRate.Text = "";
             cbSelectMat.Text = "";
@@ -444,7 +442,7 @@ namespace WorkDivision
         {
             string query = @"SELECT i.id FROM inDivision as i
                             LEFT JOIN DirOpers as d on d.id=i.id_oper
-                            WHERE i.id>" + id_rec+ @" ORDER BY d.PER ASC LIMIT 1";
+                            WHERE i.id>" + id_rec + @" ORDER BY d.PER ASC LIMIT 1";
             m_sqlCmd = new SQLiteCommand(query, dblite);
             //m_sqlCmd.Connection = dblite; 
             id_rec = Convert.ToString(m_sqlCmd.ExecuteScalar());

@@ -16,8 +16,7 @@ namespace WorkDivision
         private SQLiteConnection dblite;
         private SQLiteDataReader sqlReader;
         SQLiteCommand m_sqlCmd = null;
-
-        SQLiteCommand updateDirCommand = null;
+        liteDB liteDB = new liteDB();
         SQLiteCommand insertDirCommand = null;
 
         public fOpersList()
@@ -37,7 +36,7 @@ namespace WorkDivision
                 string st = cbOperation.Text;
                 cbOperation.Items.Clear();
                 treeView1.Nodes.Clear();
-                DF = GetMedData(query);
+                DF = liteDB.GetLiteData(query);
                 if (DF.Rows.Count > 0)
                 {
                     for (int i = 0; i < DF.Rows.Count; i++)
@@ -67,30 +66,6 @@ namespace WorkDivision
             cbOperation.SelectionStart = cbOperation.Text.Length;
 
         }
-
-        public DataTable GetMedData(string query)
-        {
-            DataTable dt = new DataTable();
-
-            try
-            {
-                SQLiteCommand comm = new SQLiteCommand(query, dblite);
-
-                SQLiteDataAdapter da = new SQLiteDataAdapter(comm);
-                DataSet ds = new DataSet();
-                da.Fill(ds);
-                dt = ds.Tables[0];
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-            }
-            return dt;
-        }
-
         private void cbOperation_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -101,7 +76,6 @@ namespace WorkDivision
 
         private async void getOpersForModel()
         {
-            string st;
             treeView1.Nodes.Clear();
             try
             {
@@ -128,7 +102,8 @@ namespace WorkDivision
 
         private void fOpersList_Load(object sender, EventArgs e)
         {
-            dblite = new SQLiteConnection("Data Source=divisionDB.db;Version=3;");
+            //Подключение к БД
+            dblite = liteDB.GetConn();
             dblite.Open();
             getOpersForModel();
         }

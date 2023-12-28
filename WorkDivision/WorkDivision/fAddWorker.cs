@@ -18,6 +18,7 @@ namespace WorkDivision
         private SQLiteConnection dblite;
         private SQLiteDataReader sqlReader;
         SQLiteCommand m_sqlCmd = null;
+        liteDB liteDB = new liteDB();
         
 
         public fAddWorker()
@@ -25,10 +26,10 @@ namespace WorkDivision
             InitializeComponent();
         }
 
+        public string id_rec { get; set; }
+
         private void button1_Click(object sender, EventArgs e)
         {
-            dblite = new SQLiteConnection("Data Source=divisionDB.db;Version=3;");
-            dblite.Open();
             if (id_rec == "")  //Если  id записи не передан (новая запись) 
             {
                 string querySQLite = @"INSERT INTO DirWorkers (Tab_nom, FIO, rank, kprof, KO, brig_id) VALUES (@Tab_nom,@FIO,@rank,@kprof,@KO,@brig_id)";
@@ -63,11 +64,11 @@ namespace WorkDivision
             }
         }
 
-        public string id_rec { get; set; }
-
         private void fAddWorker_Load(object sender, EventArgs e)
         {
-            dblite = new SQLiteConnection("Data Source=divisionDB.db;Version=3;");
+            //Подключение к БД
+            dblite = liteDB.GetConn();
+            dblite.Open();
             DataTable dt = new DataTable();
             DataTable dtp = new DataTable();
             string query = @"SELECT id,(KODBR ||' '|| Name) as lName FROM DirBrigs";
@@ -126,8 +127,6 @@ namespace WorkDivision
         {
             try
             {
-                dblite = new SQLiteConnection("Data Source=divisionDB.db;Version=3;");
-                dblite.Open();
                 string query = @"SELECT dw.*,dbr.id,dbr.KODBR,dbr.Name,pr.Name as pName 
                             FROM DirWorkers as dw
                             LEFT JOIN DirProfs as pr on pr.id = dw.kprof

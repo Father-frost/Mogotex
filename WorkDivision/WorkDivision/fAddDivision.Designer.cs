@@ -55,7 +55,7 @@
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(535, 240);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(247, 28);
             this.button1.TabIndex = 15;
@@ -75,16 +75,18 @@
             // 
             // tbProd
             // 
+            this.tbProd.Enabled = false;
             this.tbProd.Location = new System.Drawing.Point(34, 134);
-            this.tbProd.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tbProd.Margin = new System.Windows.Forms.Padding(4);
             this.tbProd.Name = "tbProd";
             this.tbProd.Size = new System.Drawing.Size(215, 22);
             this.tbProd.TabIndex = 25;
             // 
             // tbEI
             // 
+            this.tbEI.Enabled = false;
             this.tbEI.Location = new System.Drawing.Point(34, 192);
-            this.tbEI.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tbEI.Margin = new System.Windows.Forms.Padding(4);
             this.tbEI.Name = "tbEI";
             this.tbEI.Size = new System.Drawing.Size(215, 22);
             this.tbEI.TabIndex = 32;
@@ -103,7 +105,7 @@
             // 
             this.cbModel.FormattingEnabled = true;
             this.cbModel.Location = new System.Drawing.Point(34, 80);
-            this.cbModel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbModel.Margin = new System.Windows.Forms.Padding(4);
             this.cbModel.Name = "cbModel";
             this.cbModel.Size = new System.Drawing.Size(748, 24);
             this.cbModel.TabIndex = 34;
@@ -131,6 +133,7 @@
             // 
             // tbProdCat
             // 
+            this.tbProdCat.Enabled = false;
             this.tbProdCat.Location = new System.Drawing.Point(289, 134);
             this.tbProdCat.Margin = new System.Windows.Forms.Padding(4);
             this.tbProdCat.Name = "tbProdCat";
@@ -149,6 +152,7 @@
             // 
             // tbProdGRP
             // 
+            this.tbProdGRP.Enabled = false;
             this.tbProdGRP.Location = new System.Drawing.Point(556, 134);
             this.tbProdGRP.Margin = new System.Windows.Forms.Padding(4);
             this.tbProdGRP.Name = "tbProdGRP";
@@ -182,7 +186,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.lblID);
             this.Controls.Add(this.button1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "fAddDivision";
             this.Text = "Добавить / Изменить разделение";
             this.Load += new System.EventHandler(this.fAddModel_Load);

@@ -18,7 +18,7 @@ namespace WorkDivision
         private SQLiteConnection dblite;
         private SQLiteDataReader sqlReader;
         SQLiteCommand m_sqlCmd = null;
-        
+        liteDB liteDB = new liteDB();
 
         public fAddNormNastil()
         {
@@ -27,8 +27,6 @@ namespace WorkDivision
 
         private void button1_Click(object sender, EventArgs e)
         {
-            dblite = new SQLiteConnection("Data Source=divisionDB.db;Version=3;");
-            dblite.Open();
             if (id_rec == "")  //Если  id записи не передан (новая запись) 
             {
                 string querySQLite = @"INSERT INTO DirNormNastil (VIDTK,NORMVR) VALUES (@VIDTK,@NORMVR)";
@@ -59,7 +57,8 @@ namespace WorkDivision
 
         private void fAddNormNastil_Load(object sender, EventArgs e)
         {
-            dblite = new SQLiteConnection("Data Source=divisionDB.db;Version=3;");
+            //Подключение к БД
+            dblite = liteDB.GetConn();
             dblite.Open();
             //Если выбран существующий интервал, загружаем параметры
             if (id_rec != "")
@@ -78,8 +77,6 @@ namespace WorkDivision
         {
             try
             {
-                //dblite = new SQLiteConnection("Data Source=divisionDB.db;Version=3;");
-                //dblite.Open();
                 string query = @"SELECT * FROM DirNormNastil WHERE id =" + id_rec;
 
                 m_sqlCmd = new SQLiteCommand(query, dblite);

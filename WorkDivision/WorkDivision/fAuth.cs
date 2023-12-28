@@ -15,10 +15,9 @@ namespace WorkDivision
     public partial class fAuth : Form
     {
         public Form1 f1;
-        private String dbFileName;
         private SQLiteConnection dblite;
-        private SQLiteCommand m_sqlCmd;
         private SQLiteDataReader sqlReader;
+        liteDB liteDB = new liteDB();
         public fAuth()
         {
             InitializeComponent();
@@ -32,8 +31,8 @@ namespace WorkDivision
 
         private void fAuth_Load(object sender, EventArgs e)
         {
-
-            dblite = new SQLiteConnection("Data Source=divisionDB.db;Version=3;");
+            //Подключение к БД
+            dblite = liteDB.GetConn();
             dblite.Open();
 
             textBox1.Focus();

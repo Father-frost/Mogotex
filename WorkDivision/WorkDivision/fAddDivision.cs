@@ -20,17 +20,19 @@ namespace WorkDivision
         private SQLiteConnection dblite;
         private SQLiteDataReader sqlReader;
         SQLiteCommand m_sqlCmd = null;
+        liteDB liteDB = new liteDB();
         
-
+        //TODO: Выбор категорий по выбору Модели
+        //
         public fAddDivision()
         {
             InitializeComponent();
         }
 
+        //Свойство для идентификатора записи в БД
+        public string id_rec { get; set; }
         private void button1_Click(object sender, EventArgs e)
         {
-            dblite = new SQLiteConnection("Data Source=divisionDB.db;Version=3;");
-            dblite.Open();
             if (id_rec == "")  //Если  id записи не передан (новая запись) 
             {
                 
@@ -56,12 +58,11 @@ namespace WorkDivision
             }
         }
 
-        public string id_rec { get; set; }
-
         private void fAddModel_Load(object sender, EventArgs e)
         {
-            dblite = new SQLiteConnection("Data Source=divisionDB.db;Version=3;");
-            dblite.Open();
+            //Подключение к БД
+            dblite = liteDB.GetConn();
+            dblite.Open(); 
             string query = @"SELECT id,Name FROM DirModels ORDER by Name";
             DataTable dt = new DataTable();
 
@@ -86,7 +87,7 @@ namespace WorkDivision
                 }
                 else
                 {
-                    cbModel.Text = "";
+                    cbModel.SelectedIndex = -1;
                     tbProd.Text = "";
                     tbProdCat.Text = "";
                     tbProdGRP.Text = "";
@@ -153,7 +154,7 @@ namespace WorkDivision
             {
                 string st = cbModel.Text;
                 cbModel.Items.Clear();
-                DF = GetMedData(query);
+                DF = liteDB.GetLiteData(query);
                 if (DF.Rows.Count > 0)
                 {
                     for (int i = 0; i < DF.Rows.Count; i++)
@@ -175,28 +176,5 @@ namespace WorkDivision
             cbModel.SelectionStart = cbModel.Text.Length;
         }
 
-        //TODO: Put in a separate class
-        public DataTable GetMedData(string query)
-        {
-            DataTable dt = new DataTable();
-
-            try
-            {
-                SQLiteCommand comm = new SQLiteCommand(query, dblite);
-                SQLiteDataAdapter da = new SQLiteDataAdapter(comm);
-                DataSet ds = new DataSet();
-                da.Fill(ds);
-                dt = ds.Tables[0];
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-
-            }
-            return dt;
-        }
     }
 }

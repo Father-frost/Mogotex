@@ -227,7 +227,7 @@ namespace WorkDivision
         }
 
         //Изменение даты
-        private async void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
             lvDivision.Items.Clear();  //Чистим listview2
 
@@ -277,7 +277,7 @@ namespace WorkDivision
             
         }
 
-        private async void tabControl2_SelectedIndexChanged(object sender, EventArgs e)
+        private void tabControl2_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (tabControl2.SelectedTab == tpDirWorkers)
             {

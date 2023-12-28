@@ -20,7 +20,7 @@ namespace WorkDivision
         private SQLiteConnection dblite;
         private SQLiteDataReader sqlReader;
         SQLiteCommand m_sqlCmd = null;
-        
+        liteDB liteDB = new liteDB();
 
         public fAddModel()
         {
@@ -29,8 +29,6 @@ namespace WorkDivision
 
         private void button1_Click(object sender, EventArgs e)
         {
-            dblite = new SQLiteConnection("Data Source=divisionDB.db;Version=3;");
-            dblite.Open();
             if (id_rec == "")  //Если  id записи не передан (новая запись) 
             {
                 
@@ -72,7 +70,8 @@ namespace WorkDivision
 
         private void fAddModel_Load(object sender, EventArgs e)
         {
-            dblite = new SQLiteConnection("Data Source=divisionDB.db;Version=3;");
+            //Подключение к БД
+            dblite = liteDB.GetConn();
             dblite.Open();
             DataTable dt = new DataTable();
 
@@ -144,15 +143,12 @@ namespace WorkDivision
         {
             try
             {
-                //dblite = new SQLiteConnection("Data Source=divisionDB.db;Version=3;");
-                //dblite.Open();
                 string query = @"SELECT dm.Name,dm.KMOD,dm.EI,dp.Name as pName,dpc.category, dpg.GRP FROM DirModels as dm 
                                LEFT JOIN DirProducts as dp on dp.id=dm.id_product
                                LEFT JOIN DirProdCat as dpc on dpc.id=dm.id_cat 
                                LEFT JOIN DirProdGRP as dpg on dpg.id=dm.id_grp WHERE dm.id =" + id_rec;
 
                 m_sqlCmd = new SQLiteCommand(query, dblite);
-                //m_sqlCmd.Connection = dblite;
 
                 sqlReader = m_sqlCmd.ExecuteReader();
 
