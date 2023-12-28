@@ -12,7 +12,6 @@ using System.Data.SQLite;
 using System.Xml;
 using static System.Net.WebRequestMethods;
 using System.Collections;
-using System.Data.SqlClient;
 
 namespace WorkDivision
 {
@@ -83,7 +82,6 @@ namespace WorkDivision
                 //Если выбран существующий интервал, загружаем параметры
                 if (id_rec != "")
                 {
-                    //MessageBox.Show(id_rec.ToString());
                     GetDivision();
                 }
                 else
@@ -111,8 +109,6 @@ namespace WorkDivision
         {
             try
             {
-                //dblite = new SQLiteConnection("Data Source=divisionDB.db;Version=3;");
-                //dblite.Open();
                 string query = @"SELECT dm.Name,dm.KMOD,dm.EI,dp.Name as pName,dpc.category, dpg.GRP FROM Division as div
                                LEFT JOIN DirModels as dm on div.id_model=dm.id 
                                LEFT JOIN DirProducts as dp on dp.id=dm.id_product
@@ -120,7 +116,6 @@ namespace WorkDivision
                                LEFT JOIN DirProdGRP as dpg on dpg.id=dm.id_grp WHERE div.id =" + id_rec;
 
                 m_sqlCmd = new SQLiteCommand(query, dblite);
-                //m_sqlCmd.Connection = dblite;
 
                 sqlReader = m_sqlCmd.ExecuteReader();
 
@@ -146,32 +141,29 @@ namespace WorkDivision
             }
         }
 
+        //TODO: Put in a separate class
         private void cbModel_TextUpdate(object sender, EventArgs e)
         {
             DataTable DF = new DataTable();
             DF.Clear();
-
+            string query = @"SELECT Name FROM DirModels WHERE 
+                                        Name like '%" + cbModel.Text + @"%'";
 
             if (this.cbModel.Text != "")
             {
                 string st = cbModel.Text;
                 cbModel.Items.Clear();
-                //Запрос к базе данных
-                string query = @"SELECT Name FROM DirModels WHERE 
-                                        Name like '%" + cbModel.Text + @"%'";
                 DF = GetMedData(query);
                 if (DF.Rows.Count > 0)
                 {
                     for (int i = 0; i < DF.Rows.Count; i++)
                     {
                         cbModel.Items.Add(DF.Rows[i].ItemArray[0].ToString());
-
                         cbModel.SelectionStart = cbModel.Text.Length;
                     }
                     cbModel.SelectionStart = cbModel.Text.Length;
                     cbModel.DroppedDown = true;
                     cbModel.Text = st;
-
                 }
                 else
                 {
@@ -183,15 +175,14 @@ namespace WorkDivision
             cbModel.SelectionStart = cbModel.Text.Length;
         }
 
+        //TODO: Put in a separate class
         public DataTable GetMedData(string query)
         {
-            //connMed.Open();
             DataTable dt = new DataTable();
 
             try
             {
                 SQLiteCommand comm = new SQLiteCommand(query, dblite);
-
                 SQLiteDataAdapter da = new SQLiteDataAdapter(comm);
                 DataSet ds = new DataSet();
                 da.Fill(ds);
@@ -203,19 +194,9 @@ namespace WorkDivision
             }
             finally
             {
-                //connMed.Close();
-            }
 
+            }
             return dt;
-        }
-
-        private void fAddDivision_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                //btnSearch.Select();
-                //btnSearch_Click(this, null);
-            }
         }
     }
 }

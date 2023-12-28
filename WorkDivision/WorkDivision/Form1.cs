@@ -18,10 +18,10 @@ namespace WorkDivision
 {
     public partial class Form1 : Form
     {
-        private String dbFileName;
         private SQLiteConnection dblite;
         private SQLiteCommand m_sqlCmd;
         private SQLiteDataReader sqlReader;
+        private liteDB liteDB;
 
         public fAddWorker fAddWorker;
         public fAddBrig fAddBrig;
@@ -53,7 +53,7 @@ namespace WorkDivision
             fAddDivision= new fAddDivision();
             fOpersList = new fOpersList();
             fEditOperByDivision = new fEditOperByDivision();
-            //fAuth = new fAuth();
+            liteDB = new liteDB();
 
         }
         
@@ -81,50 +81,23 @@ namespace WorkDivision
             }
         }
 
-
-        private void listView2_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void SettingsToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void подключитьсяToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnSave_Click(object sender, EventArgs e)
-        {
-            int windowTop = this.Top;
-            int windowLeft = this.Left;
-            MessageBox.Show(windowTop.ToString() + " - " + windowLeft);
-            this.Top = 500;
-            this.Left = 500;
-        }
-
-
         private void Form1_Load(object sender, EventArgs e)
         {
-            tpinDivision.Parent = null;  //Скрываем вкладку 
-            dblite = new SQLiteConnection("Data Source=divisionDB.db;Version=3;");
+            //Подключение к БД
+            dblite = liteDB.GetConn();
             dblite.Open();
 
-
+            tpinDivision.Parent = null;  //Скрываем вкладку 
             //Настройка даты
             dateTimePicker1.Format = DateTimePickerFormat.Short;
             dateTimePicker1.Value = DateTime.Now;
 
-
-            // отрисовка заголовков ListView
+            //------ОТРИСОВКА ЗАГОЛОВКОВ
+            //Справочник работников
             lvDirWorkers.GridLines = true;
             lvDirWorkers.FullRowSelect = true;
             lvDirWorkers.View = View.Details;
             lvDirWorkers.Font = new Font(lvDirWorkers.Font, FontStyle.Bold);
-
             lvDirWorkers.Columns.Add("ID");
             lvDirWorkers.Columns.Add("Таб.№");
             lvDirWorkers.Columns.Add("ФИО");
@@ -134,6 +107,7 @@ namespace WorkDivision
             lvDirWorkers.Columns.Add("Номер бригады");
             lvDirWorkers.Columns.Add("Название бригады");
 
+            //Справочник бригад
             lvDirBrigs.GridLines = true;
             lvDirBrigs.FullRowSelect = true;
             lvDirBrigs.View = View.Details;
@@ -143,6 +117,7 @@ namespace WorkDivision
             lvDirBrigs.Columns.Add("Название бригады");
             lvDirBrigs.Columns.Add("NUMK");
 
+            //Справочник профессий
             lvDirProfs.GridLines = true;
             lvDirProfs.FullRowSelect = true;
             lvDirProfs.View = View.Details;
@@ -152,6 +127,7 @@ namespace WorkDivision
             lvDirProfs.Columns.Add("Наименование");
             lvDirProfs.Columns.Add("PR");
 
+            //Справочник операций
             lvDirOpers.GridLines = true;
             lvDirOpers.FullRowSelect = true;
             lvDirOpers.View = View.Details;
@@ -163,6 +139,7 @@ namespace WorkDivision
             lvDirOpers.Columns.Add("Коэф.");
             lvDirOpers.Columns.Add("Норма времени, сек");
             
+            //Справочник продукции
             lvDirProducts.GridLines = true;
             lvDirProducts.FullRowSelect = true;
             lvDirProducts.View = View.Details;
@@ -170,6 +147,7 @@ namespace WorkDivision
             lvDirProducts.Columns.Add("id");
             lvDirProducts.Columns.Add("Наименование");
             
+            //Справочник тарифных ставок
             lvDirTarif.GridLines = true;
             lvDirTarif.FullRowSelect = true;
             lvDirTarif.View = View.Details;
@@ -179,6 +157,7 @@ namespace WorkDivision
             lvDirTarif.Columns.Add("Тар.ставка");
             lvDirTarif.Columns.Add("Коэф.сдел."); 
             
+            //Справочник норм на настил
             lvDirNormNastil.GridLines = true;
             lvDirNormNastil.FullRowSelect = true;
             lvDirNormNastil.View = View.Details;
@@ -186,7 +165,8 @@ namespace WorkDivision
             lvDirNormNastil.Columns.Add("id");
             lvDirNormNastil.Columns.Add("Вид ткани");
             lvDirNormNastil.Columns.Add("Затрата врем. на 1м, сек");
-            
+
+            //Справочник норм на контроль
             lvDirNormControl.GridLines = true;
             lvDirNormControl.FullRowSelect = true;
             lvDirNormControl.View = View.Details;
@@ -195,6 +175,7 @@ namespace WorkDivision
             lvDirNormControl.Columns.Add("Вид ткани");
             lvDirNormControl.Columns.Add("Затрата врем. на 1м, сек");
 
+            //Справочник моделей
             lvDirModels.GridLines = true;
             lvDirModels.FullRowSelect = true;
             lvDirModels.View = View.Details;
@@ -207,7 +188,7 @@ namespace WorkDivision
             lvDirModels.Columns.Add("Категория 2");
             lvDirModels.Columns.Add("Ед.изм.");
 
-            // отрисовка заголовков ListView
+            //Разделения
             lvDivision.GridLines = true;
             lvDivision.FullRowSelect = true;
             lvDivision.View = View.Details;
@@ -219,6 +200,7 @@ namespace WorkDivision
             lvDivision.Columns.Add("Стоимость обработки");
             //autoResizeColumns(lvDivision);
 
+            //Детализация разделения
             lvinDivision.GridLines = true;
             lvinDivision.FullRowSelect = true;
             lvinDivision.View = View.Details;
@@ -244,17 +226,9 @@ namespace WorkDivision
             tsStatusSumItem.Text = "";
         }
 
-        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
         //Изменение даты
         private async void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
-            //Globals.datearr = date1;
-
-            //dblite = new SQLiteConnection();
             lvDivision.Items.Clear();  //Чистим listview2
 
             try
@@ -273,19 +247,6 @@ namespace WorkDivision
             toolStripStatusLabel1.Text = "Кол-во строк: " + lvDivision.Items.Count;
 
         }
-
-        //Выгрузить в файл
-        //private async void toolStripButton5_Click(object sender, EventArgs e)
-        //{
-        //    if (lvDivision.SelectedItems.Count > 0)
-        //    {
-
-        //    }
-        //    else
-        //    {
-        //        MessageBox.Show("Выберите запись для выгрузки!");
-        //    }
-        //}
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -362,13 +323,10 @@ namespace WorkDivision
 
             try
             {
-                //dblite = new SQLiteConnection("Data Source=divisionDB.db;Version=3;");
-                //dblite.Open();
                 string query = @"SELECT dw.id,dw.tab_nom,dw.FIO,dw.rank,dw.KO,dbr.KODBR,dbr.Name,pr.Name as prof
                             FROM DirWorkers as dw
                             LEFT JOIN DirBrigs as dbr on dw.brig_id = dbr.id
                             LEFT JOIN DirProfs as pr on pr.kprof = dw.kprof
-
                             ORDER BY FIO";
 
                 m_sqlCmd = new SQLiteCommand(query, dblite);
@@ -454,8 +412,6 @@ namespace WorkDivision
                 {
                     case DialogResult.OK:
 
-                        //dblite = new SQLiteConnection("Data Source=divisionDB.db;Version=3;");
-                        //dblite.Open();
                         SQLiteCommand delArrCommand = new SQLiteCommand("DELETE FROM DirWorkers WHERE id=@id", dblite);
 
                         delArrCommand.Parameters.AddWithValue("id", Convert.ToString(lvDirWorkers.SelectedItems[0].SubItems[0].Text));
@@ -607,7 +563,6 @@ namespace WorkDivision
                 string query = @"SELECT * FROM DirProfs ORDER BY kprof";
 
                 m_sqlCmd = new SQLiteCommand(query, dblite);
-                m_sqlCmd.Connection = dblite;
 
                 sqlReader = m_sqlCmd.ExecuteReader();
 
@@ -722,7 +677,6 @@ namespace WorkDivision
                 LoadDirOpers();
                 lvDirOpers.Items[item].Selected = true;
                 lvDirOpers.EnsureVisible(item);
-                //lvDirOpers.Items[item].Focused = true;
             }
         }
 

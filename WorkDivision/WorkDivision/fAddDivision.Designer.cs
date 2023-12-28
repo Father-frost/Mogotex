@@ -186,7 +186,6 @@
             this.Name = "fAddDivision";
             this.Text = "Добавить / Изменить разделение";
             this.Load += new System.EventHandler(this.fAddModel_Load);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fAddDivision_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 

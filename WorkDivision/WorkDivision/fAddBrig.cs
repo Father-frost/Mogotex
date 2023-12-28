@@ -17,18 +17,18 @@ namespace WorkDivision
     {
         private SQLiteConnection dblite;
         private SQLiteDataReader sqlReader;
+        private liteDB liteDB;
         SQLiteCommand m_sqlCmd = null;
         
 
         public fAddBrig()
         {
             InitializeComponent();
+            liteDB = new liteDB();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            dblite = new SQLiteConnection("Data Source=divisionDB.db;Version=3;");
-            dblite.Open();
             if (id_rec == "")  //Если  id записи не передан (новая запись) 
             {
                 string querySQLite = @"INSERT INTO DirBrigs (KODBR, Name, Numk) VALUES (@KODBR, @Name, @Numk)";
@@ -61,12 +61,12 @@ namespace WorkDivision
 
         private void fAddBrig_Load(object sender, EventArgs e)
         {
-            dblite = new SQLiteConnection("Data Source=divisionDB.db;Version=3;");
+            //Подключение к БД
+            dblite = liteDB.GetConn();
             dblite.Open();
-            //Если выбран существующий интервал, загружаем параметры
+            //Если новая запись
             if (id_rec != "")
                 {
-                    //MessageBox.Show(id_rec.ToString());
                     GetBrig();
                 }
                 else
@@ -81,12 +81,9 @@ namespace WorkDivision
         {
             try
             {
-                //dblite = new SQLiteConnection("Data Source=divisionDB.db;Version=3;");
-                //dblite.Open();
                 string query = @"SELECT * FROM DirBrigs WHERE id =" + id_rec;
 
                 m_sqlCmd = new SQLiteCommand(query, dblite);
-                //m_sqlCmd.Connection = dblite;
 
                 sqlReader = m_sqlCmd.ExecuteReader();
 

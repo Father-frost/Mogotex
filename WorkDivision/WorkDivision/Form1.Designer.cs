@@ -310,7 +310,6 @@
             this.toolStripButton5.Name = "toolStripButton5";
             this.toolStripButton5.Size = new System.Drawing.Size(129, 24);
             this.toolStripButton5.Text = "Выгрузить в файл";
-            this.toolStripButton5.Click += new System.EventHandler(this.toolStripButton5_Click);
             // 
             // toolStripTextBox2
             // 
@@ -338,7 +337,6 @@
             this.lvDivision.Size = new System.Drawing.Size(1126, 383);
             this.lvDivision.TabIndex = 1;
             this.lvDivision.UseCompatibleStateImageBehavior = false;
-            this.lvDivision.SelectedIndexChanged += new System.EventHandler(this.listView2_SelectedIndexChanged);
             this.lvDivision.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lvDivision_MouseDoubleClick);
             // 
             // tpinDivision

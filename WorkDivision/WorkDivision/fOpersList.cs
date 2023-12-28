@@ -7,17 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data.SqlClient;
 using System.Data.SQLite;
 
 namespace WorkDivision
 {
     public partial class fOpersList : Form
-    {
-        //Поделючение к базе PED
-        SqlConnection connMed;
-        //MedDB meddb = null;
-
+    { 
         private SQLiteConnection dblite;
         private SQLiteDataReader sqlReader;
         SQLiteCommand m_sqlCmd = null;
@@ -28,40 +23,20 @@ namespace WorkDivision
         public fOpersList()
         {
             InitializeComponent();
-            //meddb = new MedDB();        // БД PED
-            //connMed = meddb.GetConnection();
         }
 
-        //Кнопка Найти
-        private async void btnSearch_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void fAddOutput_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void fAddSickList_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            dblite.Close();
-        }
-
-        private void cbFIO_TextUpdate(object sender, EventArgs e)
+        //Поиск операции в справочнике
+        private void cbOperation_TextUpdate(object sender, EventArgs e)
         {
             DataTable DF = new DataTable();
             DF.Clear();
-
-
+            string query = @"SELECT name, id FROM DirOpers WHERE 
+                                        Name like '%" + cbOperation.Text + @"%'";
             if (this.cbOperation.Text != "")
             {
                 string st = cbOperation.Text;
                 cbOperation.Items.Clear();
                 treeView1.Nodes.Clear();
-                //Запрос к базе данных
-                string query = @"SELECT name, id FROM DirOpers WHERE 
-                                        Name like '%" + cbOperation.Text + @"%'";
                 DF = GetMedData(query);
                 if (DF.Rows.Count > 0)
                 {
@@ -71,13 +46,10 @@ namespace WorkDivision
                         var node = new TreeNode(DF.Rows[i].ItemArray[0].ToString());
                         node.Tag = DF.Rows[i].ItemArray[1].ToString();  //id
                         treeView1.Nodes.Add(node);
-
                         cbOperation.SelectionStart = cbOperation.Text.Length;
                     }
                     cbOperation.SelectionStart = cbOperation.Text.Length;
-                    //cbDeed.DroppedDown = true;
                     cbOperation.Text = st;
-
                 }
                 else
                 {
@@ -87,19 +59,24 @@ namespace WorkDivision
                     treeView1.Nodes.Clear();
                 }
             }
+            else
+            {
+                //Выбор всех операций
+                getOpersForModel();
+            }
             cbOperation.SelectionStart = cbOperation.Text.Length;
+
         }
 
         public DataTable GetMedData(string query)
         {
-            //connMed.Open();
             DataTable dt = new DataTable();
 
             try
             {
-                SqlCommand comm = new SqlCommand(query, connMed);
+                SQLiteCommand comm = new SQLiteCommand(query, dblite);
 
-                SqlDataAdapter da = new SqlDataAdapter(comm);
+                SQLiteDataAdapter da = new SQLiteDataAdapter(comm);
                 DataSet ds = new DataSet();
                 da.Fill(ds);
                 dt = ds.Tables[0];
@@ -110,17 +87,14 @@ namespace WorkDivision
             }
             finally
             {
-                //connMed.Close();
             }
-
             return dt;
         }
 
-        private void cbDeed_KeyDown(object sender, KeyEventArgs e)
+        private void cbOperation_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                //btnSearch.Select();
                 btnOk_Click(this,null);
             }
         }
@@ -129,24 +103,19 @@ namespace WorkDivision
         {
             string st;
             treeView1.Nodes.Clear();
-            //TreeNode visitNode = new TreeNode("Консультации и приемы");
             try
             {
                 string query = @"SELECT * FROM DirOpers ORDER BY PER";
                 m_sqlCmd = new SQLiteCommand(query, dblite);
                 sqlReader = m_sqlCmd.ExecuteReader();
-                //treeView1.Nodes[1].Nodes.Remove();
                 while (await sqlReader.ReadAsync())
                 {
-                    //MessageBox.Show(st + @"(" + Convert.ToDateTime(sqlMedReader["visit_date"]).ToString("dd.MM.yyyy HH:mm") + @")");
-                    //st = sqlReader["UCH"].ToString() + " " + sqlReader["Name"].ToString();
                     var node = new TreeNode(sqlReader["Name"].ToString());
                     node.Tag = sqlReader["id"].ToString();
                     treeView1.Nodes.Add(node);
                 }
-
             }
-            catch (SqlException ex)
+            catch (SQLiteException ex)
             {
                 MessageBox.Show("Error: " + ex.Message);
             }
@@ -155,12 +124,9 @@ namespace WorkDivision
                 if (sqlReader != null && !sqlReader.IsClosed)
                     sqlReader.Close();
             }
-            //treeView1.Nodes.Add(visitNode);
-            //treeView1.Expand(); //Раскрываем приемы
-            //treeView1.SelectedNode = visitNode.LastNode; //Выделяем последний прием
         }
 
-        private void fDeedsList_Load(object sender, EventArgs e)
+        private void fOpersList_Load(object sender, EventArgs e)
         {
             dblite = new SQLiteConnection("Data Source=divisionDB.db;Version=3;");
             dblite.Open();
@@ -189,7 +155,6 @@ namespace WorkDivision
                         await insertDirCommand.ExecuteNonQueryAsync();
                     }
                 }
-
                 this.Close();
             }
             catch (Exception ex)

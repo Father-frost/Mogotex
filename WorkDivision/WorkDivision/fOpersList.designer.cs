@@ -55,17 +55,17 @@
             this.lblID.Size = new System.Drawing.Size(0, 13);
             this.lblID.TabIndex = 2;
             // 
-            // cbDeed
+            // cbOperation
             // 
             this.cbOperation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cbOperation.FormattingEnabled = true;
             this.cbOperation.Location = new System.Drawing.Point(15, 25);
-            this.cbOperation.Name = "cbDeed";
+            this.cbOperation.Name = "cbOperation";
             this.cbOperation.Size = new System.Drawing.Size(725, 21);
             this.cbOperation.TabIndex = 19;
-            this.cbOperation.TextUpdate += new System.EventHandler(this.cbFIO_TextUpdate);
-            this.cbOperation.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cbDeed_KeyDown);
+            this.cbOperation.TextUpdate += new System.EventHandler(this.cbOperation_TextUpdate);
+            this.cbOperation.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cbOperation_KeyDown);
             // 
             // label1
             // 
@@ -112,8 +112,8 @@
             this.Controls.Add(this.btnOk);
             this.Name = "fOpersList";
             this.Text = "Выбор операций";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.fAddSickList_FormClosed);
-            this.Load += new System.EventHandler(this.fDeedsList_Load);
+            //this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.fAddSickList_FormClosed);
+            this.Load += new System.EventHandler(this.fOpersList_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
