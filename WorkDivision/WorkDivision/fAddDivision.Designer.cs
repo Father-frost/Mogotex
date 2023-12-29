@@ -46,18 +46,16 @@
             // lblID
             // 
             this.lblID.AutoSize = true;
-            this.lblID.Location = new System.Drawing.Point(31, 23);
-            this.lblID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblID.Location = new System.Drawing.Point(23, 19);
             this.lblID.Name = "lblID";
-            this.lblID.Size = new System.Drawing.Size(0, 16);
+            this.lblID.Size = new System.Drawing.Size(0, 13);
             this.lblID.TabIndex = 16;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(535, 240);
-            this.button1.Margin = new System.Windows.Forms.Padding(4);
+            this.button1.Location = new System.Drawing.Point(401, 195);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(247, 28);
+            this.button1.Size = new System.Drawing.Size(185, 23);
             this.button1.TabIndex = 15;
             this.button1.Text = "Сохранить";
             this.button1.UseVisualStyleBackColor = true;
@@ -66,113 +64,103 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(31, 23);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(23, 19);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(161, 16);
+            this.label2.Size = new System.Drawing.Size(127, 13);
             this.label2.TabIndex = 22;
             this.label2.Text = "Наименование модели:";
             // 
             // tbProd
             // 
             this.tbProd.Enabled = false;
-            this.tbProd.Location = new System.Drawing.Point(34, 134);
-            this.tbProd.Margin = new System.Windows.Forms.Padding(4);
+            this.tbProd.Location = new System.Drawing.Point(26, 109);
             this.tbProd.Name = "tbProd";
-            this.tbProd.Size = new System.Drawing.Size(215, 22);
+            this.tbProd.Size = new System.Drawing.Size(162, 20);
             this.tbProd.TabIndex = 25;
             // 
             // tbEI
             // 
             this.tbEI.Enabled = false;
-            this.tbEI.Location = new System.Drawing.Point(34, 192);
-            this.tbEI.Margin = new System.Windows.Forms.Padding(4);
+            this.tbEI.Location = new System.Drawing.Point(26, 156);
             this.tbEI.Name = "tbEI";
-            this.tbEI.Size = new System.Drawing.Size(215, 22);
+            this.tbEI.Size = new System.Drawing.Size(162, 20);
             this.tbEI.TabIndex = 32;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(31, 172);
-            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label6.Location = new System.Drawing.Point(23, 140);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(63, 16);
+            this.label6.Size = new System.Drawing.Size(52, 13);
             this.label6.TabIndex = 31;
             this.label6.Text = "Ед. изм.:";
             // 
             // cbModel
             // 
             this.cbModel.FormattingEnabled = true;
-            this.cbModel.Location = new System.Drawing.Point(34, 80);
-            this.cbModel.Margin = new System.Windows.Forms.Padding(4);
+            this.cbModel.Location = new System.Drawing.Point(26, 65);
             this.cbModel.Name = "cbModel";
-            this.cbModel.Size = new System.Drawing.Size(748, 24);
+            this.cbModel.Size = new System.Drawing.Size(562, 21);
             this.cbModel.TabIndex = 34;
+            this.cbModel.SelectedIndexChanged += new System.EventHandler(this.cbModel_SelectedIndexChanged);
             this.cbModel.TextUpdate += new System.EventHandler(this.cbModel_TextUpdate);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(31, 114);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Location = new System.Drawing.Point(23, 93);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(93, 16);
+            this.label3.Size = new System.Drawing.Size(74, 13);
             this.label3.TabIndex = 33;
             this.label3.Text = "Вид изделия:";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(286, 114);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Location = new System.Drawing.Point(214, 93);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(88, 16);
+            this.label4.Size = new System.Drawing.Size(72, 13);
             this.label4.TabIndex = 41;
             this.label4.Text = "Категория 1:";
             // 
             // tbProdCat
             // 
             this.tbProdCat.Enabled = false;
-            this.tbProdCat.Location = new System.Drawing.Point(289, 134);
-            this.tbProdCat.Margin = new System.Windows.Forms.Padding(4);
+            this.tbProdCat.Location = new System.Drawing.Point(217, 109);
             this.tbProdCat.Name = "tbProdCat";
-            this.tbProdCat.Size = new System.Drawing.Size(238, 22);
+            this.tbProdCat.Size = new System.Drawing.Size(180, 20);
             this.tbProdCat.TabIndex = 40;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(553, 114);
-            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label7.Location = new System.Drawing.Point(415, 93);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(88, 16);
+            this.label7.Size = new System.Drawing.Size(72, 13);
             this.label7.TabIndex = 43;
             this.label7.Text = "Категория 2:";
             // 
             // tbProdGRP
             // 
             this.tbProdGRP.Enabled = false;
-            this.tbProdGRP.Location = new System.Drawing.Point(556, 134);
-            this.tbProdGRP.Margin = new System.Windows.Forms.Padding(4);
+            this.tbProdGRP.Location = new System.Drawing.Point(417, 109);
             this.tbProdGRP.Name = "tbProdGRP";
-            this.tbProdGRP.Size = new System.Drawing.Size(226, 22);
+            this.tbProdGRP.Size = new System.Drawing.Size(170, 20);
             this.tbProdGRP.TabIndex = 42;
             // 
             // lbKMOD
             // 
             this.lbKMOD.AutoSize = true;
-            this.lbKMOD.Location = new System.Drawing.Point(31, 50);
-            this.lbKMOD.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lbKMOD.Location = new System.Drawing.Point(23, 41);
             this.lbKMOD.Name = "lbKMOD";
-            this.lbKMOD.Size = new System.Drawing.Size(0, 16);
+            this.lbKMOD.Size = new System.Drawing.Size(0, 13);
             this.lbKMOD.TabIndex = 44;
             // 
             // fAddDivision
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(814, 300);
+            this.ClientSize = new System.Drawing.Size(610, 244);
             this.Controls.Add(this.lbKMOD);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.tbProdGRP);
@@ -186,7 +174,6 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.lblID);
             this.Controls.Add(this.button1);
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "fAddDivision";
             this.Text = "Добавить / Изменить разделение";
             this.Load += new System.EventHandler(this.fAddModel_Load);

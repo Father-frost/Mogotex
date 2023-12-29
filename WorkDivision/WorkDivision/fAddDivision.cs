@@ -31,6 +31,7 @@ namespace WorkDivision
 
         //Свойство для идентификатора записи в БД
         public string id_rec { get; set; }
+
         private void button1_Click(object sender, EventArgs e)
         {
             if (id_rec == "")  //Если  id записи не передан (новая запись) 
@@ -117,9 +118,7 @@ namespace WorkDivision
                                LEFT JOIN DirProdGRP as dpg on dpg.id=dm.id_grp WHERE div.id =" + id_rec;
 
                 m_sqlCmd = new SQLiteCommand(query, dblite);
-
                 sqlReader = m_sqlCmd.ExecuteReader();
-
                 while (await sqlReader.ReadAsync())
                 {
                     cbModel.Text = Convert.ToString(sqlReader["Name"]);
@@ -176,5 +175,56 @@ namespace WorkDivision
             cbModel.SelectionStart = cbModel.Text.Length;
         }
 
+        public async void GetModelParams(string id_model)
+        {
+            try
+            {
+                string query = @"SELECT dm.Name,dm.KMOD,dm.EI,dp.Name as pName,dpc.category, dpg.GRP FROM DirModels as dm
+                               LEFT JOIN DirProducts as dp on dp.id=dm.id_product
+                               LEFT JOIN DirProdCat as dpc on dpc.id=dm.id_cat 
+                               LEFT JOIN DirProdGRP as dpg on dpg.id=dm.id_grp WHERE dm.id =" + id_model;
+
+                m_sqlCmd = new SQLiteCommand(query, dblite);
+
+                sqlReader = m_sqlCmd.ExecuteReader();
+
+                while (await sqlReader.ReadAsync())
+                {
+                    lbKMOD.Text = Convert.ToString(sqlReader["KMOD"]);
+                    tbEI.Text = Convert.ToString(sqlReader["EI"]);
+                    tbProd.Text = Convert.ToString(sqlReader["pName"]);
+                    tbProdCat.Text = Convert.ToString(sqlReader["category"]);
+                    tbProdGRP.Text = Convert.ToString(sqlReader["GRP"]);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка 5.06.07", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (sqlReader != null && !sqlReader.IsClosed)
+                    sqlReader.Close();
+            }
+        }
+
+        private void cbModel_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbModel.SelectedIndex > 0)
+            {
+                if (cbModel.SelectedValue == null)
+                {
+                    tbProd.Text = string.Empty;
+                    tbProdCat.Text = string.Empty;
+                    tbProdGRP.Text = string.Empty;
+
+                }
+                else
+                {
+                    GetModelParams(cbModel.SelectedValue.ToString());
+                }
+            }
+        }
     }
 }
