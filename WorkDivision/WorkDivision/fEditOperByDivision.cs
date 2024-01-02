@@ -62,7 +62,8 @@ namespace WorkDivision
         public async void GetOperByDivision()
         {
             string matRate = "";
-            int parent=1;
+            int parent=0;
+            int id_oper = 0;
             try
             {
                 string query = @"SELECT i.id,d.UCH,i.id_oper,d.Name,i.rank,i.MatRate,dt.TAR_VR,i.NVRforOper,i.workers_cnt,parent,
@@ -84,6 +85,7 @@ namespace WorkDivision
                 while (await sqlReader.ReadAsync())
                 {
                     lbUCH.Text = Convert.ToString(sqlReader["UCH"]);                //Номер участка
+                    id_oper = Convert.ToInt32(sqlReader["id_oper"]);                //id операции
                     tbOperName.Text = Convert.ToString(sqlReader["Name"]);          //Название операции
                     rank = Convert.ToString(sqlReader["rank"]);              //Разряд
                     tbTarif.Text = Convert.ToString(sqlReader["TAR_VR"]);           //Тарифная ставка
@@ -184,7 +186,7 @@ namespace WorkDivision
                 }
 
                 //Если родительская операция, скрываем поля 
-                if (parent == 1)
+                if (parent == id_oper)
                 {
                     lbUCH.Enabled = false;
                     //tbOperName.Enabled = false;

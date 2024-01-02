@@ -13,6 +13,11 @@ using System.Data.SQLite;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using ListView = System.Windows.Forms.ListView;
 using System.Collections;
+using Word = Microsoft.Office.Interop.Word;
+using Microsoft.Office.Interop.Word;
+using View = System.Windows.Forms.View;
+using Font = System.Drawing.Font;
+using System.Data.SqlClient;
 
 namespace WorkDivision
 {
@@ -35,7 +40,9 @@ namespace WorkDivision
         public fAddDivision fAddDivision;
         public fOpersList fOpersList;
         public fEditOperByDivision fEditOperByDivision;
+        public fAddSigner fAddSigner;
         //public fAuth fAuth;
+        Word._Application oWord = new Word.Application();
 
         public Form1()
         {
@@ -53,6 +60,7 @@ namespace WorkDivision
             fAddDivision= new fAddDivision();
             fOpersList = new fOpersList();
             fEditOperByDivision = new fEditOperByDivision();
+            fAddSigner = new fAddSigner();
             liteDB = new liteDB();
 
         }
@@ -175,6 +183,16 @@ namespace WorkDivision
             lvDirNormControl.Columns.Add("Вид ткани");
             lvDirNormControl.Columns.Add("Затрата врем. на 1м, сек");
 
+            //Справочник подписантов
+            lvDirSigners.GridLines = true;
+            lvDirSigners.FullRowSelect = true;
+            lvDirSigners.View = View.Details;
+            lvDirSigners.Font = new Font(lvDirSigners.Font, FontStyle.Bold);
+            lvDirSigners.Columns.Add("id");
+            lvDirSigners.Columns.Add("Должность");
+            lvDirSigners.Columns.Add("ФИО");
+            lvDirSigners.Columns.Add("Порядок");
+
             //Справочник моделей
             lvDirModels.GridLines = true;
             lvDirModels.FullRowSelect = true;
@@ -206,8 +224,8 @@ namespace WorkDivision
             lvinDivision.View = View.Details;
             lvinDivision.Font = new Font(lvinDivision.Font, FontStyle.Bold);
             lvinDivision.Columns.Add("id");
-            lvinDivision.Columns.Add("№ пп");
             lvinDivision.Columns.Add("Участок");
+            lvinDivision.Columns.Add("№ пп");
             lvinDivision.Columns.Add("Операция");
             lvinDivision.Columns.Add("Расход ткани");
             lvinDivision.Columns.Add("Разряд");
@@ -481,6 +499,7 @@ namespace WorkDivision
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             dblite.Close();
+            //oWord.Quit();
             //fAuth.Close();
         }
 
@@ -1305,6 +1324,115 @@ namespace WorkDivision
             }
         }
 
+        public async void LoadDirSigners()
+        {
+            lvDirSigners.Items.Clear();  //Чистим listview2
+
+            try
+            {
+                string query = @"SELECT * FROM DirSigners ORDER BY ord";
+
+                m_sqlCmd = new SQLiteCommand(query, dblite);
+
+                sqlReader = m_sqlCmd.ExecuteReader();
+
+                while (await sqlReader.ReadAsync())
+                {
+                    ListViewItem item = new ListViewItem(new string[] {
+                    Convert.ToString(sqlReader["id"]),
+                    Convert.ToString(sqlReader["post"]),
+                    Convert.ToString(sqlReader["FIO"]),
+                    Convert.ToString(sqlReader["ord"])
+                    });
+                    item.Font = new Font(lvDirSigners.Font, FontStyle.Regular);
+                    lvDirSigners.Items.Add(item);
+                }
+
+                autoResizeColumns(lvDirSigners);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка 5.01.07", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (sqlReader != null && !sqlReader.IsClosed)
+                    sqlReader.Close();
+            }
+            toolStripStatusLabel1.Text = "Кол-во строк: " + lvDirSigners.Items.Count;
+        }
+
+        private void lvDirSigners_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (lvDirSigners.SelectedItems.Count > 0)
+            {
+                fAddSigner.id_rec = Convert.ToString(lvDirSigners.SelectedItems[0].SubItems[0].Text);
+                fAddSigner.StartPosition = FormStartPosition.CenterParent;
+                fAddSigner.Text = "Изменить";
+                fAddSigner.ShowDialog();
+                lvDirSigners.Items.Clear();
+                LoadDirSigners();
+            }
+        }
+
+        private void tsBtnAddSigner_Click(object sender, EventArgs e)
+        {
+            fAddSigner.id_rec = "";
+            fAddSigner.StartPosition = FormStartPosition.CenterParent;
+            fAddSigner.Text = "Добавить";
+            fAddSigner.ShowDialog();
+            lvDirSigners.Items.Clear();
+            LoadDirSigners();
+        }
+
+        private void tsBtnEditSigner_Click(object sender, EventArgs e)
+        {
+            if (lvDirSigners.SelectedItems.Count > 0)
+            {
+                lvDirSigners_MouseDoubleClick(this, null);
+            }
+            else
+            {
+                MessageBox.Show("Выберите строку для редактирования.", "Ошибка 5.02.05", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private async void tsBtnDelSigner_Click(object sender, EventArgs e)
+        {
+            if (lvDirSigners.SelectedItems.Count > 0)
+            {
+                DialogResult res = MessageBox.Show("Вы действительно хотите удалить эту строку?", "Удаление...", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+
+                switch (res)
+                {
+                    case DialogResult.OK:
+
+                        SQLiteCommand delArrCommand = new SQLiteCommand("DELETE FROM DirSigners WHERE id=@id", dblite);
+
+                        delArrCommand.Parameters.AddWithValue("id", Convert.ToString(lvDirSigners.SelectedItems[0].SubItems[0].Text));
+
+                        try
+                        {
+                            await delArrCommand.ExecuteNonQueryAsync();
+                        }
+                        catch (SQLiteException ex)
+                        {
+                            MessageBox.Show(ex.Message, "Ошибка 5.02.04", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+
+                        // автообновление после удаления
+                        LoadDirSigners();
+
+                        break;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Выберите строку для удаления.", "Ошибка 5.02.05", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
         private async void tsBtnDelNormControl_Click(object sender, EventArgs e)
         {
             if (lvDirNormControl.SelectedItems.Count > 0)
@@ -1499,9 +1627,10 @@ namespace WorkDivision
         {
             lvinDivision.Items.Clear();  //Чистим listview
             int counter = 0;
+            string st_cnt = string.Empty;
             try
             {
-                string query = @"SELECT i.id,d.UCH,d.Name,i.MatRate,i.rank,dt.TAR_VR,i.NVRforOper,i.workers_cnt,
+                string query = @"SELECT i.id,d.UCH,i.id_oper,d.Name,d.parent,i.MatRate,i.rank,dt.TAR_VR,i.NVRforOper,i.workers_cnt,
                                 IFNULL(ROUND(i.NVRforOper * dt.TAR_VR,5),0) as Cost,
                                 CASE WHEN d.UCH between 1 and 2 THEN ifnull(ROUND(i.NVRforOper * i.MatRate * i.workers_cnt,2),0) ELSE NVRforOper END as NVRbyItem,
                                 CASE WHEN d.UCH between 1 and 2 THEN ifnull(ROUND(ROUND(i.NVRforOper * dt.TAR_VR,5) * i.MatRate * i.workers_cnt,5),0) 
@@ -1518,11 +1647,21 @@ namespace WorkDivision
 
                 while (await sqlReader.ReadAsync())
                 {
-                    counter++;
+                    //Если подкатегории операции
+                    if ((Convert.ToInt32(sqlReader["parent"]) > 0) && (Convert.ToInt32(sqlReader["parent"])!= Convert.ToInt32(sqlReader["id_oper"])))
+                    {
+                        st_cnt = string.Empty;  //Порядковый номер пустой
+                    }
+                    else
+                    {
+                        counter++;
+                        st_cnt = counter.ToString();
+                    }
+
                     ListViewItem item = new ListViewItem(new string[] {
                     Convert.ToString(sqlReader["id"]),
-                    Convert.ToString(counter),
                     Convert.ToString(sqlReader["UCH"]),
+                    Convert.ToString(st_cnt),
                     Convert.ToString(sqlReader["Name"]),
                     Convert.ToString(sqlReader["MatRate"]),
                     Convert.ToString(sqlReader["rank"]),
@@ -1626,22 +1765,116 @@ namespace WorkDivision
             }
         }
 
+        //Редактирование операций по разделению
         private void lvinDivision_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             tsBtnEditOperInDivision_Click(this,null);
         }
 
+
+
+        //Создать резервную копию БД
         private void BackUpDBItem_Click(object sender, EventArgs e)
         {
             try
             {
-                File.Copy(Application.StartupPath.ToString() + "\\divisionDB.db", Application.StartupPath.ToString() + "\\DBbackups\\div_" + DateTime.Now.ToString() + ".db", true);
+                File.Copy(Environment.CurrentDirectory + "\\divisionDB.db", Environment.CurrentDirectory + "\\DBbackups\\div_"+DateTime.Now.ToString("ddMMyyyy")+".db", true);
+                MessageBox.Show("BackUp","Резервная копия создана. ("+ Environment.CurrentDirectory + "\\DBbackups\\div_" + DateTime.Now.ToString("ddMMyyyy") + ".db)");
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
         }
+
+
+        //Напечатать разделение
+        private void tsPrintDivision_Click(object sender, EventArgs e)
+        {
+            string Filename= Environment.CurrentDirectory + "\\Reports\\Division" + dateTimePicker1.Value.ToString("MM_yyyy")+ ".docx";
+            _Document oDoc = GetDoc(Environment.CurrentDirectory + "\\DivisionTemplate.docx");
+            oDoc.SaveAs(FileName: Filename); //Сохраняем документ
+            oDoc.Close();
+            System.Diagnostics.Process.Start(Filename);  //Открыть документ разделения
+        }
+
+        //Получаем документ
+        private _Document GetDoc(string path)
+        {
+            _Document oDoc = oWord.Documents.Add(path);
+            SetTemplate(oDoc);
+            return oDoc;
+        }
+
+        //Заполняем шаблон
+        private async void SetTemplate(Microsoft.Office.Interop.Word._Document oDoc)
+        {
+            int i=0;
+            double NVRsec = Convert.ToDouble(lvDivision.SelectedItems[0].SubItems[3].Text);
+            if (lvDivision.SelectedItems.Count > 0)
+            {
+                try
+                {
+                    //Титульный лист
+                    oDoc.Bookmarks["product"].Range.Text = lvDivision.SelectedItems[0].SubItems[2].Text;
+                    oDoc.Bookmarks["model"].Range.Text = lvDivision.SelectedItems[0].SubItems[1].Text;
+                    oDoc.Bookmarks["mmyy"].Range.Text = "за "+dateTimePicker1.Value.ToString("Y").ToUpper()+" г.";
+                    oDoc.Bookmarks["sumNVR"].Range.Text = NVRsec.ToString()+"с = "+Math.Round(NVRsec* 0.000278,2)+" ч";
+                    oDoc.Bookmarks["sumItem"].Range.Text = lvDivision.SelectedItems[0].SubItems[4].Text;
+
+                    //Подписанты
+                    try
+                    {
+                        string query = @"SELECT * FROM DirSigners ORDER BY ord LIMIT 2";
+
+                        m_sqlCmd = new SQLiteCommand(query, dblite);
+
+                        sqlReader = m_sqlCmd.ExecuteReader();
+
+                        while (await sqlReader.ReadAsync())
+                        {
+                            i++;
+                            oDoc.Bookmarks["Signer"+i.ToString()].Range.Text = Convert.ToString(sqlReader["post"])+
+                                                @"                       /"+ Convert.ToString(sqlReader["FIO"])+@"/";
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Ошибка 5.01.07", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    finally
+                    {
+                        if (sqlReader != null && !sqlReader.IsClosed)
+                            sqlReader.Close();
+                    }
+
+
+                    //Таблица разделения
+                    oDoc.Bookmarks["model2"].Range.Text = lvDivision.SelectedItems[0].SubItems[1].Text;
+                    Table wTable = oDoc.Tables[1];
+                    for (int row = 0; row < lvinDivision.Items.Count; row++) //проход по строкам
+                    {
+                        for (int col = 0; col < lvinDivision.Items[row].SubItems.Count-2; col++)
+                        {
+                            wTable.Cell(row + 2, col+1).Range.Text = lvinDivision.Items[row].SubItems[col+2].Text;
+                        }
+                        wTable.Rows.Add();
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Ошибка 5.00.07", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Выберите разделение для печати.", "Ошибка 5.09.05", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
+        }
+
+
     }
     class Division
     {
