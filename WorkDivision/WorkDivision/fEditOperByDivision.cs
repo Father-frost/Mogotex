@@ -239,6 +239,7 @@ namespace WorkDivision
             }
         }
 
+        //Нажатие Enter на списке материалов
         private void cbSelectMat_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -247,6 +248,7 @@ namespace WorkDivision
             }
         }
 
+        //Нажатие Enter на списке разрядов
         private void cbRank_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -255,6 +257,7 @@ namespace WorkDivision
             }
         }
 
+        //Нажатие Enter на поле Расход материала
         private void tbMatRate_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -262,7 +265,7 @@ namespace WorkDivision
                 cbRank.Focus();
             }
         }
-
+        //Нажатие Enter на поле Норма времени
         private void tbNVR_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -271,6 +274,7 @@ namespace WorkDivision
             }
         }
 
+        //Нажатие Enter на поле Кол-во работников
         private void tbWorkersCnt_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -279,6 +283,7 @@ namespace WorkDivision
             }
         }
 
+        //Нажатие Enter на кнопке Пересчитать
         private void btCalculate_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -349,7 +354,7 @@ namespace WorkDivision
             //ЗАПИСЬ В БД
             string querySQLite = @"UPDATE inDivision SET rank=@rank, MatRate=@MatRate, NVRforOper=@NVRforOper, workers_cnt=@workers_cnt WHERE id=" + id_rec;
             m_sqlCmd = new SQLiteCommand(querySQLite, dblite);
-            m_sqlCmd.Parameters.AddWithValue("@rank", rank);
+            m_sqlCmd.Parameters.AddWithValue("@rank", cbRank.Text);
             m_sqlCmd.Parameters.AddWithValue("@NVRforOper", NVRforOper);
             m_sqlCmd.Parameters.AddWithValue("@workers_cnt", wcount);
             m_sqlCmd.Parameters.AddWithValue("@MatRate", MatRate);
@@ -446,7 +451,8 @@ namespace WorkDivision
                             LEFT JOIN DirOpers as d on d.id=i.id_oper
                             WHERE i.id>" + id_rec + @" ORDER BY d.PER ASC LIMIT 1";
             m_sqlCmd = new SQLiteCommand(query, dblite);
-            //m_sqlCmd.Connection = dblite; 
+
+            //ID записи в разделении
             id_rec = Convert.ToString(m_sqlCmd.ExecuteScalar());
             if (id_rec == "")
             {

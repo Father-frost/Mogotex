@@ -112,6 +112,7 @@
             // 
             // cbProduct
             // 
+            this.cbProduct.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbProduct.FormattingEnabled = true;
             this.cbProduct.Location = new System.Drawing.Point(166, 94);
             this.cbProduct.Name = "cbProduct";
@@ -129,6 +130,7 @@
             // 
             // cbCatProd
             // 
+            this.cbCatProd.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbCatProd.FormattingEnabled = true;
             this.cbCatProd.Location = new System.Drawing.Point(166, 128);
             this.cbCatProd.Name = "cbCatProd";
@@ -146,6 +148,7 @@
             // 
             // cbProdGRP
             // 
+            this.cbProdGRP.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbProdGRP.FormattingEnabled = true;
             this.cbProdGRP.Location = new System.Drawing.Point(166, 164);
             this.cbProdGRP.Name = "cbProdGRP";

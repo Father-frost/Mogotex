@@ -97,6 +97,7 @@
             // 
             // cbModel
             // 
+            this.cbModel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbModel.FormattingEnabled = true;
             this.cbModel.Location = new System.Drawing.Point(26, 65);
             this.cbModel.Name = "cbModel";

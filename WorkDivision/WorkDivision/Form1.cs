@@ -42,7 +42,6 @@ namespace WorkDivision
         public fEditOperByDivision fEditOperByDivision;
         public fAddSigner fAddSigner;
         //public fAuth fAuth;
-        Word._Application oWord = new Word.Application();
 
         public Form1()
         {
@@ -240,6 +239,7 @@ namespace WorkDivision
             dateTimePicker1_ValueChanged(this, null);
 
             tabControl1.SelectedIndex = 0;
+            tsStatusSumCost.Text = "";
             tsStatusNVRbyItem.Text = "";
             tsStatusSumItem.Text = "";
         }
@@ -279,6 +279,7 @@ namespace WorkDivision
                 {
                     toolStripStatusLabel1.Text = "Кол-во строк: "+ lvDivision.Items.Count;
                 }
+                tsStatusSumCost.Text = "";
                 tsStatusNVRbyItem.Text = "";
                 tsStatusSumItem.Text = "";
             }
@@ -288,6 +289,7 @@ namespace WorkDivision
                 {
                     LoadDirWorkers();
                 }
+                tsStatusSumCost.Text = "";
                 tsStatusNVRbyItem.Text = "";
                 tsStatusSumItem.Text = "";
             }
@@ -332,6 +334,10 @@ namespace WorkDivision
             if (tabControl2.SelectedTab == tpDirNormControl)
             {
                 LoadDirNormControl();
+            }
+            if (tabControl2.SelectedTab == tpDirSigners)
+            {
+                LoadDirSigners();
             }
 
         }
@@ -1693,17 +1699,20 @@ namespace WorkDivision
             }
             toolStripStatusLabel1.Text = "Кол-во строк: " + lvinDivision.Items.Count;
 
-            double absSumNVR = 0;
-            double absSumItem = 0;
+            Division.absSumCost = 0;
+            Division.absSumNVR = 0;
+            Division.absSumItem = 0;
 
             for (int i = 0; i < lvinDivision.Items.Count; i++)
             {
-                absSumNVR += double.Parse(lvinDivision.Items[i].SubItems[9].Text);
-                absSumItem += double.Parse(lvinDivision.Items[i].SubItems[10].Text);
+                Division.absSumCost += double.Parse(lvinDivision.Items[i].SubItems[8].Text);
+                Division.absSumNVR += double.Parse(lvinDivision.Items[i].SubItems[9].Text);
+                Division.absSumItem += double.Parse(lvinDivision.Items[i].SubItems[10].Text);
 
             }
-            tsStatusNVRbyItem.Text = "Время обработки: " +absSumNVR.ToString();
-            tsStatusSumItem.Text = "Стоимость обработки: " +absSumItem.ToString();
+            tsStatusSumCost.Text = "Расценка: " + Division.absSumCost.ToString();
+            tsStatusNVRbyItem.Text = "Время обработки: " + Division.absSumNVR.ToString();
+            tsStatusSumItem.Text = "Стоимость обработки: " + Division.absSumItem.ToString();
         }
 
 
@@ -1791,16 +1800,25 @@ namespace WorkDivision
         //Напечатать разделение
         private void tsPrintDivision_Click(object sender, EventArgs e)
         {
-            string Filename= Environment.CurrentDirectory + "\\Reports\\Division" + dateTimePicker1.Value.ToString("MM_yyyy")+ ".docx";
-            _Document oDoc = GetDoc(Environment.CurrentDirectory + "\\DivisionTemplate.docx");
-            oDoc.SaveAs(FileName: Filename); //Сохраняем документ
-            oDoc.Close();
-            System.Diagnostics.Process.Start(Filename);  //Открыть документ разделения
+            if (lvDivision.SelectedItems.Count > 0)
+            {
+                string Filename= Environment.CurrentDirectory + "\\Reports\\Division" + dateTimePicker1.Value.ToString("MM_yyyy")+ ".docx";
+                _Document oDoc = GetDoc(Environment.CurrentDirectory + "\\DivisionTemplate.docx");
+                oDoc.SaveAs(FileName: Filename); //Сохраняем документ
+                oDoc.Close();
+                System.Diagnostics.Process.Start(Filename);  //Открыть документ разделения                                                        
+            }
+            else
+            {
+                MessageBox.Show("Выберите разделение для печати.", "Ошибка 5.09.05", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
         }
 
         //Получаем документ
         private _Document GetDoc(string path)
         {
+            Word._Application oWord = new Word.Application();
             _Document oDoc = oWord.Documents.Add(path);
             SetTemplate(oDoc);
             return oDoc;
@@ -1810,76 +1828,88 @@ namespace WorkDivision
         private async void SetTemplate(Microsoft.Office.Interop.Word._Document oDoc)
         {
             int i=0;
-            double NVRsec = Convert.ToDouble(lvDivision.SelectedItems[0].SubItems[3].Text);
-            if (lvDivision.SelectedItems.Count > 0)
+            try
             {
+                double NVRsec = Convert.ToDouble(lvDivision.SelectedItems[0].SubItems[3].Text);
+                //Титульный лист
+                oDoc.Bookmarks["product"].Range.Text = lvDivision.SelectedItems[0].SubItems[2].Text;
+                oDoc.Bookmarks["model"].Range.Text = lvDivision.SelectedItems[0].SubItems[1].Text;
+                oDoc.Bookmarks["mmyy"].Range.Text = "за "+dateTimePicker1.Value.ToString("Y").ToUpper()+" г.";
+                oDoc.Bookmarks["sumNVR"].Range.Text = NVRsec.ToString()+"с = "+Math.Round(NVRsec* 0.000278,2)+" ч";
+                oDoc.Bookmarks["sumItem"].Range.Text = lvDivision.SelectedItems[0].SubItems[4].Text;
+
+                //Подписанты (2 первых)
                 try
                 {
-                    //Титульный лист
-                    oDoc.Bookmarks["product"].Range.Text = lvDivision.SelectedItems[0].SubItems[2].Text;
-                    oDoc.Bookmarks["model"].Range.Text = lvDivision.SelectedItems[0].SubItems[1].Text;
-                    oDoc.Bookmarks["mmyy"].Range.Text = "за "+dateTimePicker1.Value.ToString("Y").ToUpper()+" г.";
-                    oDoc.Bookmarks["sumNVR"].Range.Text = NVRsec.ToString()+"с = "+Math.Round(NVRsec* 0.000278,2)+" ч";
-                    oDoc.Bookmarks["sumItem"].Range.Text = lvDivision.SelectedItems[0].SubItems[4].Text;
+                    string query = @"SELECT * FROM DirSigners ORDER BY ord LIMIT 2";
 
-                    //Подписанты
-                    try
+                    m_sqlCmd = new SQLiteCommand(query, dblite);
+
+                    sqlReader = m_sqlCmd.ExecuteReader();
+
+                    while (await sqlReader.ReadAsync())
                     {
-                        string query = @"SELECT * FROM DirSigners ORDER BY ord LIMIT 2";
-
-                        m_sqlCmd = new SQLiteCommand(query, dblite);
-
-                        sqlReader = m_sqlCmd.ExecuteReader();
-
-                        while (await sqlReader.ReadAsync())
-                        {
-                            i++;
-                            oDoc.Bookmarks["Signer"+i.ToString()].Range.Text = Convert.ToString(sqlReader["post"])+
-                                                @"                       /"+ Convert.ToString(sqlReader["FIO"])+@"/";
-                        }
+                        i++;
+                        oDoc.Bookmarks["Signer"+i.ToString()].Range.Text = Convert.ToString(sqlReader["post"])+
+                                            @"                       /"+ Convert.ToString(sqlReader["FIO"])+@"/";
                     }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message, "Ошибка 5.01.07", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    finally
-                    {
-                        if (sqlReader != null && !sqlReader.IsClosed)
-                            sqlReader.Close();
-                    }
-
-
-                    //Таблица разделения
-                    oDoc.Bookmarks["model2"].Range.Text = lvDivision.SelectedItems[0].SubItems[1].Text;
-                    Table wTable = oDoc.Tables[1];
-                    for (int row = 0; row < lvinDivision.Items.Count; row++) //проход по строкам
-                    {
-                        for (int col = 0; col < lvinDivision.Items[row].SubItems.Count-2; col++)
-                        {
-                            wTable.Cell(row + 2, col+1).Range.Text = lvinDivision.Items[row].SubItems[col+2].Text;
-                        }
-                        wTable.Rows.Add();
-                    }
-
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "Ошибка 5.00.07", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(ex.Message, "Ошибка 5.01.07", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+                finally
+                {
+                    if (sqlReader != null && !sqlReader.IsClosed)
+                        sqlReader.Close();
+                }
+
+
+                //Таблица разделения
+                oDoc.Bookmarks["model2"].Range.Text = lvDivision.SelectedItems[0].SubItems[1].Text;
+                Table wTable = oDoc.Tables[1];
+                for (int row = 0; row < lvinDivision.Items.Count; row++) //проход по строкам
+                {
+                    for (int col = 0; col < lvinDivision.Items[row].SubItems.Count-2; col++)  //проход по столбцам
+                    {
+                        wTable.Cell(row + 2, col+1).Range.Text = lvinDivision.Items[row].SubItems[col+2].Text;
+                    }
+                    wTable.Rows.Add();  //Добавить строку
+                }
+
+                //ИТОГО
+                Table sumTable = oDoc.Tables[2];
+                sumTable.Cell(1, 2).Range.Text = Division.absSumCost.ToString();  //Суммарная расценка
+                sumTable.Cell(1, 3).Range.Text = Division.absSumNVR.ToString();     //Суммарная норма времени
+                sumTable.Cell(1, 4).Range.Text = Division.absSumItem.ToString();    //Сумарная стоимость
+
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Выберите разделение для печати.", "Ошибка 5.09.05", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(ex.Message, "Ошибка 5.00.07", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
         }
 
+        private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("ПО \"Разделение труда\", версия 1.0", "О программе");
+        }
 
+        //Печать разделения из меню
+        private void printDivisionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            tsPrintDivision_Click(this, null);
+        }
     }
     class Division
     {
         public static string id { get; set; }
         public static string mm { get; set; }
         public static string yy { get; set; }
+
+        public static double absSumCost { get; set; }  //Суммарная расценка
+        public static double absSumNVR { get; set; }     //Суммарная норма времени
+        public static double absSumItem { get; set; }       //Суммарная стоимость
     }
 }
