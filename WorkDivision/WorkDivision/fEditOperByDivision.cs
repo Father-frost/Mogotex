@@ -30,7 +30,6 @@ namespace WorkDivision
             InitializeComponent();           
         }
         public string id_rec { get; set; }
-        public int number { get; set; }
         public string rank { get; set; }
 
         private void fAddOper_Load(object sender, EventArgs e)
@@ -45,7 +44,7 @@ namespace WorkDivision
             {
                 
                 //cbRank.Text = rank;        //Выбираем пустое значение для списка разрядов 
-                GetOperByDivision();
+                GetOperByDivision(id_rec);
             }
             else
             {
@@ -59,7 +58,7 @@ namespace WorkDivision
         }
 
         //Загрузчик параметров операции
-        public async void GetOperByDivision()
+        public async void GetOperByDivision(string id_rec)
         {
             string matRate = "";
             int parent=0;
@@ -96,7 +95,7 @@ namespace WorkDivision
                     tbNVRbyItem.Text = Convert.ToString(sqlReader["NVRbyItem"]);     //Норма времени на 1ед
                     tbSumItem.Text = Convert.ToString(sqlReader["SumItem"]);       //Стоимость 1ед
                     parent = Convert.ToInt32(sqlReader["parent"]);                //Родитель
-                    lbNumber.Text = number.ToString();     //порядковый номер операции в разделении
+                    //lbNumber.Text = number.ToString();     //порядковый номер операции в разделении
                 }
                 //Если участок контроля или настилания
                 //Заполнение выпадающего списка видами ткани из БД 
@@ -316,18 +315,6 @@ namespace WorkDivision
                 }
             }
 
-            // запрет на ввод таких значений как "97.9800", "0.33333."
-            // Должно быть "8.300", "5.009"
-            if (tbNVR.Text.IndexOf(',') > 0)
-            {
-                if (tbNVR.Text.Substring(tbNVR.Text.IndexOf(',')).Length > 2)
-                {
-                    if (e.KeyChar != (char)Keys.Back && e.KeyChar != (char)Keys.Delete)
-                    {
-                        e.Handled = true;
-                    }
-                }
-            }
         }
 
         private void btCalculate_Click(object sender, EventArgs e)
@@ -335,7 +322,7 @@ namespace WorkDivision
             double.TryParse(tbNVR.Text, out double NVRforOper);             //Норма времени
             double.TryParse(tbTarif.Text, out double tarif);         //Тарифная ставка
             double.TryParse(tbMatRate.Text, out double MatRate);     //расход ткани
-            double.TryParse(tbWorkersCnt.Text, out double wcount);   //кол-во рабоников
+            int.TryParse(tbWorkersCnt.Text, out int wcount);   //кол-во рабоников
 
             tbCost.Text = Convert.ToString(Math.Round(NVRforOper * tarif,5));   //Расценка
 
@@ -346,7 +333,7 @@ namespace WorkDivision
             }
             else 
             {
-                tbNVRbyItem.Text = Convert.ToString(Math.Round(NVRforOper * MatRate,2)*wcount);   //Норма времени на ед.
+                tbNVRbyItem.Text = Convert.ToString(Math.Round(NVRforOper * MatRate*wcount,2));   //Норма времени на ед.
                 tbSumItem.Text = Convert.ToString(Math.Round(Convert.ToDouble(tbCost.Text) * MatRate * wcount,5));   //Норма времени на ед.
 
             }
@@ -393,58 +380,20 @@ namespace WorkDivision
                     e.Handled = true;
                 }
             }
-
-            // запрет на ввод таких значений как "97.9800", "0.33333."
-            // Должно быть "8.300", "5.009"
-            if (tbMatRate.Text.IndexOf(',') > 0)
-            {
-                if (tbMatRate.Text.Substring(tbMatRate.Text.IndexOf(',')).Length > 2)
-                {
-                    if (e.KeyChar != (char)Keys.Back && e.KeyChar != (char)Keys.Delete)
-                    {
-                        e.Handled = true;
-                    }
-                }
-            }
         }
 
         private void tbWorkersCnt_KeyPress(object sender, KeyPressEventArgs e)
         {
-            // конвертирование запятой в точку
-            if (e.KeyChar == '.')
-            {
-                e.KeyChar = ',';
-            }
 
             // ограничение ввода
-            if (e.KeyChar < '0' | e.KeyChar > '9' && e.KeyChar != (char)Keys.Back && e.KeyChar != (char)Keys.Escape && e.KeyChar != (char)Keys.Delete && e.KeyChar != ',')
+            if ((e.KeyChar < '0' | e.KeyChar > '9' && e.KeyChar != (char)Keys.Back && e.KeyChar != (char)Keys.Escape && e.KeyChar != (char)Keys.Delete) || (e.KeyChar == '.'))
             {
                 e.Handled = true;
             }
 
-            //Ввод только 1 разделителя
-            if (e.KeyChar == ',')
-            {
-                if (tbWorkersCnt.Text.IndexOf(',') != -1)
-                {
-                    e.Handled = true;
-                }
-            }
-
-            // запрет на ввод таких значений как "97.9800", "0.33333."
-            // Должно быть "8.300", "5.009"
-            if (tbWorkersCnt.Text.IndexOf(',') > 0)
-            {
-                if (tbWorkersCnt.Text.Substring(tbWorkersCnt.Text.IndexOf(',')).Length > 2)
-                {
-                    if (e.KeyChar != (char)Keys.Back && e.KeyChar != (char)Keys.Delete)
-                    {
-                        e.Handled = true;
-                    }
-                }
-            }
         }
 
+        //Следующая операция
         private void btnNext_Click(object sender, EventArgs e)
         {
             string query = @"SELECT i.id FROM inDivision as i
@@ -460,8 +409,27 @@ namespace WorkDivision
             }
             else
             {
-                number++;
-                GetOperByDivision();
+                GetOperByDivision(id_rec);
+            }
+        }
+
+        //Предыдущая операция
+        private void btnPrevious_Click(object sender, EventArgs e)
+        {
+            string query = @"SELECT i.id FROM inDivision as i
+                            LEFT JOIN DirOpers as d on d.id=i.id_oper
+                            WHERE i.id<" + id_rec + @" ORDER BY d.PER DESC LIMIT 1";
+            m_sqlCmd = new SQLiteCommand(query, dblite);
+
+            //ID записи в разделении
+            id_rec = Convert.ToString(m_sqlCmd.ExecuteScalar());
+            if (id_rec == "")
+            {
+                this.Close();
+            }
+            else
+            {
+                GetOperByDivision(id_rec);
             }
         }
     }

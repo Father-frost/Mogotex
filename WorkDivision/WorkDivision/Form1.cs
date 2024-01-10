@@ -1760,7 +1760,7 @@ namespace WorkDivision
             {
 
                 fEditOperByDivision.id_rec = lvinDivision.SelectedItems[0].SubItems[0].Text;   //id записи
-                fEditOperByDivision.number = int.Parse(lvinDivision.SelectedItems[0].SubItems[1].Text); //номер по порядку                
+                //fEditOperByDivision.number = int.Parse(lvinDivision.SelectedItems[0].SubItems[2].Text); //номер по порядку                
                 fEditOperByDivision.rank = lvinDivision.SelectedItems[0].SubItems[5].Text;   //разряд               
                 fEditOperByDivision.StartPosition = FormStartPosition.CenterParent;
                 fEditOperByDivision.Text = "Изменить";
@@ -1800,16 +1800,16 @@ namespace WorkDivision
         //Напечатать разделение
         private void tsPrintDivision_Click(object sender, EventArgs e)
         {
-            if (lvDivision.SelectedItems.Count > 0)
+            if ((lvDivision.SelectedItems.Count > 0) && (lvinDivision.Items.Count>0))
             {
-                string Filename= Environment.CurrentDirectory + "\\Reports\\Division" + dateTimePicker1.Value.ToString("MM_yyyy")+ ".docx";
+                string Filename = Environment.CurrentDirectory + "\\Reports\\Division" + dateTimePicker1.Value.ToString("MM_yyyy") + ".docx";
                 _Document oDoc = GetDoc(Environment.CurrentDirectory + "\\DivisionTemplate.docx");
                 oDoc.SaveAs(FileName: Filename); //Сохраняем документ
                 oDoc.Close();
                 System.Diagnostics.Process.Start(Filename);  //Открыть документ разделения                                                        
             }
             else
-            {
+            { 
                 MessageBox.Show("Выберите разделение для печати.", "Ошибка 5.09.05", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 

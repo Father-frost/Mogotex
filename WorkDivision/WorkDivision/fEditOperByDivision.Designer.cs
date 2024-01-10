@@ -52,11 +52,9 @@
             this.label10 = new System.Windows.Forms.Label();
             this.lbUCH = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.lbNumber = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btCalculate = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnPrevious = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -234,7 +232,7 @@
             this.cbSelectMat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbSelectMat.FormattingEnabled = true;
             this.cbSelectMat.Location = new System.Drawing.Point(28, 87);
-            this.cbSelectMat.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cbSelectMat.Margin = new System.Windows.Forms.Padding(2);
             this.cbSelectMat.Name = "cbSelectMat";
             this.cbSelectMat.Size = new System.Drawing.Size(162, 21);
             this.cbSelectMat.TabIndex = 38;
@@ -246,7 +244,7 @@
             this.cbRank.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbRank.FormattingEnabled = true;
             this.cbRank.Location = new System.Drawing.Point(207, 87);
-            this.cbRank.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cbRank.Margin = new System.Windows.Forms.Padding(2);
             this.cbRank.Name = "cbRank";
             this.cbRank.Size = new System.Drawing.Size(92, 21);
             this.cbRank.TabIndex = 39;
@@ -266,7 +264,7 @@
             // 
             this.lbUCH.AutoSize = true;
             this.lbUCH.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lbUCH.Location = new System.Drawing.Point(165, 7);
+            this.lbUCH.Location = new System.Drawing.Point(86, 9);
             this.lbUCH.Name = "lbUCH";
             this.lbUCH.Size = new System.Drawing.Size(0, 13);
             this.lbUCH.TabIndex = 41;
@@ -275,30 +273,11 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label11.Location = new System.Drawing.Point(105, 7);
+            this.label11.Location = new System.Drawing.Point(26, 9);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(60, 13);
             this.label11.TabIndex = 42;
             this.label11.Text = "Участок:";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label12.Location = new System.Drawing.Point(27, 7);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(41, 13);
-            this.label12.TabIndex = 43;
-            this.label12.Text = "№ пп:";
-            // 
-            // lbNumber
-            // 
-            this.lbNumber.AutoSize = true;
-            this.lbNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lbNumber.Location = new System.Drawing.Point(65, 7);
-            this.lbNumber.Name = "lbNumber";
-            this.lbNumber.Size = new System.Drawing.Size(0, 13);
-            this.lbNumber.TabIndex = 44;
             // 
             // groupBox1
             // 
@@ -309,15 +288,16 @@
             this.groupBox1.Controls.Add(this.tbCost);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(539, 63);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox1.Size = new System.Drawing.Size(288, 106);
             this.groupBox1.TabIndex = 45;
             this.groupBox1.TabStop = false;
             // 
             // btCalculate
             // 
+            this.btCalculate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btCalculate.Location = new System.Drawing.Point(312, 195);
             this.btCalculate.Name = "btCalculate";
             this.btCalculate.Size = new System.Drawing.Size(215, 37);
@@ -327,25 +307,24 @@
             this.btCalculate.Click += new System.EventHandler(this.btCalculate_Click);
             this.btCalculate.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btCalculate_KeyDown);
             // 
-            // button1
+            // btnPrevious
             // 
-            this.button1.Location = new System.Drawing.Point(11, 195);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(288, 37);
-            this.button1.TabIndex = 47;
-            this.button1.Text = "<<  Предыдущая операции";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnPrevious.Location = new System.Drawing.Point(11, 195);
+            this.btnPrevious.Name = "btnPrevious";
+            this.btnPrevious.Size = new System.Drawing.Size(288, 37);
+            this.btnPrevious.TabIndex = 47;
+            this.btnPrevious.Text = "<<  Предыдущая операции";
+            this.btnPrevious.UseVisualStyleBackColor = true;
+            this.btnPrevious.Click += new System.EventHandler(this.btnPrevious_Click);
             // 
             // fEditOperByDivision
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(840, 272);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnPrevious);
             this.Controls.Add(this.btCalculate);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.lbNumber);
-            this.Controls.Add(this.label12);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.lbUCH);
             this.Controls.Add(this.label10);
@@ -364,6 +343,9 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.lblID);
             this.Controls.Add(this.btnNext);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "fEditOperByDivision";
             this.Text = "Добавить / Изменить запись";
             this.Load += new System.EventHandler(this.fAddOper_Load);
@@ -399,10 +381,8 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label lbUCH;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label lbNumber;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button btCalculate;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnPrevious;
     }
 }
