@@ -110,9 +110,11 @@
             this.Controls.Add(this.cbOperation);
             this.Controls.Add(this.lblID);
             this.Controls.Add(this.btnOk);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "fOpersList";
             this.Text = "Выбор операций";
-            //this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.fAddSickList_FormClosed);
             this.Load += new System.EventHandler(this.fOpersList_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
