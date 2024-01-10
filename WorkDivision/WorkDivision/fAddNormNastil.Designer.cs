@@ -39,18 +39,16 @@
             // lblID
             // 
             this.lblID.AutoSize = true;
-            this.lblID.Location = new System.Drawing.Point(35, 36);
-            this.lblID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblID.Location = new System.Drawing.Point(26, 29);
             this.lblID.Name = "lblID";
-            this.lblID.Size = new System.Drawing.Size(0, 16);
+            this.lblID.Size = new System.Drawing.Size(0, 13);
             this.lblID.TabIndex = 16;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(523, 119);
-            this.button1.Margin = new System.Windows.Forms.Padding(4);
+            this.button1.Location = new System.Drawing.Point(392, 97);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(231, 28);
+            this.button1.Size = new System.Drawing.Size(173, 23);
             this.button1.TabIndex = 15;
             this.button1.Text = "Сохранить";
             this.button1.UseVisualStyleBackColor = true;
@@ -59,51 +57,49 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(100, 39);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(75, 32);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(76, 16);
+            this.label2.Size = new System.Drawing.Size(61, 13);
             this.label2.TabIndex = 22;
             this.label2.Text = "Вид ткани:";
             // 
             // tbVIDTK
             // 
-            this.tbVIDTK.Location = new System.Drawing.Point(195, 36);
-            this.tbVIDTK.Margin = new System.Windows.Forms.Padding(4);
+            this.tbVIDTK.Location = new System.Drawing.Point(146, 29);
             this.tbVIDTK.Name = "tbVIDTK";
-            this.tbVIDTK.Size = new System.Drawing.Size(559, 22);
+            this.tbVIDTK.Size = new System.Drawing.Size(420, 20);
             this.tbVIDTK.TabIndex = 25;
             // 
             // tbNORMVR
             // 
-            this.tbNORMVR.Location = new System.Drawing.Point(195, 75);
-            this.tbNORMVR.Margin = new System.Windows.Forms.Padding(4);
+            this.tbNORMVR.Location = new System.Drawing.Point(146, 61);
             this.tbNORMVR.Name = "tbNORMVR";
-            this.tbNORMVR.Size = new System.Drawing.Size(231, 22);
+            this.tbNORMVR.Size = new System.Drawing.Size(174, 20);
             this.tbNORMVR.TabIndex = 26;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 78);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(10, 63);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(163, 16);
+            this.label1.Size = new System.Drawing.Size(130, 13);
             this.label1.TabIndex = 27;
             this.label1.Text = "Затрата времени на 1м:";
             // 
             // fAddNormNastil
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(785, 177);
+            this.ClientSize = new System.Drawing.Size(589, 144);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tbNORMVR);
             this.Controls.Add(this.tbVIDTK);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.lblID);
             this.Controls.Add(this.button1);
-            this.Margin = new System.Windows.Forms.Padding(4);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "fAddNormNastil";
             this.Text = "Добавить / Изменить запись";
             this.Load += new System.EventHandler(this.fAddNormNastil_Load);

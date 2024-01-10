@@ -183,6 +183,9 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.lblID);
             this.Controls.Add(this.button1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "fAddModel";
             this.Text = "Добавить / Изменить запись";
             this.Load += new System.EventHandler(this.fAddModel_Load);

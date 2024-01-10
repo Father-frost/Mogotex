@@ -41,18 +41,16 @@
             // lblID
             // 
             this.lblID.AutoSize = true;
-            this.lblID.Location = new System.Drawing.Point(35, 36);
-            this.lblID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblID.Location = new System.Drawing.Point(26, 29);
             this.lblID.Name = "lblID";
-            this.lblID.Size = new System.Drawing.Size(0, 16);
+            this.lblID.Size = new System.Drawing.Size(0, 13);
             this.lblID.TabIndex = 16;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(332, 149);
-            this.button1.Margin = new System.Windows.Forms.Padding(4);
+            this.button1.Location = new System.Drawing.Point(249, 121);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(247, 28);
+            this.button1.Size = new System.Drawing.Size(185, 23);
             this.button1.TabIndex = 15;
             this.button1.Text = "Сохранить";
             this.button1.UseVisualStyleBackColor = true;
@@ -61,62 +59,56 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(116, 36);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(87, 29);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(53, 16);
+            this.label1.Size = new System.Drawing.Size(44, 13);
             this.label1.TabIndex = 21;
             this.label1.Text = "Номер:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(35, 71);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(26, 58);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(134, 16);
+            this.label2.Size = new System.Drawing.Size(106, 13);
             this.label2.TabIndex = 22;
             this.label2.Text = "Название бригады:";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(116, 101);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Location = new System.Drawing.Point(87, 82);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(49, 16);
+            this.label4.Size = new System.Drawing.Size(42, 13);
             this.label4.TabIndex = 23;
             this.label4.Text = "NUMK:";
             // 
             // tbKODBR
             // 
-            this.tbKODBR.Location = new System.Drawing.Point(181, 36);
-            this.tbKODBR.Margin = new System.Windows.Forms.Padding(4);
+            this.tbKODBR.Location = new System.Drawing.Point(136, 29);
             this.tbKODBR.Name = "tbKODBR";
-            this.tbKODBR.Size = new System.Drawing.Size(96, 22);
+            this.tbKODBR.Size = new System.Drawing.Size(73, 20);
             this.tbKODBR.TabIndex = 24;
             // 
             // tbName
             // 
-            this.tbName.Location = new System.Drawing.Point(182, 68);
-            this.tbName.Margin = new System.Windows.Forms.Padding(4);
+            this.tbName.Location = new System.Drawing.Point(136, 55);
             this.tbName.Name = "tbName";
-            this.tbName.Size = new System.Drawing.Size(397, 22);
+            this.tbName.Size = new System.Drawing.Size(299, 20);
             this.tbName.TabIndex = 25;
             // 
             // tbNumk
             // 
-            this.tbNumk.Location = new System.Drawing.Point(181, 101);
-            this.tbNumk.Margin = new System.Windows.Forms.Padding(4);
+            this.tbNumk.Location = new System.Drawing.Point(136, 82);
             this.tbNumk.Name = "tbNumk";
-            this.tbNumk.Size = new System.Drawing.Size(96, 22);
+            this.tbNumk.Size = new System.Drawing.Size(73, 20);
             this.tbNumk.TabIndex = 26;
             // 
             // fAddBrig
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(619, 205);
+            this.ClientSize = new System.Drawing.Size(464, 167);
             this.Controls.Add(this.tbNumk);
             this.Controls.Add(this.tbName);
             this.Controls.Add(this.tbKODBR);
@@ -125,7 +117,9 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lblID);
             this.Controls.Add(this.button1);
-            this.Margin = new System.Windows.Forms.Padding(4);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "fAddBrig";
             this.Text = "Добавить / Изменить запись";
             this.Load += new System.EventHandler(this.fAddBrig_Load);
