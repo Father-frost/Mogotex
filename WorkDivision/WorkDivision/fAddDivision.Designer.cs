@@ -97,14 +97,13 @@
             // 
             // cbModel
             // 
-            this.cbModel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbModel.FormattingEnabled = true;
             this.cbModel.Location = new System.Drawing.Point(26, 65);
             this.cbModel.Name = "cbModel";
             this.cbModel.Size = new System.Drawing.Size(562, 21);
             this.cbModel.TabIndex = 34;
             this.cbModel.SelectedIndexChanged += new System.EventHandler(this.cbModel_SelectedIndexChanged);
-            this.cbModel.TextUpdate += new System.EventHandler(this.cbModel_TextUpdate);
+            //this.cbModel.TextUpdate += new System.EventHandler(this.cbModel_TextUpdate);
             // 
             // label3
             // 
@@ -177,7 +176,7 @@
             this.Controls.Add(this.button1);
             this.Name = "fAddDivision";
             this.Text = "Добавить / Изменить разделение";
-            this.Load += new System.EventHandler(this.fAddModel_Load);
+            this.Load += new System.EventHandler(this.fAddDivision_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

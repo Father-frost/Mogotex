@@ -29,17 +29,24 @@ namespace WorkDivision
             InitializeComponent();
         }
 
-        //Свойство для идентификатора записи в БД
-        public string id_rec { get; set; }
+    
+        public string id_rec { get; set; }  //Свойство для идентификатора записи в БД
+        public string id_model { get; set; }  //id модели в справочнике моделей
+        public string dt { get; set; } //Дата с датапикера на главной форме
 
+
+        //Сохранить изменения
         private void button1_Click(object sender, EventArgs e)
         {
             if (id_rec == "")  //Если  id записи не передан (новая запись) 
             {
                 
-                string querySQLite = @"INSERT INTO Division (id_model) VALUES (@id_model)";
+                string querySQLite = @"INSERT INTO Division (id_model,dt,mm,yy) VALUES (@id_model,@dt,@mm,@yy)";
                 m_sqlCmd = new SQLiteCommand(querySQLite, dblite);
                 m_sqlCmd.Parameters.AddWithValue("@id_model", cbModel.SelectedValue);
+                m_sqlCmd.Parameters.AddWithValue("@dt", dt);
+                m_sqlCmd.Parameters.AddWithValue("@mm", Convert.ToDateTime(dt).Month.ToString());
+                m_sqlCmd.Parameters.AddWithValue("@yy", Convert.ToDateTime(dt).Year.ToString());
             }
             else
             {
@@ -59,7 +66,7 @@ namespace WorkDivision
             }
         }
 
-        private void fAddModel_Load(object sender, EventArgs e)
+        private void fAddDivision_Load(object sender, EventArgs e)
         {
             //Подключение к БД
             dblite = liteDB.GetConn();
@@ -84,7 +91,7 @@ namespace WorkDivision
                 //Если выбран существующий интервал, загружаем параметры
                 if (id_rec != "")
                 {
-                    GetDivision();
+                    cbModel.SelectedValue = id_model;
                 }
                 else
                 {
@@ -107,73 +114,8 @@ namespace WorkDivision
             }
         }
 
-        public async void GetDivision()
-        {
-            try
-            {
-                string query = @"SELECT dm.Name,dm.KMOD,dm.EI,dp.Name as pName,dpc.category, dpg.GRP FROM Division as div
-                               LEFT JOIN DirModels as dm on div.id_model=dm.id 
-                               LEFT JOIN DirProducts as dp on dp.id=dm.id_product
-                               LEFT JOIN DirProdCat as dpc on dpc.id=dm.id_cat 
-                               LEFT JOIN DirProdGRP as dpg on dpg.id=dm.id_grp WHERE div.id =" + id_rec;
 
-                m_sqlCmd = new SQLiteCommand(query, dblite);
-                sqlReader = m_sqlCmd.ExecuteReader();
-                while (await sqlReader.ReadAsync())
-                {
-                    cbModel.Text = Convert.ToString(sqlReader["Name"]);
-                    lbKMOD.Text = Convert.ToString(sqlReader["KMOD"]);
-                    tbEI.Text = Convert.ToString(sqlReader["EI"]);
-                    tbProd.Text = Convert.ToString(sqlReader["pName"]);
-                    tbProdCat.Text = Convert.ToString(sqlReader["category"]);
-                    tbProdGRP.Text = Convert.ToString(sqlReader["GRP"]);
-                }
 
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Ошибка 5.06.07", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                if (sqlReader != null && !sqlReader.IsClosed)
-                    sqlReader.Close();
-            }
-        }
-
-        //TODO: Put in a separate class
-        private void cbModel_TextUpdate(object sender, EventArgs e)
-        {
-            DataTable DF = new DataTable();
-            DF.Clear();
-            string query = @"SELECT Name FROM DirModels WHERE 
-                                        Name like '%" + cbModel.Text + @"%'";
-
-            if (this.cbModel.Text != "")
-            {
-                string st = cbModel.Text;
-                cbModel.Items.Clear();
-                DF = liteDB.GetLiteData(query);
-                if (DF.Rows.Count > 0)
-                {
-                    for (int i = 0; i < DF.Rows.Count; i++)
-                    {
-                        cbModel.Items.Add(DF.Rows[i].ItemArray[0].ToString());
-                        cbModel.SelectionStart = cbModel.Text.Length;
-                    }
-                    cbModel.SelectionStart = cbModel.Text.Length;
-                    cbModel.DroppedDown = true;
-                    cbModel.Text = st;
-                }
-                else
-                {
-                    cbModel.Text = st;
-                    cbModel.SelectionStart = cbModel.Text.Length;
-                    cbModel.Items.Clear();
-                }
-            }
-            cbModel.SelectionStart = cbModel.Text.Length;
-        }
 
         public async void GetModelParams(string id_model)
         {
@@ -200,7 +142,7 @@ namespace WorkDivision
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Ошибка 5.06.07", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Ошибка 5.06.08", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -209,11 +151,13 @@ namespace WorkDivision
             }
         }
 
+        //Изменение значений в связанных полях при выборе Модели
         private void cbModel_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //Если что-то выбрано
             if (cbModel.SelectedIndex > 0)
             {
-                if (cbModel.SelectedValue == null)
+                if (cbModel.SelectedValue == null)  //id модели
                 {
                     tbProd.Text = string.Empty;
                     tbProdCat.Text = string.Empty;
@@ -222,6 +166,7 @@ namespace WorkDivision
                 }
                 else
                 {
+                    //MessageBox.Show(cbModel.SelectedValue.ToString());
                     GetModelParams(cbModel.SelectedValue.ToString());
                 }
             }
