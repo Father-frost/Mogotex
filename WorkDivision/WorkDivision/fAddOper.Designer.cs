@@ -65,11 +65,11 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(181, 102);
+            this.label1.Location = new System.Drawing.Point(183, 102);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(33, 13);
+            this.label1.Size = new System.Drawing.Size(91, 13);
             this.label1.TabIndex = 21;
-            this.label1.Text = "NVR:";
+            this.label1.Text = "Норма времени:";
             // 
             // label2
             // 
@@ -83,15 +83,15 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(53, 65);
+            this.label4.Location = new System.Drawing.Point(34, 65);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(33, 13);
+            this.label4.Size = new System.Drawing.Size(52, 13);
             this.label4.TabIndex = 23;
-            this.label4.Text = "UCH:";
+            this.label4.Text = "Участок:";
             // 
             // tbNVR
             // 
-            this.tbNVR.Location = new System.Drawing.Point(224, 99);
+            this.tbNVR.Location = new System.Drawing.Point(280, 99);
             this.tbNVR.Name = "tbNVR";
             this.tbNVR.Size = new System.Drawing.Size(73, 20);
             this.tbNVR.TabIndex = 24;
@@ -112,7 +112,7 @@
             // 
             // tbPER
             // 
-            this.tbPER.Location = new System.Drawing.Point(224, 62);
+            this.tbPER.Location = new System.Drawing.Point(280, 62);
             this.tbPER.Name = "tbPER";
             this.tbPER.Size = new System.Drawing.Size(73, 20);
             this.tbPER.TabIndex = 28;
@@ -120,15 +120,15 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(182, 65);
+            this.label3.Location = new System.Drawing.Point(221, 68);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(32, 13);
+            this.label3.Size = new System.Drawing.Size(53, 13);
             this.label3.TabIndex = 27;
-            this.label3.Text = "PER:";
+            this.label3.Text = "Переход:";
             // 
             // tbNST
             // 
-            this.tbNST.Location = new System.Drawing.Point(383, 65);
+            this.tbNST.Location = new System.Drawing.Point(449, 65);
             this.tbNST.Name = "tbNST";
             this.tbNST.Size = new System.Drawing.Size(73, 20);
             this.tbNST.TabIndex = 30;
@@ -136,7 +136,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(341, 68);
+            this.label5.Location = new System.Drawing.Point(407, 68);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(32, 13);
             this.label5.TabIndex = 29;

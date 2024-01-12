@@ -41,6 +41,7 @@ namespace WorkDivision
         public fOpersList fOpersList;
         public fEditOperByDivision fEditOperByDivision;
         public fAddSigner fAddSigner;
+        public fSelectDivisionToCopy fSelectDivisionToCopy;
         //public fAuth fAuth;
 
         public Form1()
@@ -60,34 +61,11 @@ namespace WorkDivision
             fOpersList = new fOpersList();
             fEditOperByDivision = new fEditOperByDivision();
             fAddSigner = new fAddSigner();
+            fSelectDivisionToCopy = new fSelectDivisionToCopy();
             liteDB = new liteDB();
 
         }
         
-
-        // авторасширение колонок listView по размеру содержимого
-        public static void autoResizeColumns(ListView lv)
-        {
-            lv.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
-            ListView.ColumnHeaderCollection cc = lv.Columns;
-            for (int i = 0; i < cc.Count; i++)
-            {
-                
-                int colWidth = TextRenderer.MeasureText(cc[i].Text, lv.Font).Width + 10;
-                if (i>0)
-                {
-                    if (colWidth > cc[i].Width)
-                    {
-                        cc[i].Width = colWidth;
-                    }
-                }
-                else
-                {
-                    cc[i].Width = 0;
-                }
-            }
-        }
-
         private void Form1_Load(object sender, EventArgs e)
         {
             //Подключение к БД
@@ -211,6 +189,7 @@ namespace WorkDivision
             lvDivision.View = View.Details;
             lvDivision.Font = new Font(lvDivision.Font, FontStyle.Bold);
             lvDivision.Columns.Add("id");
+            lvDivision.Columns.Add("№ модели");
             lvDivision.Columns.Add("Модель");
             lvDivision.Columns.Add("Вид изделия");
             lvDivision.Columns.Add("Время обработки");
@@ -233,7 +212,7 @@ namespace WorkDivision
             lvinDivision.Columns.Add("Расценка на 1м");
             lvinDivision.Columns.Add("Норма врем на 1ед.");
             lvinDivision.Columns.Add("Стоимость 1ед.");
-            autoResizeColumns(lvinDivision);
+            Division.autoResizeColumns(lvinDivision);
 
 
             dateTimePicker1_ValueChanged(this, null);
@@ -374,7 +353,7 @@ namespace WorkDivision
                     lvDirWorkers.Items.Add(item);
                 }
 
-                autoResizeColumns(lvDirWorkers);
+                Division.autoResizeColumns(lvDirWorkers);
 
             }
             catch (Exception ex)
@@ -398,7 +377,6 @@ namespace WorkDivision
                 fAddWorker.StartPosition = FormStartPosition.CenterParent;
                 fAddWorker.Text = "Изменить";
                 fAddWorker.ShowDialog();
-                lvDirWorkers.Items.Clear();
                 LoadDirWorkers();
             }
         }
@@ -409,7 +387,6 @@ namespace WorkDivision
             fAddWorker.StartPosition = FormStartPosition.CenterParent;
             fAddWorker.Text = "Добавить";
             fAddWorker.ShowDialog();
-            lvDirWorkers.Items.Clear();
             LoadDirWorkers();
         }
 
@@ -487,7 +464,7 @@ namespace WorkDivision
                     lvDirBrigs.Items.Add(item);
                 }
 
-                autoResizeColumns(lvDirBrigs);
+                Division.autoResizeColumns(lvDirBrigs);
 
             }
             catch (Exception ex)
@@ -517,7 +494,6 @@ namespace WorkDivision
                 fAddBrig.StartPosition = FormStartPosition.CenterParent;
                 fAddBrig.Text = "Изменить";
                 fAddBrig.ShowDialog();
-                lvDirBrigs.Items.Clear();
                 LoadDirBrigs();
             }
         }
@@ -528,7 +504,6 @@ namespace WorkDivision
             fAddBrig.StartPosition = FormStartPosition.CenterParent;
             fAddBrig.Text = "Добавить";
             fAddBrig.ShowDialog();
-            lvDirBrigs.Items.Clear();
             LoadDirBrigs();
         }
 
@@ -603,7 +578,7 @@ namespace WorkDivision
                     lvDirProfs.Items.Add(item);
                 }
 
-                autoResizeColumns(lvDirProfs);
+                Division.autoResizeColumns(lvDirProfs);
 
             }
             catch (Exception ex)
@@ -626,7 +601,6 @@ namespace WorkDivision
                 fAddProf.StartPosition = FormStartPosition.CenterParent;
                 fAddProf.Text = "Изменить";
                 fAddProf.ShowDialog();
-                lvDirProfs.Items.Clear();
                 LoadDirProfs();
             }
         }
@@ -637,7 +611,6 @@ namespace WorkDivision
             fAddProf.StartPosition = FormStartPosition.CenterParent;
             fAddProf.Text = "Добавить";
             fAddProf.ShowDialog();
-            lvDirProfs.Items.Clear();
             LoadDirProfs();
         }
 
@@ -698,7 +671,6 @@ namespace WorkDivision
                 fAddOper.StartPosition = FormStartPosition.CenterParent;
                 fAddOper.Text = "Изменить";
                 fAddOper.ShowDialog();
-                lvDirOpers.Items.Clear();
                 LoadDirOpers();
                 lvDirOpers.Items[item].Selected = true;
                 lvDirOpers.EnsureVisible(item);
@@ -736,7 +708,7 @@ namespace WorkDivision
                     }
                 }
 
-                autoResizeColumns(lvDirOpers);
+                Division.autoResizeColumns(lvDirOpers);
 
             }
             catch (Exception ex)
@@ -757,7 +729,6 @@ namespace WorkDivision
             fAddOper.StartPosition = FormStartPosition.CenterParent;
             fAddOper.Text = "Добавить";
             fAddOper.ShowDialog();
-            lvDirOpers.Items.Clear();
             LoadDirOpers();
         }
 
@@ -840,7 +811,7 @@ namespace WorkDivision
 
                 }
 
-                autoResizeColumns(lvDirModels);
+                Division.autoResizeColumns(lvDirModels);
 
             }
             catch (Exception ex)
@@ -865,7 +836,6 @@ namespace WorkDivision
                 fAddModel.StartPosition = FormStartPosition.CenterParent;
                 fAddModel.Text = "Изменить";
                 fAddModel.ShowDialog();
-                lvDirModels.Items.Clear();
                 LoadDirModels();
                 lvDirModels.Items[item].Selected = true;
                 lvDirModels.EnsureVisible(item);
@@ -878,7 +848,6 @@ namespace WorkDivision
             fAddModel.StartPosition = FormStartPosition.CenterParent;
             fAddModel.Text = "Добавить";
             fAddModel.ShowDialog();
-            lvDirModels.Items.Clear();
             LoadDirModels();
         }
 
@@ -952,7 +921,7 @@ namespace WorkDivision
                     lvDirProducts.Items.Add(item);
                 }
 
-                autoResizeColumns(lvDirProducts);
+                Division.autoResizeColumns(lvDirProducts);
 
             }
             catch (Exception ex)
@@ -975,7 +944,6 @@ namespace WorkDivision
                 fAddProd.StartPosition = FormStartPosition.CenterParent;
                 fAddProd.Text = "Изменить";
                 fAddProd.ShowDialog();
-                lvDirProducts.Items.Clear();
                 LoadDirProducts();
             }
         }
@@ -986,7 +954,6 @@ namespace WorkDivision
             fAddProd.StartPosition = FormStartPosition.CenterParent;
             fAddProd.Text = "Добавить";
             fAddProd.ShowDialog();
-            lvDirProducts.Items.Clear();
             LoadDirProducts();
         }
 
@@ -1062,7 +1029,7 @@ namespace WorkDivision
                     lvDirTarif.Items.Add(item);
                 }
 
-                autoResizeColumns(lvDirTarif);
+                Division.autoResizeColumns(lvDirTarif);
 
             }
             catch (Exception ex)
@@ -1085,7 +1052,6 @@ namespace WorkDivision
                 fAddTarif.StartPosition = FormStartPosition.CenterParent;
                 fAddTarif.Text = "Изменить";
                 fAddTarif.ShowDialog();
-                lvDirTarif.Items.Clear();
                 LoadDirTarif();
             }
         }
@@ -1096,7 +1062,6 @@ namespace WorkDivision
             fAddTarif.StartPosition = FormStartPosition.CenterParent;
             fAddTarif.Text = "Добавить";
             fAddTarif.ShowDialog();
-            lvDirTarif.Items.Clear();
             LoadDirTarif();
         }
 
@@ -1171,7 +1136,7 @@ namespace WorkDivision
                     lvDirNormNastil.Items.Add(item);
                 }
 
-                autoResizeColumns(lvDirNormNastil);
+                Division.autoResizeColumns(lvDirNormNastil);
 
             }
             catch (Exception ex)
@@ -1194,7 +1159,6 @@ namespace WorkDivision
                 fAddNormNastil.StartPosition = FormStartPosition.CenterParent;
                 fAddNormNastil.Text = "Изменить";
                 fAddNormNastil.ShowDialog();
-                lvDirNormNastil.Items.Clear();
                 LoadDirNormNastil();
             }
         }
@@ -1205,7 +1169,6 @@ namespace WorkDivision
             fAddNormNastil.StartPosition = FormStartPosition.CenterParent;
             fAddNormNastil.Text = "Добавить";
             fAddNormNastil.ShowDialog();
-            lvDirNormNastil.Items.Clear();
             LoadDirNormNastil();
         }
 
@@ -1280,7 +1243,7 @@ namespace WorkDivision
                     lvDirNormControl.Items.Add(item);
                 }
 
-                autoResizeColumns(lvDirNormControl);
+                Division.autoResizeColumns(lvDirNormControl);
 
             }
             catch (Exception ex)
@@ -1303,7 +1266,6 @@ namespace WorkDivision
                 fAddNormControl.StartPosition = FormStartPosition.CenterParent;
                 fAddNormControl.Text = "Изменить";
                 fAddNormControl.ShowDialog();
-                lvDirNormControl.Items.Clear();
                 LoadDirNormControl();
             }
         }
@@ -1314,7 +1276,6 @@ namespace WorkDivision
             fAddNormControl.StartPosition = FormStartPosition.CenterParent;
             fAddNormControl.Text = "Добавить";
             fAddNormControl.ShowDialog();
-            lvDirNormControl.Items.Clear();
             LoadDirNormControl();
         }
 
@@ -1354,7 +1315,7 @@ namespace WorkDivision
                     lvDirSigners.Items.Add(item);
                 }
 
-                autoResizeColumns(lvDirSigners);
+                Division.autoResizeColumns(lvDirSigners);
 
             }
             catch (Exception ex)
@@ -1377,7 +1338,6 @@ namespace WorkDivision
                 fAddSigner.StartPosition = FormStartPosition.CenterParent;
                 fAddSigner.Text = "Изменить";
                 fAddSigner.ShowDialog();
-                lvDirSigners.Items.Clear();
                 LoadDirSigners();
             }
         }
@@ -1388,7 +1348,6 @@ namespace WorkDivision
             fAddSigner.StartPosition = FormStartPosition.CenterParent;
             fAddSigner.Text = "Добавить";
             fAddSigner.ShowDialog();
-            lvDirSigners.Items.Clear();
             LoadDirSigners();
         }
 
@@ -1477,10 +1436,10 @@ namespace WorkDivision
         private void tsBtnAddDivision_Click(object sender, EventArgs e)
         {
             fAddDivision.id_rec = "";
+            fAddDivision.dt = dateTimePicker1.Value.ToString("yyyy-MM-dd");
             fAddDivision.StartPosition = FormStartPosition.CenterParent;
             fAddDivision.Text = "Добавить";
             fAddDivision.ShowDialog();
-            lvDivision.Items.Clear();
             LoadDivisions();
         }
 
@@ -1490,7 +1449,7 @@ namespace WorkDivision
 
             try
             {
-                string query = @"SELECT div.id,dm.name as mName,
+                string query = @"SELECT div.id,div.id_model,dm.name as mName,
                     dp.Name as pName, dc.category, dg.GRP,
                     (SELECT SUM(CASE WHEN d.UCH between 1 and 2 THEN ifnull(ROUND(i.NVRforOper * i.MatRate * i.workers_cnt,2),0) ELSE NVRforOper END)
                     FROM inDivision as i LEFT JOIN DirOpers as d on d.id=i.id_oper LEFT JOIN DirTarif as dt on dt.rank=i.rank
@@ -1517,6 +1476,7 @@ namespace WorkDivision
                 {
                     ListViewItem item = new ListViewItem(new string[] {
                     Convert.ToString(sqlReader["id"]),
+                    Convert.ToString(sqlReader["id_model"]),
                     Convert.ToString(sqlReader["mName"]),
                     Convert.ToString(sqlReader["pName"])+" "+Convert.ToString(sqlReader["category"])+" "+Convert.ToString(sqlReader["GRP"]),
                     Convert.ToString(sqlReader["work_time"]),
@@ -1526,7 +1486,7 @@ namespace WorkDivision
                     lvDivision.Items.Add(item);
                 }
 
-                autoResizeColumns(lvDivision);
+                Division.autoResizeColumns(lvDivision);
 
             }
             catch (Exception ex)
@@ -1545,11 +1505,12 @@ namespace WorkDivision
         {
             if (lvDivision.SelectedItems.Count > 0)
             {
-                fAddDivision.id_rec = lvDivision.SelectedItems[0].SubItems[0].Text;
+                fAddDivision.id_rec = lvDivision.SelectedItems[0].SubItems[0].Text;   //id разделения
+                fAddDivision.dt = dateTimePicker1.Value.ToString("yyyy-MM-dd");         //Дата из датапикера
+                fAddDivision.id_model = lvDivision.SelectedItems[0].SubItems[1].Text;         //id модели
                 fAddDivision.StartPosition = FormStartPosition.CenterParent;
                 fAddDivision.Text = "Изменить";
                 fAddDivision.ShowDialog();
-                lvDivision.Items.Clear();
                 LoadDivisions();
             }
             else
@@ -1571,7 +1532,7 @@ namespace WorkDivision
                 tpinDivision.Parent = tabControl1;
                 tpDirs.Parent = null;
                 tpDirs.Parent = tabControl1;
-                tpinDivision.Text = @"Разделение труда по модели " + lvDivision.SelectedItems[0].SubItems[1].Text;
+                tpinDivision.Text = @"Разделение труда по модели " + lvDivision.SelectedItems[0].SubItems[2].Text;
                 tabControl1.SelectedTab = tpinDivision;
                 LoadOpersByDivision(lvDivision.SelectedItems[0].SubItems[0].Text);
             }
@@ -1600,6 +1561,19 @@ namespace WorkDivision
                             MessageBox.Show(ex.Message, "Ошибка 5.10.04", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
 
+                        //Удалить внутренности
+                        delArrCommand = new SQLiteCommand("DELETE FROM inDivision WHERE id_division=@id", dblite);
+
+                        delArrCommand.Parameters.AddWithValue("id", Convert.ToString(lvDivision.SelectedItems[0].SubItems[0].Text));
+
+                        try
+                        {
+                            await delArrCommand.ExecuteNonQueryAsync();
+                        }
+                        catch (SQLiteException ex)
+                        {
+                            MessageBox.Show(ex.Message, "Ошибка 5.11.04", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                         // автообновление после удаления
                         LoadDivisions();
 
@@ -1685,7 +1659,7 @@ namespace WorkDivision
                     }
                 }
 
-                autoResizeColumns(lvinDivision);
+                Division.autoResizeColumns(lvinDivision);
 
             }
             catch (Exception ex)
@@ -1702,6 +1676,9 @@ namespace WorkDivision
             Division.absSumCost = 0;
             Division.absSumNVR = 0;
             Division.absSumItem = 0;
+            Division.product = lvDivision.SelectedItems[0].SubItems[3].Text;
+            Division.model = lvDivision.SelectedItems[0].SubItems[2].Text;
+
 
             for (int i = 0; i < lvinDivision.Items.Count; i++)
             {
@@ -1765,7 +1742,6 @@ namespace WorkDivision
                 fEditOperByDivision.StartPosition = FormStartPosition.CenterParent;
                 fEditOperByDivision.Text = "Изменить";
                 fEditOperByDivision.ShowDialog();
-                lvinDivision.Items.Clear();
                 LoadOpersByDivision(Division.id);
             }
             else
@@ -1800,9 +1776,9 @@ namespace WorkDivision
         //Напечатать разделение
         private void tsPrintDivision_Click(object sender, EventArgs e)
         {
-            if ((lvDivision.SelectedItems.Count > 0) && (lvinDivision.Items.Count>0))
+            if (lvinDivision.Items.Count>0)
             {
-                string Filename = Environment.CurrentDirectory + "\\Reports\\Division" + dateTimePicker1.Value.ToString("MM_yyyy") + ".docx";
+                string Filename = Environment.CurrentDirectory + "\\Reports\\Division" + dateTimePicker1.Value.ToString("MM_yyyy") + "_"+Division.model+".docx";
                 _Document oDoc = GetDoc(Environment.CurrentDirectory + "\\DivisionTemplate.docx");
                 oDoc.SaveAs(FileName: Filename); //Сохраняем документ
                 oDoc.Close();
@@ -1830,13 +1806,13 @@ namespace WorkDivision
             int i=0;
             try
             {
-                double NVRsec = Convert.ToDouble(lvDivision.SelectedItems[0].SubItems[3].Text);
+                double NVRsec = Division.absSumNVR;
                 //Титульный лист
-                oDoc.Bookmarks["product"].Range.Text = lvDivision.SelectedItems[0].SubItems[2].Text;
-                oDoc.Bookmarks["model"].Range.Text = lvDivision.SelectedItems[0].SubItems[1].Text;
+                oDoc.Bookmarks["product"].Range.Text = Division.product;                                            //lvDivision.SelectedItems[0].SubItems[2].Text;
+                oDoc.Bookmarks["model"].Range.Text = Division.model;                                                //lvDivision.SelectedItems[0].SubItems[1].Text;
                 oDoc.Bookmarks["mmyy"].Range.Text = "за "+dateTimePicker1.Value.ToString("Y").ToUpper()+" г.";
                 oDoc.Bookmarks["sumNVR"].Range.Text = NVRsec.ToString()+"с = "+Math.Round(NVRsec* 0.000278,2)+" ч";
-                oDoc.Bookmarks["sumItem"].Range.Text = lvDivision.SelectedItems[0].SubItems[4].Text;
+                oDoc.Bookmarks["sumItem"].Range.Text = Division.absSumItem.ToString();                              //lvDivision.SelectedItems[0].SubItems[4].Text;
 
                 //Подписанты (2 первых)
                 try
@@ -1864,9 +1840,9 @@ namespace WorkDivision
                         sqlReader.Close();
                 }
 
-
                 //Таблица разделения
-                oDoc.Bookmarks["model2"].Range.Text = lvDivision.SelectedItems[0].SubItems[1].Text;
+                //Название модели
+                oDoc.Bookmarks["model2"].Range.Text = Division.model;
                 Table wTable = oDoc.Tables[1];
                 for (int row = 0; row < lvinDivision.Items.Count; row++) //проход по строкам
                 {
@@ -1901,15 +1877,50 @@ namespace WorkDivision
         {
             tsPrintDivision_Click(this, null);
         }
+
+        //Скопировать разделение
+        private void tsBtnCopyDivision_Click(object sender, EventArgs e)
+        {      
+            fSelectDivisionToCopy.StartPosition = FormStartPosition.CenterParent;
+            fSelectDivisionToCopy.ShowDialog();
+            LoadOpersByDivision(Division.id);
+        }
     }
     class Division
     {
         public static string id { get; set; }
         public static string mm { get; set; }
         public static string yy { get; set; }
+        public static string product { get; set; }
+        public static string model { get; set; }
 
         public static double absSumCost { get; set; }  //Суммарная расценка
         public static double absSumNVR { get; set; }     //Суммарная норма времени
         public static double absSumItem { get; set; }       //Суммарная стоимость
+
+
+        // авторасширение колонок listView по размеру содержимого
+        public static void autoResizeColumns(ListView lv)
+        {
+            lv.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            ListView.ColumnHeaderCollection cc = lv.Columns;
+            for (int i = 0; i < cc.Count; i++)
+            {
+
+                int colWidth = TextRenderer.MeasureText(cc[i].Text, lv.Font).Width + 10;
+                if (i > 0)
+                {
+                    if (colWidth > cc[i].Width)
+                    {
+                        cc[i].Width = colWidth;
+                    }
+                }
+                else
+                {
+                    cc[i].Width = 0;
+                }
+            }
+        }
+
     }
 }

@@ -103,3 +103,4 @@ D:\Mogotex\WorkDivision\WorkDivision\obj\Debug\WorkDivision.pdb
 D:\git_dev\Development\Mogotex\WorkDivision\WorkDivision\obj\Debug\WorkDivision.fEditOperByDivision.resources
 D:\Mogotex\WorkDivision\WorkDivision\obj\Debug\WorkDivision.fAddSigner.resources
 D:\git_dev\Development\Mogotex\WorkDivision\WorkDivision\obj\Debug\WorkDivision.fAddSigner.resources
+D:\git_dev\Development\Mogotex\WorkDivision\WorkDivision\obj\Debug\WorkDivision.fSelectDivisionToCopy.resources

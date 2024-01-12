@@ -170,6 +170,8 @@
             this.PrintToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.printDivisionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsBtnCopyDivision = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator38 = new System.Windows.Forms.ToolStripSeparator();
             this.tabControl1.SuspendLayout();
             this.tpDivision.SuspendLayout();
             this.toolStrip2.SuspendLayout();
@@ -341,6 +343,8 @@
             this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsBtnCopyDivision,
+            this.toolStripSeparator38,
             this.tsBtnAddOperInDivision,
             this.toolStripSeparator31,
             this.tsBtnEditOperInDivision,
@@ -1472,7 +1476,7 @@
             // printDivisionToolStripMenuItem
             // 
             this.printDivisionToolStripMenuItem.Name = "printDivisionToolStripMenuItem";
-            this.printDivisionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.printDivisionToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.printDivisionToolStripMenuItem.Text = "Печать разделения";
             this.printDivisionToolStripMenuItem.Click += new System.EventHandler(this.printDivisionToolStripMenuItem_Click);
             // 
@@ -1482,6 +1486,20 @@
             this.AboutToolStripMenuItem.Size = new System.Drawing.Size(94, 20);
             this.AboutToolStripMenuItem.Text = "О программе";
             this.AboutToolStripMenuItem.Click += new System.EventHandler(this.AboutToolStripMenuItem_Click);
+            // 
+            // tsBtnCopyDivision
+            // 
+            this.tsBtnCopyDivision.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnCopyDivision.Image")));
+            this.tsBtnCopyDivision.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsBtnCopyDivision.Name = "tsBtnCopyDivision";
+            this.tsBtnCopyDivision.Size = new System.Drawing.Size(169, 24);
+            this.tsBtnCopyDivision.Text = "Скопировать разделение";
+            this.tsBtnCopyDivision.Click += new System.EventHandler(this.tsBtnCopyDivision_Click);
+            // 
+            // toolStripSeparator38
+            // 
+            this.toolStripSeparator38.Name = "toolStripSeparator38";
+            this.toolStripSeparator38.Size = new System.Drawing.Size(6, 27);
             // 
             // Form1
             // 
@@ -1704,6 +1722,8 @@
         private System.Windows.Forms.ToolStripMenuItem AboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel tsStatusSumCost;
         private System.Windows.Forms.ToolStripMenuItem printDivisionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton tsBtnCopyDivision;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator38;
     }
 }
 
