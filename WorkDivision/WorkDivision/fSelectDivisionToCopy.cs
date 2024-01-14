@@ -3,6 +3,7 @@ using System.Data.SQLite;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Xml;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace WorkDivision
 {
@@ -17,14 +18,14 @@ namespace WorkDivision
         {
             InitializeComponent();
             liteDB = new liteDB();
+            //Подключение к БД
+            dblite = liteDB.GetConn();
+            dblite.Open();
         }
 
         private void fSelectDivisionToCopy_Load(object sender, EventArgs e)
         {
-            //Подключение к БД
-            dblite = liteDB.GetConn();
-            dblite.Open();
-
+            lvDivisionsToCopy.Columns.Clear();
             lvDivisionsToCopy.GridLines = true;
             lvDivisionsToCopy.FullRowSelect = true;
             lvDivisionsToCopy.View = View.Details;
