@@ -1699,29 +1699,32 @@ namespace WorkDivision
         {
             if (lvinDivision.SelectedItems.Count > 0)
             {
-                DialogResult res = MessageBox.Show("Вы действительно хотите удалить эту строку?", "Удаление...", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+                DialogResult res = MessageBox.Show("Вы действительно хотите удалить выделенные строки?", "Удаление...", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
 
                 switch (res)
                 {
                     case DialogResult.OK:
-
-                        SQLiteCommand delArrCommand = new SQLiteCommand("DELETE FROM inDivision WHERE id=@id", dblite);
-
-                        delArrCommand.Parameters.AddWithValue("id", Convert.ToString(lvinDivision.SelectedItems[0].SubItems[0].Text));
-
-                        try
+                        foreach (ListViewItem item in lvinDivision.SelectedItems)
                         {
-                            await delArrCommand.ExecuteNonQueryAsync();
-                        }
-                        catch (SQLiteException ex)
-                        {
-                            MessageBox.Show(ex.Message, "Ошибка 5.10.04", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            SQLiteCommand delArrCommand = new SQLiteCommand("DELETE FROM inDivision WHERE id=@id", dblite);
+
+                            delArrCommand.Parameters.AddWithValue("id", Convert.ToString(item.SubItems[0].Text));
+
+                            try
+                            {
+                                await delArrCommand.ExecuteNonQueryAsync();
+                            }
+                            catch (SQLiteException ex)
+                            {
+                                MessageBox.Show(ex.Message, "Ошибка 5.10.04", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                            lvinDivision.Items.Remove(item);
                         }
 
                         // автообновление после удаления
                         LoadOpersByDivision(Division.id);
 
-                        break;
+                    break;
                 }
             }
             else
@@ -1879,10 +1882,40 @@ namespace WorkDivision
         }
 
         //Скопировать разделение
-        private void tsBtnCopyDivision_Click(object sender, EventArgs e)
-        {      
-            fSelectDivisionToCopy.StartPosition = FormStartPosition.CenterParent;
-            fSelectDivisionToCopy.ShowDialog();
+        private async void tsBtnCopyDivision_Click(object sender, EventArgs e)
+        {
+            if (lvinDivision.Items.Count > 0)
+            {
+                DialogResult res = MessageBox.Show("В разделении уже есть операции. Они будут удалены перед копированием. Продолжить?", "Удаление...", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+
+                switch (res)
+                {
+                    case DialogResult.OK:
+
+                        SQLiteCommand delArrCommand = new SQLiteCommand("DELETE FROM inDivision WHERE id_division=@id", dblite);
+
+                        delArrCommand.Parameters.AddWithValue("id", Division.id);
+
+                        try
+                        {
+                            await delArrCommand.ExecuteNonQueryAsync();
+                        }
+                        catch (SQLiteException ex)
+                        {
+                            MessageBox.Show(ex.Message, "Ошибка 5.10.04", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+
+                        fSelectDivisionToCopy.StartPosition = FormStartPosition.CenterParent;
+                        fSelectDivisionToCopy.ShowDialog();
+                        break;
+                }
+            }
+            else
+            {
+                fSelectDivisionToCopy.StartPosition = FormStartPosition.CenterParent;
+                fSelectDivisionToCopy.ShowDialog();
+            }
+
             LoadOpersByDivision(Division.id);
         }
     }
@@ -1921,6 +1954,5 @@ namespace WorkDivision
                 }
             }
         }
-
     }
 }

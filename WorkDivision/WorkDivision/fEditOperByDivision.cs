@@ -31,6 +31,8 @@ namespace WorkDivision
         }
         public string id_rec { get; set; }
         public string rank { get; set; }
+        public string ord { get; set; }
+
 
         private void fAddOper_Load(object sender, EventArgs e)
         {
@@ -65,7 +67,7 @@ namespace WorkDivision
             int id_oper = 0;
             try
             {
-                string query = @"SELECT i.id,d.UCH,i.id_oper,d.Name,i.rank,i.MatRate,dt.TAR_VR,i.NVRforOper,i.workers_cnt,parent,
+                string query = @"SELECT i.id,d.UCH,i.id_oper,d.Name,d.PER,i.rank,i.MatRate,dt.TAR_VR,i.NVRforOper,i.workers_cnt,parent,
                                 IFNULL(ROUND(i.NVRforOper * dt.TAR_VR,5),0) as Cost,
                                 CASE WHEN d.UCH between 1 and 2 THEN IFNULL(ROUND(i.NVRforOper * i.MatRate * i.workers_cnt,2),0) ELSE NVRforOper END as NVRbyItem,
                                 CASE WHEN d.UCH between 1 and 2 THEN IFNULL(ROUND(ROUND(i.NVRforOper * dt.TAR_VR,5) * i.MatRate * i.workers_cnt,5),0) 
@@ -95,6 +97,7 @@ namespace WorkDivision
                     tbNVRbyItem.Text = Convert.ToString(sqlReader["NVRbyItem"]);     //Норма времени на 1ед
                     tbSumItem.Text = Convert.ToString(sqlReader["SumItem"]);       //Стоимость 1ед
                     parent = Convert.ToInt32(sqlReader["parent"]);                //Родитель
+                    ord = Convert.ToString(sqlReader["PER"]);                      //очередь в списке операций
                     //lbNumber.Text = number.ToString();     //порядковый номер операции в разделении
                 }
                 //Если участок контроля или настилания
@@ -398,7 +401,7 @@ namespace WorkDivision
         {
             string query = @"SELECT i.id FROM inDivision as i
                             LEFT JOIN DirOpers as d on d.id=i.id_oper
-                            WHERE i.id>" + id_rec + @" ORDER BY d.PER ASC LIMIT 1";
+                            WHERE i.id<>" + id_rec + @" AND d.PER>="+ord+@" AND i.id_division="+Division.id+@" ORDER BY d.PER ASC LIMIT 1";
             m_sqlCmd = new SQLiteCommand(query, dblite);
 
             //ID записи в разделении
@@ -418,7 +421,7 @@ namespace WorkDivision
         {
             string query = @"SELECT i.id FROM inDivision as i
                             LEFT JOIN DirOpers as d on d.id=i.id_oper
-                            WHERE i.id<" + id_rec + @" ORDER BY d.PER DESC LIMIT 1";
+                            WHERE i.id<>" + id_rec + @" AND d.PER<="+ord+@" AND i.id_division=" + Division.id+@" ORDER BY d.PER DESC LIMIT 1";
             m_sqlCmd = new SQLiteCommand(query, dblite);
 
             //ID записи в разделении
