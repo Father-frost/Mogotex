@@ -29,17 +29,15 @@ namespace WorkDivision
         {
             if (id_rec == "")  //Если  id записи не передан (новая запись) 
             {
-                string querySQLite = @"INSERT INTO DirProfs (kprof, Name, PR) VALUES (@kprof, @Name, @PR)";
+                string querySQLite = @"INSERT INTO DirProfs (Name, PR) VALUES (@Name, @PR)";
                 m_sqlCmd = new SQLiteCommand(querySQLite, dblite);
-                m_sqlCmd.Parameters.AddWithValue("@kprof", tbKprof.Text);
                 m_sqlCmd.Parameters.AddWithValue("@Name", tbName.Text);
                 m_sqlCmd.Parameters.AddWithValue("@PR", tbPR.Text);
             }
             else
             {
-                string querySQLite = @"UPDATE DirProfs SET kprof=@kprof, Name=@Name, PR=@PR WHERE id=" + id_rec;
+                string querySQLite = @"UPDATE DirProfs SET Name=@Name, PR=@PR WHERE id=" + id_rec;
                 m_sqlCmd = new SQLiteCommand(querySQLite, dblite);
-                m_sqlCmd.Parameters.AddWithValue("@kprof", tbKprof.Text);
                 m_sqlCmd.Parameters.AddWithValue("@Name", tbName.Text);
                 m_sqlCmd.Parameters.AddWithValue("@PR", tbPR.Text);
             }
@@ -70,7 +68,6 @@ namespace WorkDivision
                 }
                 else
                 {
-                    tbKprof.Text = "";
                     tbName.Text = "";
                     tbPR.Text = "";
                 }
@@ -89,8 +86,6 @@ namespace WorkDivision
 
                 while (await sqlReader.ReadAsync())
                 {
-
-                    tbKprof.Text = Convert.ToString(sqlReader["kprof"]);
                     tbName.Text = Convert.ToString(sqlReader["Name"]);
                     tbPR.Text = Convert.ToString(sqlReader["PR"]);
                 }

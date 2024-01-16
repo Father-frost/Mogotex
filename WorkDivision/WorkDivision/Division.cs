@@ -4,7 +4,7 @@ namespace WorkDivision
 {
     internal class Division
     {
-        public static string id { get; set; }
+        public static string id { get; set; }       //ID разделения
         public static string mm { get; set; }       //месяц
         public static string yy { get; set; }       //год
         public static string product { get; set; }  //изделие

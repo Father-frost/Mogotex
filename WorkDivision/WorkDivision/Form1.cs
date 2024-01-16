@@ -1,23 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.IO;
-//using Settings2Ini;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using Microsoft.Office.Interop.Word;
+using System;
 using System.Data.SQLite;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using ListView = System.Windows.Forms.ListView;
-using System.Collections;
-using Word = Microsoft.Office.Interop.Word;
-using Microsoft.Office.Interop.Word;
-using View = System.Windows.Forms.View;
+using System.Drawing;
+using System.IO;
+using System.Windows.Forms;
 using Font = System.Drawing.Font;
-using System.Data.SqlClient;
+using ListView = System.Windows.Forms.ListView;
+using View = System.Windows.Forms.View;
+using Word = Microsoft.Office.Interop.Word;
 
 namespace WorkDivision
 {
@@ -56,8 +46,8 @@ namespace WorkDivision
             fAddProd = new fAddProd();
             fAddTarif = new fAddTarif();
             fAddNormNastil = new fAddNormNastil();
-            fAddNormControl= new fAddNormControl();
-            fAddDivision= new fAddDivision();
+            fAddNormControl = new fAddNormControl();
+            fAddDivision = new fAddDivision();
             fOpersList = new fOpersList();
             fEditOperByDivision = new fEditOperByDivision();
             fAddSigner = new fAddSigner();
@@ -65,10 +55,10 @@ namespace WorkDivision
             liteDB = new liteDB();
 
         }
-        
+
         private void Form1_Load(object sender, EventArgs e)
         {
-            //Подключение к БД
+            //Подключение к БД (в Form_Load для каждой формы)
             dblite = liteDB.GetConn();
             dblite.Open();
 
@@ -100,7 +90,7 @@ namespace WorkDivision
             lvDirBrigs.Columns.Add("ID");
             lvDirBrigs.Columns.Add("Номер");
             lvDirBrigs.Columns.Add("Название бригады");
-            lvDirBrigs.Columns.Add("NUMK");
+            //lvDirBrigs.Columns.Add("NUMK");
 
             //Справочник профессий
             lvDirProfs.GridLines = true;
@@ -117,13 +107,15 @@ namespace WorkDivision
             lvDirOpers.FullRowSelect = true;
             lvDirOpers.View = View.Details;
             lvDirOpers.Font = new Font(lvDirOpers.Font, FontStyle.Bold);
-            lvDirOpers.Columns.Add("id");
+            lvDirOpers.Columns.Add("ID");
             lvDirOpers.Columns.Add("Участок");
             lvDirOpers.Columns.Add("Переход");
             lvDirOpers.Columns.Add("Наименование");
-            lvDirOpers.Columns.Add("Коэф.");
-            lvDirOpers.Columns.Add("Норма времени, сек");
-            
+            lvDirOpers.Columns.Add("ID родительской операции");
+
+            //lvDirOpers.Columns.Add("Коэф.");
+            //lvDirOpers.Columns.Add("Норма времени, сек");
+
             //Справочник продукции
             lvDirProducts.GridLines = true;
             lvDirProducts.FullRowSelect = true;
@@ -131,7 +123,7 @@ namespace WorkDivision
             lvDirProducts.Font = new Font(lvDirProducts.Font, FontStyle.Bold);
             lvDirProducts.Columns.Add("id");
             lvDirProducts.Columns.Add("Наименование");
-            
+
             //Справочник тарифных ставок
             lvDirTarif.GridLines = true;
             lvDirTarif.FullRowSelect = true;
@@ -140,8 +132,8 @@ namespace WorkDivision
             lvDirTarif.Columns.Add("id");
             lvDirTarif.Columns.Add("Разряд");
             lvDirTarif.Columns.Add("Тар.ставка");
-            lvDirTarif.Columns.Add("Коэф.сдел."); 
-            
+            lvDirTarif.Columns.Add("Коэф.сдел.");
+
             //Справочник норм на настил
             lvDirNormNastil.GridLines = true;
             lvDirNormNastil.FullRowSelect = true;
@@ -194,7 +186,6 @@ namespace WorkDivision
             lvDivision.Columns.Add("Вид изделия");
             lvDivision.Columns.Add("Время обработки");
             lvDivision.Columns.Add("Стоимость обработки");
-            //autoResizeColumns(lvDivision);
 
             //Детализация разделения
             lvinDivision.GridLines = true;
@@ -223,6 +214,12 @@ namespace WorkDivision
             tsStatusSumItem.Text = "";
         }
 
+        //Закрытие формы
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            dblite.Close();
+        }
+
         //Изменение даты
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
@@ -230,7 +227,7 @@ namespace WorkDivision
 
             try
             {
-               LoadDivisions();
+                LoadDivisions();  //Загружаем разделения за выбранный период
             }
             catch (Exception ex)
             {
@@ -241,23 +238,24 @@ namespace WorkDivision
                 if (sqlReader != null && !sqlReader.IsClosed)
                     sqlReader.Close();
             }
-            toolStripStatusLabel1.Text = "Кол-во строк: " + lvDivision.Items.Count;
+            toolStripStatusLabel1.Text = "Кол-во записей: " + lvDivision.Items.Count;
 
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (tabControl1.SelectedTab == tpDivision)
+            if (tabControl1.SelectedTab == tpDivision)   //Выбрана вкладка разделение
             {
                 dateTimePicker1_ValueChanged(this, null);
                 if (lvDivision.Items.Count == 0)
                 {
-                    toolStripStatusLabel1.Text = "Нет разделений за выбранный месяц.";
+                    toolStripStatusLabel1.Text = "Нет разделений за выбранный период.";
                 }
                 else
                 {
-                    toolStripStatusLabel1.Text = "Кол-во строк: "+ lvDivision.Items.Count;
+                    toolStripStatusLabel1.Text = "Кол-во записей: " + lvDivision.Items.Count;
                 }
+                //Обнуляем статусбары
                 tsStatusSumCost.Text = "";
                 tsStatusNVRbyItem.Text = "";
                 tsStatusSumItem.Text = "";
@@ -268,14 +266,16 @@ namespace WorkDivision
                 {
                     LoadDirWorkers();
                 }
+                //Обнуляем статусбары
                 tsStatusSumCost.Text = "";
                 tsStatusNVRbyItem.Text = "";
                 tsStatusSumItem.Text = "";
             }
 
-            
+
         }
 
+        //Навигация по справочникам
         private void tabControl2_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (tabControl2.SelectedTab == tpDirWorkers)
@@ -305,11 +305,11 @@ namespace WorkDivision
             if (tabControl2.SelectedTab == tpDirTarif)
             {
                 LoadDirTarif();
-            }            
+            }
             if (tabControl2.SelectedTab == tpDirNormNastil)
             {
                 LoadDirNormNastil();
-            }            
+            }
             if (tabControl2.SelectedTab == tpDirNormControl)
             {
                 LoadDirNormControl();
@@ -318,18 +318,19 @@ namespace WorkDivision
             {
                 LoadDirSigners();
             }
-
         }
+
+        //Загрузить справочник работников 
         public async void LoadDirWorkers()
         {
-            lvDirWorkers.Items.Clear();  //Чистим listview2
+            lvDirWorkers.Items.Clear();  //Чистим listview
 
             try
             {
                 string query = @"SELECT dw.id,dw.tab_nom,dw.FIO,dw.rank,dw.KO,dbr.KODBR,dbr.Name,pr.Name as prof
                             FROM DirWorkers as dw
                             LEFT JOIN DirBrigs as dbr on dw.brig_id = dbr.id
-                            LEFT JOIN DirProfs as pr on pr.kprof = dw.kprof
+                            LEFT JOIN DirProfs as pr on pr.id = dw.prof_id
                             ORDER BY FIO";
 
                 m_sqlCmd = new SQLiteCommand(query, dblite);
@@ -343,11 +344,11 @@ namespace WorkDivision
                     Convert.ToString(sqlReader["id"]),
                     Convert.ToString(sqlReader["Tab_nom"]),
                     Convert.ToString(sqlReader["FIO"]),
-                    Convert.ToString(sqlReader["rank"]),
-                    Convert.ToString(sqlReader["prof"]),
+                    Convert.ToString(sqlReader["rank"]),   //разряд
+                    Convert.ToString(sqlReader["prof"]),   //профессия
                     Convert.ToString(sqlReader["KO"]),
-                    Convert.ToString(sqlReader["KODBR"]),
-                    Convert.ToString(sqlReader["Name"])
+                    Convert.ToString(sqlReader["KODBR"]),   //Код бригады
+                    Convert.ToString(sqlReader["Name"])     //Название бригады
                     });
                     item.Font = new Font(lvDirWorkers.Font, FontStyle.Regular);
                     lvDirWorkers.Items.Add(item);
@@ -365,31 +366,33 @@ namespace WorkDivision
                 if (sqlReader != null && !sqlReader.IsClosed)
                     sqlReader.Close();
             }
-            toolStripStatusLabel1.Text = "Кол-во строк: " + lvDirWorkers.Items.Count;
-        }       
-        
+            toolStripStatusLabel1.Text = "Кол-во записей: " + lvDirWorkers.Items.Count;
+        }
 
+        //Двойной щелчок по элементу справочника рабочих (Изменить запись данные работника)
         private void lvDirWorkers_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             if (lvDirWorkers.SelectedItems.Count > 0)
             {
                 fAddWorker.id_rec = Convert.ToString(lvDirWorkers.SelectedItems[0].SubItems[0].Text);
                 fAddWorker.StartPosition = FormStartPosition.CenterParent;
-                fAddWorker.Text = "Изменить";
+                fAddWorker.Text = "Изменить запись запись";
                 fAddWorker.ShowDialog();
                 LoadDirWorkers();
             }
         }
 
+        //Добавить работника
         private void tsBtnAddWorker_Click(object sender, EventArgs e)
         {
             fAddWorker.id_rec = "";
             fAddWorker.StartPosition = FormStartPosition.CenterParent;
-            fAddWorker.Text = "Добавить";
+            fAddWorker.Text = "Добавить запись";
             fAddWorker.ShowDialog();
             LoadDirWorkers();
         }
 
+        //Изменить запись работника
         private void tsBtnEditWorker_Click(object sender, EventArgs e)
         {
             if (lvDirWorkers.SelectedItems.Count > 0)
@@ -398,16 +401,17 @@ namespace WorkDivision
             }
             else
             {
-                MessageBox.Show("Выберите строку для редактирования.", "Ошибка 5.00.05", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Выберите запись для редактирования.", "Ошибка 5.00.05", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
         }
 
+        //Удалить работника
         private async void tsBtnDelWorker_Click(object sender, EventArgs e)
         {
             if (lvDirWorkers.SelectedItems.Count > 0)
             {
-                DialogResult res = MessageBox.Show("Вы действительно хотите удалить эту строку?", "Удаление...", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+                DialogResult res = MessageBox.Show("Вы действительно хотите удалить эту запись?", "Удаление...", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
 
                 switch (res)
                 {
@@ -434,13 +438,14 @@ namespace WorkDivision
             }
             else
             {
-                MessageBox.Show("Выберите строку для удаления.", "Ошибка 5.00.05", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Выберите запись для удаления.", "Ошибка 5.00.05", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
+        //Загрузить справочник бригад
         public async void LoadDirBrigs()
         {
-            lvDirBrigs.Items.Clear();  //Чистим listview2
+            lvDirBrigs.Items.Clear();  //Чистим listview
 
             try
             {
@@ -456,9 +461,9 @@ namespace WorkDivision
                 {
                     ListViewItem item = new ListViewItem(new string[] {
                     Convert.ToString(sqlReader["id"]),
-                    Convert.ToString(sqlReader["KODBR"]),
-                    Convert.ToString(sqlReader["Name"]),
-                    Convert.ToString(sqlReader["Numk"])
+                    Convert.ToString(sqlReader["KODBR"]),  //код бригады
+                    Convert.ToString(sqlReader["Name"]),   //название бригады
+                    //Convert.ToString(sqlReader["Numk"])
                     });
                     item.Font = new Font(lvDirBrigs.Font, FontStyle.Regular);
                     lvDirBrigs.Items.Add(item);
@@ -476,37 +481,33 @@ namespace WorkDivision
                 if (sqlReader != null && !sqlReader.IsClosed)
                     sqlReader.Close();
             }
-            toolStripStatusLabel1.Text = "Кол-во строк: " + lvDirBrigs.Items.Count;
+            toolStripStatusLabel1.Text = "Кол-во записей: " + lvDirBrigs.Items.Count;
         }
 
-        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            dblite.Close();
-            //oWord.Quit();
-            //fAuth.Close();
-        }
-
+        //Двойной щелчок по элементу справочника Бригады (Изменить запись)
         private void lvDirBrigs_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             if (lvDirBrigs.SelectedItems.Count > 0)
             {
                 fAddBrig.id_rec = Convert.ToString(lvDirBrigs.SelectedItems[0].SubItems[0].Text);
                 fAddBrig.StartPosition = FormStartPosition.CenterParent;
-                fAddBrig.Text = "Изменить";
+                fAddBrig.Text = "Изменить запись";
                 fAddBrig.ShowDialog();
                 LoadDirBrigs();
             }
         }
 
+        //Добавить бригаду
         private void tsBtnAddBrig_Click(object sender, EventArgs e)
         {
             fAddBrig.id_rec = "";
             fAddBrig.StartPosition = FormStartPosition.CenterParent;
-            fAddBrig.Text = "Добавить";
+            fAddBrig.Text = "Добавить запись";
             fAddBrig.ShowDialog();
             LoadDirBrigs();
         }
 
+        //Изменить запись бригаду
         private void tsBtnEditBrig_Click(object sender, EventArgs e)
         {
             if (lvDirBrigs.SelectedItems.Count > 0)
@@ -515,15 +516,16 @@ namespace WorkDivision
             }
             else
             {
-                MessageBox.Show("Выберите строку для редактирования.", "Ошибка 5.01.05", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Выберите запись для редактирования.", "Ошибка 5.01.05", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
+        //Удалить бригаду
         private async void tsBtnDelBrig_Click(object sender, EventArgs e)
         {
             if (lvDirBrigs.SelectedItems.Count > 0)
             {
-                DialogResult res = MessageBox.Show("Вы действительно хотите удалить эту строку?", "Удаление...", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+                DialogResult res = MessageBox.Show("Вы действительно хотите удалить эту запись?", "Удаление...", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
 
                 switch (res)
                 {
@@ -550,17 +552,18 @@ namespace WorkDivision
             }
             else
             {
-                MessageBox.Show("Выберите строку для удаления.", "Ошибка 5.00.05", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Выберите запись для удаления.", "Ошибка 5.00.05", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
+        //Загрузить справочник профессий
         public async void LoadDirProfs()
         {
-            lvDirProfs.Items.Clear();  //Чистим listview2
+            lvDirProfs.Items.Clear();  //Чистим listview
 
             try
             {
-                string query = @"SELECT * FROM DirProfs ORDER BY kprof";
+                string query = @"SELECT * FROM DirProfs ORDER BY name";
 
                 m_sqlCmd = new SQLiteCommand(query, dblite);
 
@@ -570,9 +573,8 @@ namespace WorkDivision
                 {
                     ListViewItem item = new ListViewItem(new string[] {
                     Convert.ToString(sqlReader["id"]),
-                    Convert.ToString(sqlReader["kprof"]),
-                    Convert.ToString(sqlReader["Name"]),
-                    Convert.ToString(sqlReader["PR"])
+                    Convert.ToString(sqlReader["Name"]),    //название профессии
+                    Convert.ToString(sqlReader["PR"])       //процент
                     });
                     item.Font = new Font(lvDirProfs.Font, FontStyle.Regular);
                     lvDirProfs.Items.Add(item);
@@ -590,30 +592,33 @@ namespace WorkDivision
                 if (sqlReader != null && !sqlReader.IsClosed)
                     sqlReader.Close();
             }
-            toolStripStatusLabel1.Text = "Кол-во строк: " + lvDirProfs.Items.Count;
+            toolStripStatusLabel1.Text = "Кол-во записей: " + lvDirProfs.Items.Count;
         }
 
+        //Изменить запись профессию (двойной клик по элементу)
         private void lvDirProfs_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             if (lvDirProfs.SelectedItems.Count > 0)
             {
                 fAddProf.id_rec = Convert.ToString(lvDirProfs.SelectedItems[0].SubItems[0].Text);
                 fAddProf.StartPosition = FormStartPosition.CenterParent;
-                fAddProf.Text = "Изменить";
+                fAddProf.Text = "Изменить запись";
                 fAddProf.ShowDialog();
                 LoadDirProfs();
             }
         }
 
+        //Добавить профессию
         private void tsBtnAddProf_Click(object sender, EventArgs e)
         {
             fAddProf.id_rec = "";
             fAddProf.StartPosition = FormStartPosition.CenterParent;
-            fAddProf.Text = "Добавить";
+            fAddProf.Text = "Добавить запись";
             fAddProf.ShowDialog();
             LoadDirProfs();
         }
 
+        //Изменить запись профессию
         private void tsBtnEditProf_Click(object sender, EventArgs e)
         {
             if (lvDirProfs.SelectedItems.Count > 0)
@@ -622,15 +627,16 @@ namespace WorkDivision
             }
             else
             {
-                MessageBox.Show("Выберите строку для редактирования.", "Ошибка 5.02.05", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Выберите запись для редактирования.", "Ошибка 5.02.05", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
+        //Удалить профессию
         private async void tsBtnDelProf_Click(object sender, EventArgs e)
         {
             if (lvDirProfs.SelectedItems.Count > 0)
             {
-                DialogResult res = MessageBox.Show("Вы действительно хотите удалить эту строку?", "Удаление...", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+                DialogResult res = MessageBox.Show("Вы действительно хотите удалить эту запись?", "Удаление...", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
 
                 switch (res)
                 {
@@ -657,26 +663,12 @@ namespace WorkDivision
             }
             else
             {
-                MessageBox.Show("Выберите строку для удаления.", "Ошибка 5.02.05", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Выберите запись для удаления.", "Ошибка 5.02.05", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
-        private void lvDirOpers_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            int item = 0;
-            if (lvDirOpers.SelectedItems.Count > 0)
-            {
-                item = Convert.ToInt32(lvDirOpers.SelectedItems[0].Index);
-                fAddOper.id_rec = Convert.ToString(lvDirOpers.SelectedItems[0].SubItems[0].Text);
-                fAddOper.StartPosition = FormStartPosition.CenterParent;
-                fAddOper.Text = "Изменить";
-                fAddOper.ShowDialog();
-                LoadDirOpers();
-                lvDirOpers.Items[item].Selected = true;
-                lvDirOpers.EnsureVisible(item);
-            }
-        }
 
+        //Загрузить справочник операций
         public async void LoadDirOpers()
         {
             lvDirOpers.Items.Clear();  //Чистим listview
@@ -694,11 +686,10 @@ namespace WorkDivision
                 {
                     ListViewItem item = new ListViewItem(new string[] {
                     Convert.ToString(sqlReader["id"]),
-                    Convert.ToString(sqlReader["UCH"]),
-                    Convert.ToString(sqlReader["PER"]),
-                    Convert.ToString(sqlReader["Name"]),
-                    Convert.ToString(sqlReader["KOEF"]),
-                    Convert.ToString(sqlReader["NVR"])
+                    Convert.ToString(sqlReader["UCH"]),  //Учсток
+                    Convert.ToString(sqlReader["PER"]),   //Переход
+                    Convert.ToString(sqlReader["Name"]),    //Название операции
+                    Convert.ToString(sqlReader["parent"]),  //id родительской операции
                     });
                     item.Font = new Font(lvDirOpers.Font, FontStyle.Regular);
                     lvDirOpers.Items.Add(item);
@@ -720,18 +711,38 @@ namespace WorkDivision
                 if (sqlReader != null && !sqlReader.IsClosed)
                     sqlReader.Close();
             }
-            toolStripStatusLabel1.Text = "Кол-во строк: " + lvDirOpers.Items.Count;
+            toolStripStatusLabel1.Text = "Кол-во записей: " + lvDirOpers.Items.Count;
         }
 
+        //Добавить операцию
         private void tsBtnAddOper_Click(object sender, EventArgs e)
         {
             fAddOper.id_rec = "";
             fAddOper.StartPosition = FormStartPosition.CenterParent;
-            fAddOper.Text = "Добавить";
+            fAddOper.Text = "Добавить запись";
             fAddOper.ShowDialog();
             LoadDirOpers();
         }
 
+        //Изменить запись операцию (двойной клик по элементу)
+        private void lvDirOpers_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            int item = 0;
+            if (lvDirOpers.SelectedItems.Count > 0)
+            {
+                item = Convert.ToInt32(lvDirOpers.SelectedItems[0].Index);
+                fAddOper.id_rec = Convert.ToString(lvDirOpers.SelectedItems[0].SubItems[0].Text);
+                fAddOper.StartPosition = FormStartPosition.CenterParent;
+                fAddOper.Text = "Изменить запись";
+                fAddOper.ShowDialog();
+                LoadDirOpers();
+                //Переход к редактируемой записейе
+                lvDirOpers.Items[item].Selected = true;
+                lvDirOpers.EnsureVisible(item);
+            }
+        }
+
+        //Изменить запись операцию
         private void tsBtnEditOper_Click(object sender, EventArgs e)
         {
             if (lvDirOpers.SelectedItems.Count > 0)
@@ -740,15 +751,16 @@ namespace WorkDivision
             }
             else
             {
-                MessageBox.Show("Выберите строку для редактирования.", "Ошибка 5.05.05", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Выберите запись для редактирования.", "Ошибка 5.05.05", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
+        //Удалить операцию
         private async void tsBtnDelOper_Click(object sender, EventArgs e)
         {
             if (lvDirOpers.SelectedItems.Count > 0)
             {
-                DialogResult res = MessageBox.Show("Вы действительно хотите удалить эту строку?", "Удаление...", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+                DialogResult res = MessageBox.Show("Вы действительно хотите удалить эту запись?", "Удаление...", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
 
                 switch (res)
                 {
@@ -775,10 +787,11 @@ namespace WorkDivision
             }
             else
             {
-                MessageBox.Show("Выберите строку для удаления.", "Ошибка 5.05.05", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Выберите запись для удаления.", "Ошибка 5.05.05", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
+        //Загрузить справочник моделей
         public async void LoadDirModels()
         {
             lvDirModels.Items.Clear();  //Чистим listview
@@ -823,9 +836,10 @@ namespace WorkDivision
                 if (sqlReader != null && !sqlReader.IsClosed)
                     sqlReader.Close();
             }
-            toolStripStatusLabel1.Text = "Кол-во строк: " + lvDirModels.Items.Count;
+            toolStripStatusLabel1.Text = "Кол-во записей: " + lvDirModels.Items.Count;
         }
 
+        //Изменить запись модель (двойной клик по элементу)
         private void lvDirModels_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             int item = 0;
@@ -834,23 +848,25 @@ namespace WorkDivision
                 item = Convert.ToInt32(lvDirModels.SelectedItems[0].Index);
                 fAddModel.id_rec = Convert.ToString(lvDirModels.SelectedItems[0].SubItems[0].Text);
                 fAddModel.StartPosition = FormStartPosition.CenterParent;
-                fAddModel.Text = "Изменить";
+                fAddModel.Text = "Изменить запись";
                 fAddModel.ShowDialog();
-                LoadDirModels();
+                LoadDirModels();        //обновить список моделей
                 lvDirModels.Items[item].Selected = true;
                 lvDirModels.EnsureVisible(item);
             }
         }
 
+        //Добавить модель
         private void tsBtnAddMod_Click(object sender, EventArgs e)
         {
             fAddModel.id_rec = "";
             fAddModel.StartPosition = FormStartPosition.CenterParent;
-            fAddModel.Text = "Добавить";
+            fAddModel.Text = "Добавить запись";
             fAddModel.ShowDialog();
-            LoadDirModels();
+            LoadDirModels();        //обновить список моделей
         }
 
+        //Изменить запись модель
         private void tsBtnEditMod_Click(object sender, EventArgs e)
         {
             if (lvDirModels.SelectedItems.Count > 0)
@@ -859,15 +875,16 @@ namespace WorkDivision
             }
             else
             {
-                MessageBox.Show("Выберите строку для редактирования.", "Ошибка 5.06.05", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Выберите запись для редактирования.", "Ошибка 5.06.05", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
+        //Удалить модель
         private async void tsBtnDelMod_Click(object sender, EventArgs e)
         {
             if (lvDirModels.SelectedItems.Count > 0)
             {
-                DialogResult res = MessageBox.Show("Вы действительно хотите удалить эту строку?", "Удаление...", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+                DialogResult res = MessageBox.Show("Вы действительно хотите удалить эту запись?", "Удаление...", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
 
                 switch (res)
                 {
@@ -886,18 +903,18 @@ namespace WorkDivision
                             MessageBox.Show(ex.Message, "Ошибка 5.06.04", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
 
-                        // автообновление после удаления
-                        LoadDirModels();
+                        LoadDirModels();        //обновить список моделей
 
                         break;
                 }
             }
             else
             {
-                MessageBox.Show("Выберите строку для удаления.", "Ошибка 5.06.05", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Выберите запись для удаления.", "Ошибка 5.06.05", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
+        //Загрузить справочник изделий
         public async void LoadDirProducts()
         {
             lvDirProducts.Items.Clear();  //Чистим listview
@@ -933,30 +950,33 @@ namespace WorkDivision
                 if (sqlReader != null && !sqlReader.IsClosed)
                     sqlReader.Close();
             }
-            toolStripStatusLabel1.Text = "Кол-во строк: " + lvDirProducts.Items.Count;
+            toolStripStatusLabel1.Text = "Кол-во записей: " + lvDirProducts.Items.Count;
         }
 
+        //Изменить запись изделие (двойной клик по элементу)
         private void lvDirProducts_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             if (lvDirProducts.SelectedItems.Count > 0)
             {
                 fAddProd.id_rec = Convert.ToString(lvDirProducts.SelectedItems[0].SubItems[0].Text);
                 fAddProd.StartPosition = FormStartPosition.CenterParent;
-                fAddProd.Text = "Изменить";
+                fAddProd.Text = "Изменить запись";
                 fAddProd.ShowDialog();
                 LoadDirProducts();
             }
         }
 
+        //Добавить изделие
         private void tsBtnAddProd_Click(object sender, EventArgs e)
         {
             fAddProd.id_rec = "";
             fAddProd.StartPosition = FormStartPosition.CenterParent;
-            fAddProd.Text = "Добавить";
+            fAddProd.Text = "Добавить запись";
             fAddProd.ShowDialog();
             LoadDirProducts();
         }
 
+        //Изменить запись изделие
         private void tsBtnEditProd_Click(object sender, EventArgs e)
         {
             if (lvDirProducts.SelectedItems.Count > 0)
@@ -965,15 +985,16 @@ namespace WorkDivision
             }
             else
             {
-                MessageBox.Show("Выберите строку для редактирования.", "Ошибка 5.07.05", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Выберите запись для редактирования.", "Ошибка 5.07.05", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
+        //Удалить изделие
         private async void tsBtnDelProd_Click(object sender, EventArgs e)
         {
             if (lvDirProducts.SelectedItems.Count > 0)
             {
-                DialogResult res = MessageBox.Show("Вы действительно хотите удалить эту строку?", "Удаление...", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+                DialogResult res = MessageBox.Show("Вы действительно хотите удалить эту запись?", "Удаление...", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
 
                 switch (res)
                 {
@@ -1000,10 +1021,11 @@ namespace WorkDivision
             }
             else
             {
-                MessageBox.Show("Выберите строку для удаления.", "Ошибка 5.07.05", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Выберите запись для удаления.", "Ошибка 5.07.05", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
+        //Загрузить справочник тарифных ставок
         public async void LoadDirTarif()
         {
             lvDirTarif.Items.Clear();  //Чистим listview
@@ -1041,30 +1063,33 @@ namespace WorkDivision
                 if (sqlReader != null && !sqlReader.IsClosed)
                     sqlReader.Close();
             }
-            toolStripStatusLabel1.Text = "Кол-во строк: " + lvDirTarif.Items.Count;
+            toolStripStatusLabel1.Text = "Кол-во записей: " + lvDirTarif.Items.Count;
         }
 
+        //Изменить запись тариф (двойной клик по элементу)
         private void lvDirTarif_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             if (lvDirTarif.SelectedItems.Count > 0)
             {
                 fAddTarif.id_rec = Convert.ToString(lvDirTarif.SelectedItems[0].SubItems[0].Text);
                 fAddTarif.StartPosition = FormStartPosition.CenterParent;
-                fAddTarif.Text = "Изменить";
+                fAddTarif.Text = "Изменить запись";
                 fAddTarif.ShowDialog();
                 LoadDirTarif();
             }
         }
 
+        //Добавить тариф
         private void tsBtnAddTarif_Click(object sender, EventArgs e)
         {
             fAddTarif.id_rec = "";
             fAddTarif.StartPosition = FormStartPosition.CenterParent;
-            fAddTarif.Text = "Добавить";
+            fAddTarif.Text = "Добавить запись";
             fAddTarif.ShowDialog();
             LoadDirTarif();
         }
 
+        //Изменить запись тариф
         private void tsBtnEditTarif_Click(object sender, EventArgs e)
         {
             if (lvDirTarif.SelectedItems.Count > 0)
@@ -1073,15 +1098,16 @@ namespace WorkDivision
             }
             else
             {
-                MessageBox.Show("Выберите строку для редактирования.", "Ошибка 5.08.05", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Выберите запись для редактирования.", "Ошибка 5.08.05", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
+        //Удалить тариф
         private async void tsBtnDelTarif_Click(object sender, EventArgs e)
         {
             if (lvDirTarif.SelectedItems.Count > 0)
             {
-                DialogResult res = MessageBox.Show("Вы действительно хотите удалить эту строку?", "Удаление...", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+                DialogResult res = MessageBox.Show("Вы действительно хотите удалить эту запись?", "Удаление...", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
 
                 switch (res)
                 {
@@ -1108,10 +1134,11 @@ namespace WorkDivision
             }
             else
             {
-                MessageBox.Show("Выберите строку для удаления.", "Ошибка 5.08.05", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Выберите запись для удаления.", "Ошибка 5.08.05", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
+        //Загрузить справочник норм на настилание ткани
         public async void LoadDirNormNastil()
         {
             lvDirNormNastil.Items.Clear();  //Чистим listview
@@ -1148,30 +1175,33 @@ namespace WorkDivision
                 if (sqlReader != null && !sqlReader.IsClosed)
                     sqlReader.Close();
             }
-            toolStripStatusLabel1.Text = "Кол-во строк: " + lvDirNormNastil.Items.Count;
+            toolStripStatusLabel1.Text = "Кол-во записей: " + lvDirNormNastil.Items.Count;
         }
 
+        //Изменить запись норму на настилание (двойной клик по элементу)
         private void lvDirNormNastil_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             if (lvDirNormNastil.SelectedItems.Count > 0)
             {
                 fAddNormNastil.id_rec = Convert.ToString(lvDirNormNastil.SelectedItems[0].SubItems[0].Text);
                 fAddNormNastil.StartPosition = FormStartPosition.CenterParent;
-                fAddNormNastil.Text = "Изменить";
+                fAddNormNastil.Text = "Изменить запись";
                 fAddNormNastil.ShowDialog();
                 LoadDirNormNastil();
             }
         }
 
+        //Добавить норму на настилание
         private void tsBtnAddNormNastil_Click(object sender, EventArgs e)
         {
             fAddNormNastil.id_rec = "";
             fAddNormNastil.StartPosition = FormStartPosition.CenterParent;
-            fAddNormNastil.Text = "Добавить";
+            fAddNormNastil.Text = "Добавить запись";
             fAddNormNastil.ShowDialog();
             LoadDirNormNastil();
         }
 
+        //Изменить запись норму на настилание
         private void tsBtnEditNormNastil_Click(object sender, EventArgs e)
         {
             if (lvDirNormNastil.SelectedItems.Count > 0)
@@ -1180,15 +1210,16 @@ namespace WorkDivision
             }
             else
             {
-                MessageBox.Show("Выберите строку для редактирования.", "Ошибка 5.09.05", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Выберите запись для редактирования.", "Ошибка 5.09.05", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
+        //Удалить норму на настилание
         private async void tsBtnDelNormNastil_Click(object sender, EventArgs e)
         {
             if (lvDirNormNastil.SelectedItems.Count > 0)
             {
-                DialogResult res = MessageBox.Show("Вы действительно хотите удалить эту строку?", "Удаление...", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+                DialogResult res = MessageBox.Show("Вы действительно хотите удалить эту запись?", "Удаление...", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
 
                 switch (res)
                 {
@@ -1215,10 +1246,11 @@ namespace WorkDivision
             }
             else
             {
-                MessageBox.Show("Выберите строку для удаления.", "Ошибка 5.09.05", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Выберите запись для удаления.", "Ошибка 5.09.05", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
+        //Загрузить норму на контроль
         public async void LoadDirNormControl()
         {
             lvDirNormControl.Items.Clear();  //Чистим listview
@@ -1255,30 +1287,33 @@ namespace WorkDivision
                 if (sqlReader != null && !sqlReader.IsClosed)
                     sqlReader.Close();
             }
-            toolStripStatusLabel1.Text = "Кол-во строк: " + lvDirNormControl.Items.Count;
+            toolStripStatusLabel1.Text = "Кол-во записей: " + lvDirNormControl.Items.Count;
         }
 
+        //Изменить запись норму на контроль (двойной клик по элементу)
         private void lvDirNormControl_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             if (lvDirNormControl.SelectedItems.Count > 0)
             {
                 fAddNormControl.id_rec = Convert.ToString(lvDirNormControl.SelectedItems[0].SubItems[0].Text);
                 fAddNormControl.StartPosition = FormStartPosition.CenterParent;
-                fAddNormControl.Text = "Изменить";
+                fAddNormControl.Text = "Изменить запись";
                 fAddNormControl.ShowDialog();
                 LoadDirNormControl();
             }
         }
 
+        //Добавить норму на контроль
         private void tsBtnAddNormControl_Click(object sender, EventArgs e)
         {
             fAddNormControl.id_rec = "";
             fAddNormControl.StartPosition = FormStartPosition.CenterParent;
-            fAddNormControl.Text = "Добавить";
+            fAddNormControl.Text = "Добавить запись";
             fAddNormControl.ShowDialog();
             LoadDirNormControl();
         }
 
+        //Изменить запись норму на контроль
         private void tsBtnEditNormControl_Click(object sender, EventArgs e)
         {
             if (lvDirNormControl.SelectedItems.Count > 0)
@@ -1287,10 +1322,47 @@ namespace WorkDivision
             }
             else
             {
-                MessageBox.Show("Выберите строку для редактирования.", "Ошибка 5.09.05", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Выберите запись для редактирования.", "Ошибка 5.09.05", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
+        //Удалить норму на контроль
+        private async void tsBtnDelNormControl_Click(object sender, EventArgs e)
+        {
+            if (lvDirNormControl.SelectedItems.Count > 0)
+            {
+                DialogResult res = MessageBox.Show("Вы действительно хотите удалить эту запись?", "Удаление...", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+
+                switch (res)
+                {
+                    case DialogResult.OK:
+
+                        SQLiteCommand delArrCommand = new SQLiteCommand("DELETE FROM DirNormControl WHERE id=@id", dblite);
+
+                        delArrCommand.Parameters.AddWithValue("id", Convert.ToString(lvDirNormControl.SelectedItems[0].SubItems[0].Text));
+
+                        try
+                        {
+                            await delArrCommand.ExecuteNonQueryAsync();
+                        }
+                        catch (SQLiteException ex)
+                        {
+                            MessageBox.Show(ex.Message, "Ошибка 5.10.04", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+
+                        // автообновление после удаления
+                        LoadDirNormControl();
+
+                        break;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Выберите запись для удаления.", "Ошибка 5.10.05", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        //Загрузить справочник подписантов
         public async void LoadDirSigners()
         {
             lvDirSigners.Items.Clear();  //Чистим listview2
@@ -1327,30 +1399,33 @@ namespace WorkDivision
                 if (sqlReader != null && !sqlReader.IsClosed)
                     sqlReader.Close();
             }
-            toolStripStatusLabel1.Text = "Кол-во строк: " + lvDirSigners.Items.Count;
+            toolStripStatusLabel1.Text = "Кол-во записей: " + lvDirSigners.Items.Count;
         }
 
+        //Изменить запись подписанта (двойной клик по элементу)
         private void lvDirSigners_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             if (lvDirSigners.SelectedItems.Count > 0)
             {
                 fAddSigner.id_rec = Convert.ToString(lvDirSigners.SelectedItems[0].SubItems[0].Text);
                 fAddSigner.StartPosition = FormStartPosition.CenterParent;
-                fAddSigner.Text = "Изменить";
+                fAddSigner.Text = "Изменить запись";
                 fAddSigner.ShowDialog();
                 LoadDirSigners();
             }
         }
 
+        //Добавить подписанта
         private void tsBtnAddSigner_Click(object sender, EventArgs e)
         {
             fAddSigner.id_rec = "";
             fAddSigner.StartPosition = FormStartPosition.CenterParent;
-            fAddSigner.Text = "Добавить";
+            fAddSigner.Text = "Добавить запись";
             fAddSigner.ShowDialog();
             LoadDirSigners();
         }
 
+        //Изменить запись подписанта
         private void tsBtnEditSigner_Click(object sender, EventArgs e)
         {
             if (lvDirSigners.SelectedItems.Count > 0)
@@ -1359,15 +1434,16 @@ namespace WorkDivision
             }
             else
             {
-                MessageBox.Show("Выберите строку для редактирования.", "Ошибка 5.02.05", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Выберите запись для редактирования.", "Ошибка 5.02.05", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
+        //Удалить подписанта
         private async void tsBtnDelSigner_Click(object sender, EventArgs e)
         {
             if (lvDirSigners.SelectedItems.Count > 0)
             {
-                DialogResult res = MessageBox.Show("Вы действительно хотите удалить эту строку?", "Удаление...", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+                DialogResult res = MessageBox.Show("Вы действительно хотите удалить эту запись?", "Удаление...", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
 
                 switch (res)
                 {
@@ -1394,55 +1470,23 @@ namespace WorkDivision
             }
             else
             {
-                MessageBox.Show("Выберите строку для удаления.", "Ошибка 5.02.05", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Выберите запись для удаления.", "Ошибка 5.02.05", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
-        private async void tsBtnDelNormControl_Click(object sender, EventArgs e)
-        {
-            if (lvDirNormControl.SelectedItems.Count > 0)
-            {
-                DialogResult res = MessageBox.Show("Вы действительно хотите удалить эту строку?", "Удаление...", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
 
-                switch (res)
-                {
-                    case DialogResult.OK:
-
-                        SQLiteCommand delArrCommand = new SQLiteCommand("DELETE FROM DirNormControl WHERE id=@id", dblite);
-
-                        delArrCommand.Parameters.AddWithValue("id", Convert.ToString(lvDirNormControl.SelectedItems[0].SubItems[0].Text));
-
-                        try
-                        {
-                            await delArrCommand.ExecuteNonQueryAsync();
-                        }
-                        catch (SQLiteException ex)
-                        {
-                            MessageBox.Show(ex.Message, "Ошибка 5.10.04", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-
-                        // автообновление после удаления
-                        LoadDirNormControl();
-
-                        break;
-                }
-            }
-            else
-            {
-                MessageBox.Show("Выберите строку для удаления.", "Ошибка 5.10.05", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-        }
-
+        //Добавить разделение
         private void tsBtnAddDivision_Click(object sender, EventArgs e)
         {
             fAddDivision.id_rec = "";
             fAddDivision.dt = dateTimePicker1.Value.ToString("yyyy-MM-dd");
             fAddDivision.StartPosition = FormStartPosition.CenterParent;
-            fAddDivision.Text = "Добавить";
+            fAddDivision.Text = "Добавить запись";
             fAddDivision.ShowDialog();
             LoadDivisions();
         }
 
+        //Загрузить список разделение за период
         public async void LoadDivisions()
         {
             lvDivision.Items.Clear();  //Чистим listview
@@ -1463,7 +1507,7 @@ namespace WorkDivision
                     LEFT JOIN DirProducts as dp on dm.id_product=dp.id
                     LEFT JOIN DirProdCat as dc on dm.id_cat=dc.id
                     LEFT JOIN DirProdGRP as dg on dm.id_grp=dg.id
-                    WHERE div.mm=" + dateTimePicker1.Value.Month.ToString()+" and div.yy="
+                    WHERE div.mm=" + dateTimePicker1.Value.Month.ToString() + " and div.yy="
                     + dateTimePicker1.Value.Year.ToString() +
                     " ORDER BY div.id";
 
@@ -1498,9 +1542,10 @@ namespace WorkDivision
                 if (sqlReader != null && !sqlReader.IsClosed)
                     sqlReader.Close();
             }
-            toolStripStatusLabel1.Text = "Кол-во строк: " + lvDivision.Items.Count;
+            toolStripStatusLabel1.Text = "Кол-во записей: " + lvDivision.Items.Count;
         }
 
+        //Изменить запись разделение
         private void tsBtnEditDivision_Click(object sender, EventArgs e)
         {
             if (lvDivision.SelectedItems.Count > 0)
@@ -1509,13 +1554,13 @@ namespace WorkDivision
                 fAddDivision.dt = dateTimePicker1.Value.ToString("yyyy-MM-dd");         //Дата из датапикера
                 fAddDivision.id_model = lvDivision.SelectedItems[0].SubItems[1].Text;         //id модели
                 fAddDivision.StartPosition = FormStartPosition.CenterParent;
-                fAddDivision.Text = "Изменить";
+                fAddDivision.Text = "Изменить запись";
                 fAddDivision.ShowDialog();
                 LoadDivisions();
             }
             else
             {
-                MessageBox.Show("Выберите строку для редактирования.", "Ошибка 5.09.05", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Выберите запись для редактирования.", "Ошибка 5.09.05", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -1538,11 +1583,12 @@ namespace WorkDivision
             }
         }
 
+        //Удалить разделение
         private async void tsBtnDelDivision_Click(object sender, EventArgs e)
         {
             if (lvDivision.SelectedItems.Count > 0)
             {
-                DialogResult res = MessageBox.Show("Вы действительно хотите удалить эту строку?", "Удаление...", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+                DialogResult res = MessageBox.Show("Вы действительно хотите удалить эту запись?", "Удаление...", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
 
                 switch (res)
                 {
@@ -1561,7 +1607,7 @@ namespace WorkDivision
                             MessageBox.Show(ex.Message, "Ошибка 5.10.04", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
 
-                        //Удалить внутренности
+                        //Удалить внутренности разделения
                         delArrCommand = new SQLiteCommand("DELETE FROM inDivision WHERE id_division=@id", dblite);
 
                         delArrCommand.Parameters.AddWithValue("id", Convert.ToString(lvDivision.SelectedItems[0].SubItems[0].Text));
@@ -1582,7 +1628,7 @@ namespace WorkDivision
             }
             else
             {
-                MessageBox.Show("Выберите строку для удаления.", "Ошибка 5.10.05", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Выберите запись для удаления.", "Ошибка 5.10.05", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -1602,7 +1648,7 @@ namespace WorkDivision
         }
 
 
-
+        //Загрузить операции по разделению
         public async void LoadOpersByDivision(string id_div)
         {
             lvinDivision.Items.Clear();  //Чистим listview
@@ -1618,7 +1664,7 @@ namespace WorkDivision
                                 FROM inDivision as i 
                                 LEFT JOIN DirOpers as d on d.id=i.id_oper
                                 LEFT JOIN DirTarif as dt on dt.rank=i.rank
-                                WHERE id_division='" + id_div +@"' ORDER BY d.PER";
+                                WHERE id_division='" + id_div + @"' ORDER BY d.PER";
 
                 m_sqlCmd = new SQLiteCommand(query, dblite);
                 m_sqlCmd.Connection = dblite;
@@ -1628,7 +1674,7 @@ namespace WorkDivision
                 while (await sqlReader.ReadAsync())
                 {
                     //Если подкатегории операции
-                    if ((Convert.ToInt32(sqlReader["parent"]) > 0) && (Convert.ToInt32(sqlReader["parent"])!= Convert.ToInt32(sqlReader["id_oper"])))
+                    if ((Convert.ToInt32(sqlReader["parent"]) > 0) && (Convert.ToInt32(sqlReader["parent"]) != Convert.ToInt32(sqlReader["id_oper"])))
                     {
                         st_cnt = string.Empty;  //Порядковый номер пустой
                     }
@@ -1640,16 +1686,16 @@ namespace WorkDivision
 
                     ListViewItem item = new ListViewItem(new string[] {
                     Convert.ToString(sqlReader["id"]),
-                    Convert.ToString(sqlReader["UCH"]),
-                    Convert.ToString(st_cnt),
-                    Convert.ToString(sqlReader["Name"]),
-                    Convert.ToString(sqlReader["MatRate"]),
-                    Convert.ToString(sqlReader["rank"]),
-                    Convert.ToString(sqlReader["NVRforOper"]),
-                    Convert.ToString(sqlReader["workers_cnt"]),
-                    Convert.ToString(sqlReader["Cost"]),
-                    Convert.ToString(sqlReader["NVRbyItem"]),
-                    Convert.ToString(sqlReader["SumItem"])
+                    Convert.ToString(sqlReader["UCH"]),     //Участок
+                    Convert.ToString(st_cnt),               //Порядковый номер
+                    Convert.ToString(sqlReader["Name"]),    //Наименование операции
+                    Convert.ToString(sqlReader["MatRate"]), //Расход ткани
+                    Convert.ToString(sqlReader["rank"]),        //Разряд
+                    Convert.ToString(sqlReader["NVRforOper"]),  //Норма времени для операции
+                    Convert.ToString(sqlReader["workers_cnt"]), //кол-во работников
+                    Convert.ToString(sqlReader["Cost"]),        //Расценка
+                    Convert.ToString(sqlReader["NVRbyItem"]),   //Норма времени на единицу
+                    Convert.ToString(sqlReader["SumItem"])      //Стоимость единицы
                     });
                     item.Font = new Font(lvDivision.Font, FontStyle.Regular);
                     lvinDivision.Items.Add(item);
@@ -1671,15 +1717,15 @@ namespace WorkDivision
                 if (sqlReader != null && !sqlReader.IsClosed)
                     sqlReader.Close();
             }
-            toolStripStatusLabel1.Text = "Кол-во строк: " + lvinDivision.Items.Count;
+            toolStripStatusLabel1.Text = "Кол-во записей: " + lvinDivision.Items.Count;
 
             Division.absSumCost = 0;
             Division.absSumNVR = 0;
             Division.absSumItem = 0;
-            Division.product = lvDivision.SelectedItems[0].SubItems[3].Text;
-            Division.model = lvDivision.SelectedItems[0].SubItems[2].Text;
+            Division.product = lvDivision.SelectedItems[0].SubItems[3].Text;    //Запоминаем изделие в поле класса  
+            Division.model = lvDivision.SelectedItems[0].SubItems[2].Text;      //Запоминаем модель в поле класса  
 
-
+            //Расчет сумм
             for (int i = 0; i < lvinDivision.Items.Count; i++)
             {
                 Division.absSumCost += double.Parse(lvinDivision.Items[i].SubItems[8].Text);
@@ -1699,11 +1745,12 @@ namespace WorkDivision
         {
             if (lvinDivision.SelectedItems.Count > 0)
             {
-                DialogResult res = MessageBox.Show("Вы действительно хотите удалить выделенные строки?", "Удаление...", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+                DialogResult res = MessageBox.Show("Вы действительно хотите удалить выделенные записейи?", "Удаление...", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
 
                 switch (res)
                 {
                     case DialogResult.OK:
+                        //Пакетное удаление операций
                         foreach (ListViewItem item in lvinDivision.SelectedItems)
                         {
                             SQLiteCommand delArrCommand = new SQLiteCommand("DELETE FROM inDivision WHERE id=@id", dblite);
@@ -1724,12 +1771,12 @@ namespace WorkDivision
                         // автообновление после удаления
                         LoadOpersByDivision(Division.id);
 
-                    break;
+                        break;
                 }
             }
             else
             {
-                MessageBox.Show("Выберите строку для удаления.", "Ошибка 5.10.05", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Выберите запись для удаления.", "Ошибка 5.10.05", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -1739,24 +1786,23 @@ namespace WorkDivision
             if (lvinDivision.SelectedItems.Count > 0)
             {
 
-                fEditOperByDivision.id_rec = lvinDivision.SelectedItems[0].SubItems[0].Text;   //id записи
-                //fEditOperByDivision.number = int.Parse(lvinDivision.SelectedItems[0].SubItems[2].Text); //номер по порядку                
+                fEditOperByDivision.id_rec = lvinDivision.SelectedItems[0].SubItems[0].Text;   //id записи             
                 fEditOperByDivision.rank = lvinDivision.SelectedItems[0].SubItems[5].Text;   //разряд               
                 fEditOperByDivision.StartPosition = FormStartPosition.CenterParent;
-                fEditOperByDivision.Text = "Изменить";
+                fEditOperByDivision.Text = "Изменить запись";
                 fEditOperByDivision.ShowDialog();
                 LoadOpersByDivision(Division.id);
             }
             else
             {
-                MessageBox.Show("Выберите строку для редактирования.", "Ошибка 5.09.05", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Выберите запись для редактирования.", "Ошибка 5.09.05", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
         //Редактирование операций по разделению
         private void lvinDivision_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            tsBtnEditOperInDivision_Click(this,null);
+            tsBtnEditOperInDivision_Click(this, null);
         }
 
 
@@ -1766,8 +1812,8 @@ namespace WorkDivision
         {
             try
             {
-                File.Copy(Environment.CurrentDirectory + "\\divisionDB.db", Environment.CurrentDirectory + "\\DBbackups\\div_"+DateTime.Now.ToString("ddMMyyyy")+".db", true);
-                MessageBox.Show("BackUp","Резервная копия создана. ("+ Environment.CurrentDirectory + "\\DBbackups\\div_" + DateTime.Now.ToString("ddMMyyyy") + ".db)");
+                File.Copy(Environment.CurrentDirectory + "\\divisionDB.db", Environment.CurrentDirectory + "\\DBbackups\\div_" + DateTime.Now.ToString("ddMMyyyy") + ".db", true);
+                MessageBox.Show("BackUp", "Резервная копия создана. (" + Environment.CurrentDirectory + "\\DBbackups\\div_" + DateTime.Now.ToString("ddMMyyyy") + ".db)");
             }
             catch (Exception ex)
             {
@@ -1779,16 +1825,16 @@ namespace WorkDivision
         //Напечатать разделение
         private void tsPrintDivision_Click(object sender, EventArgs e)
         {
-            if (lvinDivision.Items.Count>0)
+            if (lvinDivision.Items.Count > 0)
             {
-                string Filename = Environment.CurrentDirectory + "\\Reports\\Division" + dateTimePicker1.Value.ToString("MM_yyyy") + "_"+Division.model+".docx";
+                string Filename = Environment.CurrentDirectory + "\\Reports\\Division" + dateTimePicker1.Value.ToString("MM_yyyy") + "_" + Division.model + ".docx";
                 _Document oDoc = GetDoc(Environment.CurrentDirectory + "\\DivisionTemplate.docx");
                 oDoc.SaveAs(FileName: Filename); //Сохраняем документ
                 oDoc.Close();
                 System.Diagnostics.Process.Start(Filename);  //Открыть документ разделения                                                        
             }
             else
-            { 
+            {
                 MessageBox.Show("Выберите разделение для печати.", "Ошибка 5.09.05", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
@@ -1803,19 +1849,22 @@ namespace WorkDivision
             return oDoc;
         }
 
+        //коэф. для перевода секунд в часы
+        const double hours_in_sec = 0.000278;
+
         //Заполняем шаблон
         private async void SetTemplate(Microsoft.Office.Interop.Word._Document oDoc)
         {
-            int i=0;
+            int i = 0;
             try
             {
                 double NVRsec = Division.absSumNVR;
                 //Титульный лист
-                oDoc.Bookmarks["product"].Range.Text = Division.product;                                            //lvDivision.SelectedItems[0].SubItems[2].Text;
-                oDoc.Bookmarks["model"].Range.Text = Division.model;                                                //lvDivision.SelectedItems[0].SubItems[1].Text;
-                oDoc.Bookmarks["mmyy"].Range.Text = "за "+dateTimePicker1.Value.ToString("Y").ToUpper()+" г.";
-                oDoc.Bookmarks["sumNVR"].Range.Text = NVRsec.ToString()+"с = "+Math.Round(NVRsec* 0.000278,2)+" ч";
-                oDoc.Bookmarks["sumItem"].Range.Text = Division.absSumItem.ToString();                              //lvDivision.SelectedItems[0].SubItems[4].Text;
+                oDoc.Bookmarks["product"].Range.Text = Division.product;                                            
+                oDoc.Bookmarks["model"].Range.Text = Division.model;                                                
+                oDoc.Bookmarks["mmyy"].Range.Text = "за " + dateTimePicker1.Value.ToString("Y").ToUpper() + " г.";
+                oDoc.Bookmarks["sumNVR"].Range.Text = NVRsec.ToString() + "с = " + Math.Round(NVRsec * hours_in_sec, 2) + " ч";
+                oDoc.Bookmarks["sumItem"].Range.Text = Division.absSumItem.ToString();                             
 
                 //Подписанты (2 первых)
                 try
@@ -1829,8 +1878,8 @@ namespace WorkDivision
                     while (await sqlReader.ReadAsync())
                     {
                         i++;
-                        oDoc.Bookmarks["Signer"+i.ToString()].Range.Text = Convert.ToString(sqlReader["post"])+
-                                            @"                       /"+ Convert.ToString(sqlReader["FIO"])+@"/";
+                        oDoc.Bookmarks["Signer" + i.ToString()].Range.Text = Convert.ToString(sqlReader["post"]) +
+                                            @"                       /" + Convert.ToString(sqlReader["FIO"]) + @"/";
                     }
                 }
                 catch (Exception ex)
@@ -1847,13 +1896,13 @@ namespace WorkDivision
                 //Название модели
                 oDoc.Bookmarks["model2"].Range.Text = Division.model;
                 Table wTable = oDoc.Tables[1];
-                for (int row = 0; row < lvinDivision.Items.Count; row++) //проход по строкам
+                for (int row = 0; row < lvinDivision.Items.Count; row++) //проход по записейам
                 {
-                    for (int col = 0; col < lvinDivision.Items[row].SubItems.Count-2; col++)  //проход по столбцам
+                    for (int col = 0; col < lvinDivision.Items[row].SubItems.Count - 2; col++)  //проход по столбцам
                     {
-                        wTable.Cell(row + 2, col+1).Range.Text = lvinDivision.Items[row].SubItems[col+2].Text;
+                        wTable.Cell(row + 2, col + 1).Range.Text = lvinDivision.Items[row].SubItems[col + 2].Text;
                     }
-                    wTable.Rows.Add();  //Добавить строку
+                    wTable.Rows.Add();  //Добавить запись
                 }
 
                 //ИТОГО
@@ -1917,42 +1966,6 @@ namespace WorkDivision
             }
 
             LoadOpersByDivision(Division.id);
-        }
-    }
-    class Division
-    {
-        public static string id { get; set; }
-        public static string mm { get; set; }
-        public static string yy { get; set; }
-        public static string product { get; set; }
-        public static string model { get; set; }
-
-        public static double absSumCost { get; set; }  //Суммарная расценка
-        public static double absSumNVR { get; set; }     //Суммарная норма времени
-        public static double absSumItem { get; set; }       //Суммарная стоимость
-
-
-        // авторасширение колонок listView по размеру содержимого
-        public static void autoResizeColumns(ListView lv)
-        {
-            lv.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
-            ListView.ColumnHeaderCollection cc = lv.Columns;
-            for (int i = 0; i < cc.Count; i++)
-            {
-
-                int colWidth = TextRenderer.MeasureText(cc[i].Text, lv.Font).Width + 10;
-                if (i > 0)
-                {
-                    if (colWidth > cc[i].Width)
-                    {
-                        cc[i].Width = colWidth;
-                    }
-                }
-                else
-                {
-                    cc[i].Width = 0;
-                }
-            }
         }
     }
 }

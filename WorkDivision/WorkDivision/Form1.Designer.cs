@@ -44,6 +44,8 @@
             this.lvDivision = new System.Windows.Forms.ListView();
             this.tpinDivision = new System.Windows.Forms.TabPage();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.tsBtnCopyDivision = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator38 = new System.Windows.Forms.ToolStripSeparator();
             this.tsBtnAddOperInDivision = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator31 = new System.Windows.Forms.ToolStripSeparator();
             this.tsBtnEditOperInDivision = new System.Windows.Forms.ToolStripButton();
@@ -170,8 +172,6 @@
             this.PrintToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.printDivisionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsBtnCopyDivision = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator38 = new System.Windows.Forms.ToolStripSeparator();
             this.tabControl1.SuspendLayout();
             this.tpDivision.SuspendLayout();
             this.toolStrip2.SuspendLayout();
@@ -358,6 +358,20 @@
             this.toolStrip1.Size = new System.Drawing.Size(1123, 27);
             this.toolStrip1.TabIndex = 3;
             this.toolStrip1.Text = "toolStrip1";
+            // 
+            // tsBtnCopyDivision
+            // 
+            this.tsBtnCopyDivision.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnCopyDivision.Image")));
+            this.tsBtnCopyDivision.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsBtnCopyDivision.Name = "tsBtnCopyDivision";
+            this.tsBtnCopyDivision.Size = new System.Drawing.Size(169, 24);
+            this.tsBtnCopyDivision.Text = "Скопировать разделение";
+            this.tsBtnCopyDivision.Click += new System.EventHandler(this.tsBtnCopyDivision_Click);
+            // 
+            // toolStripSeparator38
+            // 
+            this.toolStripSeparator38.Name = "toolStripSeparator38";
+            this.toolStripSeparator38.Size = new System.Drawing.Size(6, 27);
             // 
             // tsBtnAddOperInDivision
             // 
@@ -1017,7 +1031,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lvDirTarif.HideSelection = false;
-            this.lvDirTarif.Location = new System.Drawing.Point(8, 46);
+            this.lvDirTarif.Location = new System.Drawing.Point(0, 28);
             this.lvDirTarif.Name = "lvDirTarif";
             this.lvDirTarif.Size = new System.Drawing.Size(1119, 362);
             this.lvDirTarif.TabIndex = 11;
@@ -1486,20 +1500,6 @@
             this.AboutToolStripMenuItem.Size = new System.Drawing.Size(94, 20);
             this.AboutToolStripMenuItem.Text = "О программе";
             this.AboutToolStripMenuItem.Click += new System.EventHandler(this.AboutToolStripMenuItem_Click);
-            // 
-            // tsBtnCopyDivision
-            // 
-            this.tsBtnCopyDivision.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnCopyDivision.Image")));
-            this.tsBtnCopyDivision.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsBtnCopyDivision.Name = "tsBtnCopyDivision";
-            this.tsBtnCopyDivision.Size = new System.Drawing.Size(169, 24);
-            this.tsBtnCopyDivision.Text = "Скопировать разделение";
-            this.tsBtnCopyDivision.Click += new System.EventHandler(this.tsBtnCopyDivision_Click);
-            // 
-            // toolStripSeparator38
-            // 
-            this.toolStripSeparator38.Name = "toolStripSeparator38";
-            this.toolStripSeparator38.Size = new System.Drawing.Size(6, 27);
             // 
             // Form1
             // 

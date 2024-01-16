@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(fAddDivision));
             this.lblID = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
@@ -103,7 +104,6 @@
             this.cbModel.Size = new System.Drawing.Size(562, 21);
             this.cbModel.TabIndex = 34;
             this.cbModel.SelectedIndexChanged += new System.EventHandler(this.cbModel_SelectedIndexChanged);
-            //this.cbModel.TextUpdate += new System.EventHandler(this.cbModel_TextUpdate);
             // 
             // label3
             // 
@@ -174,6 +174,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.lblID);
             this.Controls.Add(this.button1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "fAddDivision";
             this.Text = "Добавить / Изменить разделение";
             this.Load += new System.EventHandler(this.fAddDivision_Load);

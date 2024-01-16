@@ -401,7 +401,7 @@ namespace WorkDivision
         {
             string query = @"SELECT i.id FROM inDivision as i
                             LEFT JOIN DirOpers as d on d.id=i.id_oper
-                            WHERE i.id<>" + id_rec + @" AND d.PER>="+ord+@" AND i.id_division="+Division.id+@" ORDER BY d.PER ASC LIMIT 1";
+                            WHERE i.id >" + id_rec + @" AND i.id_division="+Division.id+@" ORDER BY i.id ASC LIMIT 1";
             m_sqlCmd = new SQLiteCommand(query, dblite);
 
             //ID записи в разделении
@@ -421,7 +421,7 @@ namespace WorkDivision
         {
             string query = @"SELECT i.id FROM inDivision as i
                             LEFT JOIN DirOpers as d on d.id=i.id_oper
-                            WHERE i.id<>" + id_rec + @" AND d.PER<="+ord+@" AND i.id_division=" + Division.id+@" ORDER BY d.PER DESC LIMIT 1";
+                            WHERE i.id < " + id_rec + @" AND i.id_division=" + Division.id+@" ORDER BY i.id DESC LIMIT 1";
             m_sqlCmd = new SQLiteCommand(query, dblite);
 
             //ID записи в разделении

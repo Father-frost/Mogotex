@@ -98,26 +98,39 @@ namespace WorkDivision
             }
         }
 
+        //Выбор разделения для копирования
+        private void lvDivisionsToCopy_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            btnSelect_Click(this, null);
+        }
+
         private async void btnSelect_Click(object sender, EventArgs e)
         {
-            try
+            if (lvDivisionsToCopy.SelectedItems.Count > 0)
             {
-                insertDirCommand = new SQLiteCommand(@"INSERT INTO inDivision (id_division,id_oper,rank,MatRate, NVRforOper, workers_cnt, mm,yy) 
-                                                 SELECT @id_div,id_oper, rank, MatRate, NVRforOper, workers_cnt,01,2024 FROM inDivision where id_division=@copied_id",dblite);
-                insertDirCommand.Parameters.AddWithValue("id_div", Division.id);
-                insertDirCommand.Parameters.AddWithValue("mm", Division.mm);
-                insertDirCommand.Parameters.AddWithValue("yy", Division.yy);
-                insertDirCommand.Parameters.AddWithValue("copied_id", lvDivisionsToCopy.SelectedItems[0].SubItems[0].Text);    //id копируемого разделения
+                try
+                {
+                    insertDirCommand = new SQLiteCommand(@"INSERT INTO inDivision (id_division,id_oper,rank,MatRate, NVRforOper, workers_cnt, mm,yy) 
+                                                 SELECT @id_div,id_oper, rank, MatRate, NVRforOper, workers_cnt,01,2024 FROM inDivision where id_division=@copied_id", dblite);
+                    insertDirCommand.Parameters.AddWithValue("id_div", Division.id);
+                    insertDirCommand.Parameters.AddWithValue("mm", Division.mm);
+                    insertDirCommand.Parameters.AddWithValue("yy", Division.yy);
+                    insertDirCommand.Parameters.AddWithValue("copied_id", lvDivisionsToCopy.SelectedItems[0].SubItems[0].Text);    //id копируемого разделения
 
-                await insertDirCommand.ExecuteNonQueryAsync();
+                    await insertDirCommand.ExecuteNonQueryAsync();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Ошибка 8.08.08", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    this.Close();
+                }
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show(ex.Message, "Ошибка 8.08.08", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally 
-            {
-                this.Close();
+                MessageBox.Show("Выберите разделение для копирования.", "Ошибка 10.10.05", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
     }

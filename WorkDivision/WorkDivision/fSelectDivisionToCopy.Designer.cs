@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(fSelectDivisionToCopy));
             this.lvDivisionsToCopy = new System.Windows.Forms.ListView();
             this.btnSelect = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -40,6 +41,7 @@
             this.lvDivisionsToCopy.Size = new System.Drawing.Size(582, 547);
             this.lvDivisionsToCopy.TabIndex = 0;
             this.lvDivisionsToCopy.UseCompatibleStateImageBehavior = false;
+            this.lvDivisionsToCopy.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lvDivisionsToCopy_MouseDoubleClick);
             // 
             // btnSelect
             // 
@@ -58,6 +60,10 @@
             this.ClientSize = new System.Drawing.Size(587, 604);
             this.Controls.Add(this.btnSelect);
             this.Controls.Add(this.lvDivisionsToCopy);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "fSelectDivisionToCopy";
             this.Text = "Скопировать разделение";
             this.Load += new System.EventHandler(this.fSelectDivisionToCopy_Load);

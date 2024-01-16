@@ -31,7 +31,7 @@ namespace WorkDivision
             if (id_rec == "")  //Если  id записи не передан (новая запись) 
             {
                 
-                string querySQLite = @"INSERT INTO DirOpers (Name,UCH,PER,NST,KOEF,NVR) VALUES (@Name,@UCH,@PER,@NST,@KOEF,'@NVR')";
+                string querySQLite = @"INSERT INTO DirOpers (Name,UCH,PER,NST,KOEF,NVR,parent) VALUES (@Name,@UCH,@PER,@NST,@KOEF,'@NVR',@parent)";
                 m_sqlCmd = new SQLiteCommand(querySQLite, dblite);
                 m_sqlCmd.Parameters.AddWithValue("@Name", tbName.Text);
                 m_sqlCmd.Parameters.AddWithValue("@UCH", tbUCH.Text);
@@ -39,10 +39,11 @@ namespace WorkDivision
                 m_sqlCmd.Parameters.AddWithValue("@NST", tbNST.Text);
                 m_sqlCmd.Parameters.AddWithValue("@KOEF", tbKOEF.Text.Replace(",", "."));
                 m_sqlCmd.Parameters.AddWithValue("@NVR", tbNVR.Text.Replace(",", "."));
+                m_sqlCmd.Parameters.AddWithValue("@parent", tbParent.Text);
             }
             else
             {
-                string querySQLite = @"UPDATE DirOpers SET Name=@Name, UCH=@UCH, PER=@PER, NST=@NST, KOEF=@KOEF, NVR=@NVR WHERE id=" + id_rec;
+                string querySQLite = @"UPDATE DirOpers SET Name=@Name, UCH=@UCH, PER=@PER, NST=@NST, KOEF=@KOEF, NVR=@NVR, parent=@parent WHERE id=" + id_rec;
                 m_sqlCmd = new SQLiteCommand(querySQLite, dblite);
                 m_sqlCmd.Parameters.AddWithValue("@Name", tbName.Text);
                 m_sqlCmd.Parameters.AddWithValue("@UCH", tbUCH.Text);
@@ -50,6 +51,7 @@ namespace WorkDivision
                 m_sqlCmd.Parameters.AddWithValue("@NST", tbNST.Text);
                 m_sqlCmd.Parameters.AddWithValue("@KOEF", tbKOEF.Text.Replace(",", "."));
                 m_sqlCmd.Parameters.AddWithValue("@NVR", tbNVR.Text.Replace(",","."));
+                m_sqlCmd.Parameters.AddWithValue("@parent", tbParent.Text);
             }
             try
             {
@@ -74,6 +76,7 @@ namespace WorkDivision
             if (id_rec != "")
             {
                     //MessageBox.Show(id_rec.ToString());
+                lblID.Text = id_rec;
                 GetOper();
             }
             else
@@ -84,6 +87,7 @@ namespace WorkDivision
                 tbNST.Text = "";
                 tbKOEF.Text = "";
                 tbNVR.Text = "";
+                tbParent.Text = "";
             }
         }
 
@@ -105,6 +109,7 @@ namespace WorkDivision
                     tbNST.Text = Convert.ToString(sqlReader["NST"]);
                     tbKOEF.Text = Convert.ToString(sqlReader["KOEF"]);
                     tbNVR.Text = Convert.ToString(sqlReader["NVR"]);
+                    tbParent.Text = Convert.ToString(sqlReader["parent"]);
 
                 }
 

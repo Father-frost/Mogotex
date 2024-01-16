@@ -78,6 +78,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DB.cs" />
+    <Compile Include="Division.cs" />
     <Compile Include="fAddDivision.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -174,8 +175,6 @@
     <Compile Include="fSelectDivisionToCopy.Designer.cs">
       <DependentUpon>fSelectDivisionToCopy.cs</DependentUpon>
     </Compile>
-    <Compile Include="IniFile.cs" />
-    <Compile Include="Operation.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="fAddDivision.resx">

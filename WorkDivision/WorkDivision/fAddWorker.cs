@@ -32,23 +32,23 @@ namespace WorkDivision
         {
             if (id_rec == "")  //Если  id записи не передан (новая запись) 
             {
-                string querySQLite = @"INSERT INTO DirWorkers (Tab_nom, FIO, rank, kprof, KO, brig_id) VALUES (@Tab_nom,@FIO,@rank,@kprof,@KO,@brig_id)";
+                string querySQLite = @"INSERT INTO DirWorkers (Tab_nom, FIO, rank, prof_id, KO, brig_id) VALUES (@Tab_nom,@FIO,@rank,@prof_id,@KO,@brig_id)";
                 m_sqlCmd = new SQLiteCommand(querySQLite, dblite);
                 m_sqlCmd.Parameters.AddWithValue("@tab_nom", tbTabnom.Text);
                 m_sqlCmd.Parameters.AddWithValue("@FIO", tbFIO.Text);
                 m_sqlCmd.Parameters.AddWithValue("@rank", tbRank.Text);
-                m_sqlCmd.Parameters.AddWithValue("@kprof", cbProf.SelectedValue);
+                m_sqlCmd.Parameters.AddWithValue("@prof_id", cbProf.SelectedValue);
                 m_sqlCmd.Parameters.AddWithValue("@KO", tbKO.Text.Replace(",", "."));
                 m_sqlCmd.Parameters.AddWithValue("@brig_id", cbBrig.SelectedValue);
             }
             else
             {
-                string querySQLite = @"UPDATE DirWorkers SET Tab_nom=@Tab_nom, FIO=@FIO, rank=@rank, kprof=@kprof, KO=@KO, brig_id=@brig_id WHERE id="+id_rec;
+                string querySQLite = @"UPDATE DirWorkers SET Tab_nom=@Tab_nom, FIO=@FIO, rank=@rank, prof_id=@prof_id, KO=@KO, brig_id=@brig_id WHERE id="+id_rec;
                 m_sqlCmd = new SQLiteCommand(querySQLite, dblite);
                 m_sqlCmd.Parameters.AddWithValue("@tab_nom", tbTabnom.Text);
                 m_sqlCmd.Parameters.AddWithValue("@FIO", tbFIO.Text);
                 m_sqlCmd.Parameters.AddWithValue("@rank", tbRank.Text);
-                m_sqlCmd.Parameters.AddWithValue("@kprof", cbProf.SelectedValue);
+                m_sqlCmd.Parameters.AddWithValue("@prof_id", cbProf.SelectedValue);
                 m_sqlCmd.Parameters.AddWithValue("@KO", tbKO.Text.Replace(",", "."));
                 m_sqlCmd.Parameters.AddWithValue("@brig_id", cbBrig.SelectedValue);
             }
@@ -129,7 +129,7 @@ namespace WorkDivision
             {
                 string query = @"SELECT dw.*,dbr.id,dbr.KODBR,dbr.Name,pr.Name as pName 
                             FROM DirWorkers as dw
-                            LEFT JOIN DirProfs as pr on pr.id = dw.kprof
+                            LEFT JOIN DirProfs as pr on pr.id = dw.prof_id
                             LEFT JOIN DirBrigs as dbr on dw.brig_id = dbr.id WHERE dw.id =" + id_rec;
 
                 m_sqlCmd = new SQLiteCommand(query, dblite);

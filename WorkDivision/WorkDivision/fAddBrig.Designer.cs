@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(fAddBrig));
             this.lblID = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -82,6 +83,7 @@
             this.label4.Size = new System.Drawing.Size(42, 13);
             this.label4.TabIndex = 23;
             this.label4.Text = "NUMK:";
+            this.label4.Visible = false;
             // 
             // tbKODBR
             // 
@@ -103,6 +105,7 @@
             this.tbNumk.Name = "tbNumk";
             this.tbNumk.Size = new System.Drawing.Size(73, 20);
             this.tbNumk.TabIndex = 26;
+            this.tbNumk.Visible = false;
             // 
             // fAddBrig
             // 
@@ -118,6 +121,7 @@
             this.Controls.Add(this.lblID);
             this.Controls.Add(this.button1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "fAddBrig";
