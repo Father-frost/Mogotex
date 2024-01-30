@@ -75,12 +75,13 @@ namespace WorkDivision
             lvDirWorkers.Font = new Font(lvDirWorkers.Font, FontStyle.Bold);
             lvDirWorkers.Columns.Add("ID");
             lvDirWorkers.Columns.Add("Таб.№");
-            lvDirWorkers.Columns.Add("ФИО");
+            lvDirWorkers.Columns.Add("ФИО                   ");
             lvDirWorkers.Columns.Add("Разряд");
             lvDirWorkers.Columns.Add("Профессия");
             lvDirWorkers.Columns.Add("KO");
             lvDirWorkers.Columns.Add("Номер бригады");
             lvDirWorkers.Columns.Add("Название бригады");
+            Division.autoResizeColumns(lvDirWorkers);
 
             //Справочник бригад
             lvDirBrigs.GridLines = true;
@@ -90,7 +91,7 @@ namespace WorkDivision
             lvDirBrigs.Columns.Add("ID");
             lvDirBrigs.Columns.Add("Номер");
             lvDirBrigs.Columns.Add("Название бригады");
-            //lvDirBrigs.Columns.Add("NUMK");
+            Division.autoResizeColumns(lvDirBrigs);
 
             //Справочник профессий
             lvDirProfs.GridLines = true;
@@ -98,9 +99,10 @@ namespace WorkDivision
             lvDirProfs.View = View.Details;
             lvDirProfs.Font = new Font(lvDirProfs.Font, FontStyle.Bold);
             lvDirProfs.Columns.Add("ID");
-            lvDirProfs.Columns.Add("Код профессии");
-            lvDirProfs.Columns.Add("Наименование");
+//            lvDirProfs.Columns.Add("Код профессии");
+            lvDirProfs.Columns.Add("Наименование            ");
             lvDirProfs.Columns.Add("PR");
+            Division.autoResizeColumns(lvDirProfs);
 
             //Справочник операций
             lvDirOpers.GridLines = true;
@@ -110,8 +112,9 @@ namespace WorkDivision
             lvDirOpers.Columns.Add("ID");
             lvDirOpers.Columns.Add("Участок");
             lvDirOpers.Columns.Add("Переход");
-            lvDirOpers.Columns.Add("Наименование");
+            lvDirOpers.Columns.Add("Операция");
             lvDirOpers.Columns.Add("ID родительской операции");
+            Division.autoResizeColumns(lvDirOpers);
 
             //lvDirOpers.Columns.Add("Коэф.");
             //lvDirOpers.Columns.Add("Норма времени, сек");
@@ -122,7 +125,8 @@ namespace WorkDivision
             lvDirProducts.View = View.Details;
             lvDirProducts.Font = new Font(lvDirProducts.Font, FontStyle.Bold);
             lvDirProducts.Columns.Add("id");
-            lvDirProducts.Columns.Add("Наименование");
+            lvDirProducts.Columns.Add("Наименование             ");
+            Division.autoResizeColumns(lvDirProducts);
 
             //Справочник тарифных ставок
             lvDirTarif.GridLines = true;
@@ -133,6 +137,7 @@ namespace WorkDivision
             lvDirTarif.Columns.Add("Разряд");
             lvDirTarif.Columns.Add("Тар.ставка");
             lvDirTarif.Columns.Add("Коэф.сдел.");
+            Division.autoResizeColumns(lvDirTarif);
 
             //Справочник норм на настил
             lvDirNormNastil.GridLines = true;
@@ -140,8 +145,9 @@ namespace WorkDivision
             lvDirNormNastil.View = View.Details;
             lvDirNormNastil.Font = new Font(lvDirNormNastil.Font, FontStyle.Bold);
             lvDirNormNastil.Columns.Add("id");
-            lvDirNormNastil.Columns.Add("Вид ткани");
+            lvDirNormNastil.Columns.Add("Вид ткани                      ");
             lvDirNormNastil.Columns.Add("Затрата врем. на 1м, сек");
+            Division.autoResizeColumns(lvDirNormNastil);
 
             //Справочник норм на контроль
             lvDirNormControl.GridLines = true;
@@ -149,8 +155,9 @@ namespace WorkDivision
             lvDirNormControl.View = View.Details;
             lvDirNormControl.Font = new Font(lvDirNormControl.Font, FontStyle.Bold);
             lvDirNormControl.Columns.Add("id");
-            lvDirNormControl.Columns.Add("Вид ткани");
+            lvDirNormControl.Columns.Add("Вид ткани                     ");
             lvDirNormControl.Columns.Add("Затрата врем. на 1м, сек");
+            Division.autoResizeColumns(lvDirNormControl);
 
             //Справочник подписантов
             lvDirSigners.GridLines = true;
@@ -158,9 +165,10 @@ namespace WorkDivision
             lvDirSigners.View = View.Details;
             lvDirSigners.Font = new Font(lvDirSigners.Font, FontStyle.Bold);
             lvDirSigners.Columns.Add("id");
-            lvDirSigners.Columns.Add("Должность");
-            lvDirSigners.Columns.Add("ФИО");
+            lvDirSigners.Columns.Add("Должность             ");
+            lvDirSigners.Columns.Add("ФИО                   ");
             lvDirSigners.Columns.Add("Порядок");
+            Division.autoResizeColumns(lvDirSigners);
 
             //Справочник моделей
             lvDirModels.GridLines = true;
@@ -174,6 +182,7 @@ namespace WorkDivision
             lvDirModels.Columns.Add("Категория 1");
             lvDirModels.Columns.Add("Категория 2");
             lvDirModels.Columns.Add("Ед.изм.");
+            Division.autoResizeColumns(lvDirModels);
 
             //Разделения
             lvDivision.GridLines = true;
@@ -186,6 +195,7 @@ namespace WorkDivision
             lvDivision.Columns.Add("Вид изделия");
             lvDivision.Columns.Add("Время обработки");
             lvDivision.Columns.Add("Стоимость обработки");
+            Division.autoResizeColumns(lvDivision);
 
             //Детализация разделения
             lvinDivision.GridLines = true;
@@ -354,7 +364,7 @@ namespace WorkDivision
                     lvDirWorkers.Items.Add(item);
                 }
 
-                Division.autoResizeColumns(lvDirWorkers);
+                //Division.autoResizeColumns(lvDirWorkers);
 
             }
             catch (Exception ex)
@@ -469,7 +479,7 @@ namespace WorkDivision
                     lvDirBrigs.Items.Add(item);
                 }
 
-                Division.autoResizeColumns(lvDirBrigs);
+                //Division.autoResizeColumns(lvDirBrigs);
 
             }
             catch (Exception ex)
@@ -580,7 +590,7 @@ namespace WorkDivision
                     lvDirProfs.Items.Add(item);
                 }
 
-                Division.autoResizeColumns(lvDirProfs);
+                //Division.autoResizeColumns(lvDirProfs);
 
             }
             catch (Exception ex)
@@ -699,7 +709,7 @@ namespace WorkDivision
                     }
                 }
 
-                Division.autoResizeColumns(lvDirOpers);
+                //Division.autoResizeColumns(lvDirOpers);
 
             }
             catch (Exception ex)
@@ -824,7 +834,7 @@ namespace WorkDivision
 
                 }
 
-                Division.autoResizeColumns(lvDirModels);
+                //Division.autoResizeColumns(lvDirModels);
 
             }
             catch (Exception ex)
@@ -938,7 +948,7 @@ namespace WorkDivision
                     lvDirProducts.Items.Add(item);
                 }
 
-                Division.autoResizeColumns(lvDirProducts);
+                //Division.autoResizeColumns(lvDirProducts);
 
             }
             catch (Exception ex)
@@ -1051,7 +1061,7 @@ namespace WorkDivision
                     lvDirTarif.Items.Add(item);
                 }
 
-                Division.autoResizeColumns(lvDirTarif);
+                //Division.autoResizeColumns(lvDirTarif);
 
             }
             catch (Exception ex)
@@ -1163,7 +1173,7 @@ namespace WorkDivision
                     lvDirNormNastil.Items.Add(item);
                 }
 
-                Division.autoResizeColumns(lvDirNormNastil);
+                //Division.autoResizeColumns(lvDirNormNastil);
 
             }
             catch (Exception ex)
@@ -1275,7 +1285,7 @@ namespace WorkDivision
                     lvDirNormControl.Items.Add(item);
                 }
 
-                Division.autoResizeColumns(lvDirNormControl);
+                //Division.autoResizeColumns(lvDirNormControl);
 
             }
             catch (Exception ex)
@@ -1387,7 +1397,7 @@ namespace WorkDivision
                     lvDirSigners.Items.Add(item);
                 }
 
-                Division.autoResizeColumns(lvDirSigners);
+                //Division.autoResizeColumns(lvDirSigners);
 
             }
             catch (Exception ex)
@@ -1530,7 +1540,7 @@ namespace WorkDivision
                     lvDivision.Items.Add(item);
                 }
 
-                Division.autoResizeColumns(lvDivision);
+                //Division.autoResizeColumns(lvDivision);
 
             }
             catch (Exception ex)
@@ -1705,7 +1715,7 @@ namespace WorkDivision
                     }
                 }
 
-                Division.autoResizeColumns(lvinDivision);
+                //Division.autoResizeColumns(lvinDivision);
 
             }
             catch (Exception ex)

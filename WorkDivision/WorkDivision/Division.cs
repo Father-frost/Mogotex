@@ -27,7 +27,14 @@ namespace WorkDivision
                 {
                     if (colWidth > cc[i].Width)
                     {
-                        cc[i].Width = colWidth;
+                        if (cc[i].Text == "Операция") 
+                        {
+                            cc[i].Width = colWidth+700;
+                        }
+                        else
+                        {     
+                            cc[i].Width = colWidth;                         
+                        }
                     }
                 }
                 else
