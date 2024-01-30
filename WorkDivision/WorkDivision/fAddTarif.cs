@@ -1,19 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Data.SQLite;
-using System.Xml;
+using System.Windows.Forms;
 
 namespace WorkDivision
 {
-    public partial class fAddTarif : Form
+	public partial class fAddTarif : Form
     {
         private SQLiteConnection dblite;
         private SQLiteDataReader sqlReader;

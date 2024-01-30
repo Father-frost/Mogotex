@@ -1,24 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Data.SQLite;
-using System.Xml;
-using System.Globalization;
-using System.Net.Security;
-using System.Collections;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using System.Xml.Linq;
+using System.Windows.Forms;
 
 namespace WorkDivision
 {
-    public partial class fEditOperByDivision : Form
+	public partial class fEditOperByDivision : Form
     {
         private SQLiteConnection dblite;
         private SQLiteDataReader sqlReader;

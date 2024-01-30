@@ -2,12 +2,10 @@
 using System.Data.SQLite;
 using System.Drawing;
 using System.Windows.Forms;
-using System.Xml;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace WorkDivision
 {
-    public partial class fSelectDivisionToCopy : Form
+	public partial class fSelectDivisionToCopy : Form
     {
         private SQLiteConnection dblite;
         private SQLiteCommand m_sqlCmd, insertDirCommand;

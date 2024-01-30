@@ -2,7 +2,7 @@
 
 namespace WorkDivision
 {
-    internal class Division
+	internal class Division
     {
         public static string id { get; set; }       //ID разделения
         public static string mm { get; set; }       //месяц

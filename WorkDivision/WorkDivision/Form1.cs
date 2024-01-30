@@ -5,13 +5,12 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using Font = System.Drawing.Font;
-using ListView = System.Windows.Forms.ListView;
 using View = System.Windows.Forms.View;
 using Word = Microsoft.Office.Interop.Word;
 
 namespace WorkDivision
 {
-    public partial class Form1 : Form
+	public partial class Form1 : Form
     {
         private SQLiteConnection dblite;
         private SQLiteCommand m_sqlCmd;
@@ -178,7 +177,7 @@ namespace WorkDivision
             lvDirModels.Columns.Add("id");
             lvDirModels.Columns.Add("КОД");
             lvDirModels.Columns.Add("Название модели");
-            lvDirModels.Columns.Add("Вид изделия");
+            lvDirModels.Columns.Add("Вид изделия                ");
             lvDirModels.Columns.Add("Категория 1");
             lvDirModels.Columns.Add("Категория 2");
             lvDirModels.Columns.Add("Ед.изм.");
@@ -192,7 +191,7 @@ namespace WorkDivision
             lvDivision.Columns.Add("id");
             lvDivision.Columns.Add("№ модели");
             lvDivision.Columns.Add("Модель");
-            lvDivision.Columns.Add("Вид изделия");
+            lvDivision.Columns.Add("Вид изделия ");
             lvDivision.Columns.Add("Время обработки");
             lvDivision.Columns.Add("Стоимость обработки");
             Division.autoResizeColumns(lvDivision);
