@@ -1754,7 +1754,7 @@ namespace WorkDivision
         {
             if (lvinDivision.SelectedItems.Count > 0)
             {
-                DialogResult res = MessageBox.Show("Вы действительно хотите удалить выделенные записейи?", "Удаление...", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+                DialogResult res = MessageBox.Show("Вы действительно хотите удалить выделенные записи?", "Удаление...", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
 
                 switch (res)
                 {
