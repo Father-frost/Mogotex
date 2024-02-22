@@ -78,10 +78,11 @@ namespace WorkDivision
                 cbModel.DisplayMember = "Name";
                 cbModel.ValueMember = "id";
 
-                //Если выбран существующий интервал, загружаем параметры
+                //Если выбрана модель, загружаем параметры
                 if (id_rec != "")
                 {
                     cbModel.SelectedValue = id_model;
+                    lblID.Text = id_model;
                 }
                 else
                 {
@@ -90,6 +91,7 @@ namespace WorkDivision
                     tbProdCat.Text = "";
                     tbProdGRP.Text = "";
                     tbEI.Text = "";
+                    lblID.Text = "";
                 }
             }
             catch (Exception ex)
@@ -122,11 +124,12 @@ namespace WorkDivision
 
                 while (await sqlReader.ReadAsync())
                 {
-                    lbKMOD.Text = Convert.ToString(sqlReader["KMOD"]);
+                    tbKMOD.Text = Convert.ToString(sqlReader["KMOD"]);
                     tbEI.Text = Convert.ToString(sqlReader["EI"]);
                     tbProd.Text = Convert.ToString(sqlReader["pName"]);
                     tbProdCat.Text = Convert.ToString(sqlReader["category"]);
                     tbProdGRP.Text = Convert.ToString(sqlReader["GRP"]);
+                    lblID.Text = id_model;
                 }
 
             }

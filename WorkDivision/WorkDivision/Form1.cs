@@ -10,7 +10,7 @@ using Word = Microsoft.Office.Interop.Word;
 
 namespace WorkDivision
 {
-	public partial class Form1 : Form
+    public partial class Form1 : Form
     {
         private SQLiteConnection dblite;
         private SQLiteCommand m_sqlCmd;
@@ -54,6 +54,8 @@ namespace WorkDivision
             liteDB = new liteDB();
 
         }
+
+        public delegate void LoadOpersByDivisionDelegate(string id_div);
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -175,7 +177,7 @@ namespace WorkDivision
             lvDirModels.View = View.Details;
             lvDirModels.Font = new Font(lvDirModels.Font, FontStyle.Bold);
             lvDirModels.Columns.Add("id");
-            lvDirModels.Columns.Add("КОД");
+            lvDirModels.Columns.Add("КОД            ");
             lvDirModels.Columns.Add("Название модели");
             lvDirModels.Columns.Add("Вид изделия                ");
             lvDirModels.Columns.Add("Категория 1");
@@ -191,7 +193,7 @@ namespace WorkDivision
             lvDivision.Columns.Add("id");
             lvDivision.Columns.Add("№ модели");
             lvDivision.Columns.Add("Модель");
-            lvDivision.Columns.Add("Вид изделия ");
+            lvDivision.Columns.Add("Вид изделия                 ");
             lvDivision.Columns.Add("Время обработки");
             lvDivision.Columns.Add("Стоимость обработки");
             Division.autoResizeColumns(lvDivision);
@@ -279,6 +281,11 @@ namespace WorkDivision
                 tsStatusSumCost.Text = "";
                 tsStatusNVRbyItem.Text = "";
                 tsStatusSumItem.Text = "";
+            }
+            if (tabControl1.SelectedTab == tpinDivision)
+            {
+                //TODO: Добавить делегат для вызова обновления listview операций разделения
+                Invoke(new LoadOpersByDivisionDelegate(LoadOpersByDivision), new object[] { Division.id });
             }
 
 
@@ -767,6 +774,7 @@ namespace WorkDivision
         //Удалить операцию
         private async void tsBtnDelOper_Click(object sender, EventArgs e)
         {
+            
             if (lvDirOpers.SelectedItems.Count > 0)
             {
                 DialogResult res = MessageBox.Show("Вы действительно хотите удалить эту запись?", "Удаление...", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
@@ -775,9 +783,11 @@ namespace WorkDivision
                 {
                     case DialogResult.OK:
 
+                        string deleted_id = Convert.ToString(lvDirOpers.SelectedItems[0].SubItems[0].Text);
+
                         SQLiteCommand delArrCommand = new SQLiteCommand("DELETE FROM DirOpers WHERE id=@id", dblite);
 
-                        delArrCommand.Parameters.AddWithValue("id", Convert.ToString(lvDirOpers.SelectedItems[0].SubItems[0].Text));
+                        delArrCommand.Parameters.AddWithValue("id", deleted_id);
 
                         try
                         {
@@ -788,6 +798,19 @@ namespace WorkDivision
                             MessageBox.Show(ex.Message, "Ошибка 5.05.04", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
 
+                        //Удаление операции из разделений
+                        delArrCommand = new SQLiteCommand("DELETE FROM inDivision WHERE id_oper=@id", dblite);
+
+                        delArrCommand.Parameters.AddWithValue("id", deleted_id);
+
+                        try
+                        {
+                            await delArrCommand.ExecuteNonQueryAsync();
+                        }
+                        catch (SQLiteException ex)
+                        {
+                            MessageBox.Show(ex.Message, "Ошибка 5.05.44", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                         // автообновление после удаления
                         LoadDirOpers();
 
@@ -1583,6 +1606,8 @@ namespace WorkDivision
                 Division.id = lvDivision.SelectedItems[0].SubItems[0].Text;
                 Division.mm = dateTimePicker1.Value.Month.ToString();
                 Division.yy = dateTimePicker1.Value.Year.ToString();
+                Division.product = lvDivision.SelectedItems[0].SubItems[3].Text;    //Запоминаем изделие в поле класса  
+                Division.model = lvDivision.SelectedItems[0].SubItems[2].Text;      //Запоминаем модель в поле класса  
                 tpinDivision.Parent = tabControl1;
                 tpDirs.Parent = null;
                 tpDirs.Parent = tabControl1;
@@ -1673,7 +1698,7 @@ namespace WorkDivision
                                 FROM inDivision as i 
                                 LEFT JOIN DirOpers as d on d.id=i.id_oper
                                 LEFT JOIN DirTarif as dt on dt.rank=i.rank
-                                WHERE id_division='" + id_div + @"' ORDER BY d.PER";
+                                WHERE id_division='" + id_div + @"' ORDER BY d.UCH,d.PER";
 
                 m_sqlCmd = new SQLiteCommand(query, dblite);
                 m_sqlCmd.Connection = dblite;
@@ -1728,11 +1753,11 @@ namespace WorkDivision
             }
             toolStripStatusLabel1.Text = "Кол-во записей: " + lvinDivision.Items.Count;
 
+            //Подсчет сумм по разделению и отображение в статусбаре
             Division.absSumCost = 0;
             Division.absSumNVR = 0;
             Division.absSumItem = 0;
-            Division.product = lvDivision.SelectedItems[0].SubItems[3].Text;    //Запоминаем изделие в поле класса  
-            Division.model = lvDivision.SelectedItems[0].SubItems[2].Text;      //Запоминаем модель в поле класса  
+
 
             //Расчет сумм
             for (int i = 0; i < lvinDivision.Items.Count; i++)
@@ -1822,7 +1847,7 @@ namespace WorkDivision
             try
             {
                 File.Copy(Environment.CurrentDirectory + "\\divisionDB.db", Environment.CurrentDirectory + "\\DBbackups\\div_" + DateTime.Now.ToString("ddMMyyyy") + ".db", true);
-                MessageBox.Show("BackUp", "Резервная копия создана. (" + Environment.CurrentDirectory + "\\DBbackups\\div_" + DateTime.Now.ToString("ddMMyyyy") + ".db)");
+                MessageBox.Show("Резервная копия создана. (" + Environment.CurrentDirectory + "\\DBbackups\\div_" + DateTime.Now.ToString("ddMMyyyy") + ".db)", "BackUp");
             }
             catch (Exception ex)
             {
@@ -1930,7 +1955,7 @@ namespace WorkDivision
 
         private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("ПО \"Разделение труда\", версия 1.0", "О программе");
+            MessageBox.Show("ПО \"Разделение труда\", версия 1.1", "О программе");
         }
 
         //Печать разделения из меню

@@ -22,6 +22,11 @@ namespace WorkDivision
 
         private void button1_Click(object sender, EventArgs e)
         {
+            //if (tbFIO.Text == "") or (tbTabnom.Text ="")
+            //{
+            //    MessageBox.Show("Заполните обязательные поля!");
+            //}
+
             if (id_rec == "")  //Если  id записи не передан (новая запись) 
             {
                 string querySQLite = @"INSERT INTO DirWorkers (Tab_nom, FIO, rank, prof_id, KO, brig_id) VALUES (@Tab_nom,@FIO,@rank,@prof_id,@KO,@brig_id)";

@@ -73,7 +73,7 @@ namespace WorkDivision
             treeView1.Nodes.Clear();
             try
             {
-                string query = @"SELECT * FROM DirOpers ORDER BY PER";
+                string query = @"SELECT * FROM DirOpers ORDER BY UCH,PER";
                 m_sqlCmd = new SQLiteCommand(query, dblite);
                 sqlReader = m_sqlCmd.ExecuteReader();
                 while (await sqlReader.ReadAsync())

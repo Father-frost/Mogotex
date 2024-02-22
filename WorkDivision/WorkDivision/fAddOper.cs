@@ -77,7 +77,7 @@ namespace WorkDivision
                 tbNST.Text = "";
                 tbKOEF.Text = "";
                 tbNVR.Text = "";
-                tbParent.Text = "";
+                tbParent.Text = "0";
             }
         }
 
