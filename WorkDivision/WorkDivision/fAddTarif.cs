@@ -28,7 +28,7 @@ namespace WorkDivision
             }
             else
             {
-                string querySQLite = @"UPDATE DirTarif SET Name=@Name WHERE id=" + id_rec;
+                string querySQLite = @"UPDATE DirTarif SET rank=@rank,TAR_VR=@TAR_VR,K_SD=@K_SD WHERE id=" + id_rec;
                 m_sqlCmd = new SQLiteCommand(querySQLite, dblite);
                 m_sqlCmd.Parameters.AddWithValue("@rank", tbRank.Text);
                 m_sqlCmd.Parameters.AddWithValue("@TAR_VR", tbTAR_VR.Text.Replace(",", "."));
