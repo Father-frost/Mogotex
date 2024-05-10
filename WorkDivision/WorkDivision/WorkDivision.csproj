@@ -79,6 +79,12 @@
   <ItemGroup>
     <Compile Include="DB.cs" />
     <Compile Include="Division.cs" />
+    <Compile Include="fAddCat2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fAddCat2.Designer.cs">
+      <DependentUpon>fAddCat2.cs</DependentUpon>
+    </Compile>
     <Compile Include="fAddDivision.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -96,6 +102,12 @@
     </Compile>
     <Compile Include="fAddNormControl.Designer.cs">
       <DependentUpon>fAddNormControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fAddCat1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fAddCat1.Designer.cs">
+      <DependentUpon>fAddCat1.cs</DependentUpon>
     </Compile>
     <Compile Include="fAddSigner.cs">
       <SubType>Form</SubType>
@@ -177,6 +189,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="fAddCat2.resx">
+      <DependentUpon>fAddCat2.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="fAddDivision.resx">
       <DependentUpon>fAddDivision.cs</DependentUpon>
     </EmbeddedResource>
@@ -185,6 +200,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="fAddNormControl.resx">
       <DependentUpon>fAddNormControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fAddCat1.resx">
+      <DependentUpon>fAddCat1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="fAddSigner.resx">
       <DependentUpon>fAddSigner.cs</DependentUpon>
