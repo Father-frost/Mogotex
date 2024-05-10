@@ -66,8 +66,8 @@ namespace WorkDivision
 			DataTable dt = new DataTable();
 
 			string query = @"SELECT id,Name as prodName FROM DirProducts";
-			string query1 = @"SELECT id,category FROM DirProdCat";
-			string query2 = @"SELECT id,GRP FROM DirProdGRP";
+			string query1 = @"SELECT id,category FROM DirProdCat order by Category";
+			string query2 = @"SELECT id,GRP FROM DirProdGRP order by GRP";
 			try
 			{
 
