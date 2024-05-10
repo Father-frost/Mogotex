@@ -12,10 +12,10 @@ namespace WorkDivision
 {
     public partial class Form1 : Form
     {
-        private SQLiteConnection dblite;
-        private SQLiteCommand m_sqlCmd;
-        private SQLiteDataReader sqlReader;
-        private liteDB liteDB;
+        private SQLiteConnection _dblite;
+        private SQLiteCommand _m_sqlCmd;
+        private SQLiteDataReader _sqlReader;
+        private liteDB _liteDB;
 
         public fAddWorker fAddWorker;
         public fAddBrig fAddBrig;
@@ -23,6 +23,8 @@ namespace WorkDivision
         public fAddOper fAddOper;
         public fAddModel fAddModel;
         public fAddProd fAddProd;
+        public fAddCat1 fAddCat1;
+        public fAddCat2 fAddCat2;
         public fAddTarif fAddTarif;
         public fAddNormNastil fAddNormNastil;
         public fAddNormControl fAddNormControl;
@@ -43,6 +45,8 @@ namespace WorkDivision
             fAddOper = new fAddOper();
             fAddModel = new fAddModel();
             fAddProd = new fAddProd();
+            fAddCat1 = new fAddCat1();
+            fAddCat2 = new fAddCat2();
             fAddTarif = new fAddTarif();
             fAddNormNastil = new fAddNormNastil();
             fAddNormControl = new fAddNormControl();
@@ -51,7 +55,7 @@ namespace WorkDivision
             fEditOperByDivision = new fEditOperByDivision();
             fAddSigner = new fAddSigner();
             fSelectDivisionToCopy = new fSelectDivisionToCopy();
-            liteDB = new liteDB();
+            _liteDB = new liteDB();
 
         }
 
@@ -60,8 +64,8 @@ namespace WorkDivision
         private void Form1_Load(object sender, EventArgs e)
         {
             //Подключение к БД (в Form_Load для каждой формы)
-            dblite = liteDB.GetConn();
-            dblite.Open();
+            _dblite = _liteDB.GetConn();
+            _dblite.Open();
 
             tpinDivision.Parent = null;  //Скрываем вкладку 
             //Настройка даты
@@ -128,6 +132,24 @@ namespace WorkDivision
             lvDirProducts.Columns.Add("id");
             lvDirProducts.Columns.Add("Наименование             ");
             Division.autoResizeColumns(lvDirProducts);
+            
+            //Справочник Категорий 1
+            lvDirCat1.GridLines = true;
+            lvDirCat1.FullRowSelect = true;
+            lvDirCat1.View = View.Details;
+            lvDirCat1.Font = new Font(lvDirCat1.Font, FontStyle.Bold);
+            lvDirCat1.Columns.Add("id");
+            lvDirCat1.Columns.Add("Наименование             ");
+            Division.autoResizeColumns(lvDirCat1);
+            
+            //Справочник Категорий 2
+            lvDirCat2.GridLines = true;
+            lvDirCat2.FullRowSelect = true;
+            lvDirCat2.View = View.Details;
+            lvDirCat2.Font = new Font(lvDirCat2.Font, FontStyle.Bold);
+            lvDirCat2.Columns.Add("id");
+            lvDirCat2.Columns.Add("Наименование             ");
+            Division.autoResizeColumns(lvDirCat2);
 
             //Справочник тарифных ставок
             lvDirTarif.GridLines = true;
@@ -228,7 +250,7 @@ namespace WorkDivision
         //Закрытие формы
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
-            dblite.Close();
+            _dblite.Close();
         }
 
         //Изменение даты
@@ -246,8 +268,8 @@ namespace WorkDivision
             }
             finally
             {
-                if (sqlReader != null && !sqlReader.IsClosed)
-                    sqlReader.Close();
+                if (_sqlReader != null && !_sqlReader.IsClosed)
+                    _sqlReader.Close();
             }
             toolStripStatusLabel1.Text = "Кол-во записей: " + lvDivision.Items.Count;
 
@@ -318,6 +340,14 @@ namespace WorkDivision
             {
                 LoadDirProducts();
             }
+            if (tabControl2.SelectedTab == tpDirCat1)
+            {
+                LoadDirCat1();
+            }
+            if (tabControl2.SelectedTab == tpDirCat2)
+            {
+                LoadDirCat2();
+            }
             if (tabControl2.SelectedTab == tpDirTarif)
             {
                 LoadDirTarif();
@@ -349,22 +379,22 @@ namespace WorkDivision
                             LEFT JOIN DirProfs as pr on pr.id = dw.prof_id
                             ORDER BY FIO";
 
-                m_sqlCmd = new SQLiteCommand(query, dblite);
-                m_sqlCmd.Connection = dblite;
+                _m_sqlCmd = new SQLiteCommand(query, _dblite);
+                _m_sqlCmd.Connection = _dblite;
 
-                sqlReader = m_sqlCmd.ExecuteReader();
+                _sqlReader = _m_sqlCmd.ExecuteReader();
 
-                while (await sqlReader.ReadAsync())
+                while (await _sqlReader.ReadAsync())
                 {
                     ListViewItem item = new ListViewItem(new string[] {
-                    Convert.ToString(sqlReader["id"]),
-                    Convert.ToString(sqlReader["Tab_nom"]),
-                    Convert.ToString(sqlReader["FIO"]),
-                    Convert.ToString(sqlReader["rank"]),   //разряд
-                    Convert.ToString(sqlReader["prof"]),   //профессия
-                    Convert.ToString(sqlReader["KO"]),
-                    Convert.ToString(sqlReader["KODBR"]),   //Код бригады
-                    Convert.ToString(sqlReader["Name"])     //Название бригады
+                    Convert.ToString(_sqlReader["id"]),
+                    Convert.ToString(_sqlReader["Tab_nom"]),
+                    Convert.ToString(_sqlReader["FIO"]),
+                    Convert.ToString(_sqlReader["rank"]),   //разряд
+                    Convert.ToString(_sqlReader["prof"]),   //профессия
+                    Convert.ToString(_sqlReader["KO"]),
+                    Convert.ToString(_sqlReader["KODBR"]),   //Код бригады
+                    Convert.ToString(_sqlReader["Name"])     //Название бригады
                     });
                     item.Font = new Font(lvDirWorkers.Font, FontStyle.Regular);
                     lvDirWorkers.Items.Add(item);
@@ -379,8 +409,8 @@ namespace WorkDivision
             }
             finally
             {
-                if (sqlReader != null && !sqlReader.IsClosed)
-                    sqlReader.Close();
+                if (_sqlReader != null && !_sqlReader.IsClosed)
+                    _sqlReader.Close();
             }
             toolStripStatusLabel1.Text = "Кол-во записей: " + lvDirWorkers.Items.Count;
         }
@@ -433,7 +463,7 @@ namespace WorkDivision
                 {
                     case DialogResult.OK:
 
-                        SQLiteCommand delArrCommand = new SQLiteCommand("DELETE FROM DirWorkers WHERE id=@id", dblite);
+                        SQLiteCommand delArrCommand = new SQLiteCommand("DELETE FROM DirWorkers WHERE id=@id", _dblite);
 
                         delArrCommand.Parameters.AddWithValue("id", Convert.ToString(lvDirWorkers.SelectedItems[0].SubItems[0].Text));
 
@@ -468,17 +498,17 @@ namespace WorkDivision
                 string query = @"SELECT id,KODBR,Name,Numk
                             FROM DirBrigs ORDER BY KODBR";
 
-                m_sqlCmd = new SQLiteCommand(query, dblite);
-                m_sqlCmd.Connection = dblite;
+                _m_sqlCmd = new SQLiteCommand(query, _dblite);
+                _m_sqlCmd.Connection = _dblite;
 
-                sqlReader = m_sqlCmd.ExecuteReader();
+                _sqlReader = _m_sqlCmd.ExecuteReader();
 
-                while (await sqlReader.ReadAsync())
+                while (await _sqlReader.ReadAsync())
                 {
                     ListViewItem item = new ListViewItem(new string[] {
-                    Convert.ToString(sqlReader["id"]),
-                    Convert.ToString(sqlReader["KODBR"]),  //код бригады
-                    Convert.ToString(sqlReader["Name"]),   //название бригады
+                    Convert.ToString(_sqlReader["id"]),
+                    Convert.ToString(_sqlReader["KODBR"]),  //код бригады
+                    Convert.ToString(_sqlReader["Name"]),   //название бригады
                     //Convert.ToString(sqlReader["Numk"])
                     });
                     item.Font = new Font(lvDirBrigs.Font, FontStyle.Regular);
@@ -494,8 +524,8 @@ namespace WorkDivision
             }
             finally
             {
-                if (sqlReader != null && !sqlReader.IsClosed)
-                    sqlReader.Close();
+                if (_sqlReader != null && !_sqlReader.IsClosed)
+                    _sqlReader.Close();
             }
             toolStripStatusLabel1.Text = "Кол-во записей: " + lvDirBrigs.Items.Count;
         }
@@ -547,7 +577,7 @@ namespace WorkDivision
                 {
                     case DialogResult.OK:
 
-                        SQLiteCommand delArrCommand = new SQLiteCommand("DELETE FROM DirBrigs WHERE id=@id", dblite);
+                        SQLiteCommand delArrCommand = new SQLiteCommand("DELETE FROM DirBrigs WHERE id=@id", _dblite);
 
                         delArrCommand.Parameters.AddWithValue("id", Convert.ToString(lvDirBrigs.SelectedItems[0].SubItems[0].Text));
 
@@ -581,16 +611,16 @@ namespace WorkDivision
             {
                 string query = @"SELECT * FROM DirProfs ORDER BY name";
 
-                m_sqlCmd = new SQLiteCommand(query, dblite);
+                _m_sqlCmd = new SQLiteCommand(query, _dblite);
 
-                sqlReader = m_sqlCmd.ExecuteReader();
+                _sqlReader = _m_sqlCmd.ExecuteReader();
 
-                while (await sqlReader.ReadAsync())
+                while (await _sqlReader.ReadAsync())
                 {
                     ListViewItem item = new ListViewItem(new string[] {
-                    Convert.ToString(sqlReader["id"]),
-                    Convert.ToString(sqlReader["Name"]),    //название профессии
-                    Convert.ToString(sqlReader["PR"])       //процент
+                    Convert.ToString(_sqlReader["id"]),
+                    Convert.ToString(_sqlReader["Name"]),    //название профессии
+                    Convert.ToString(_sqlReader["PR"])       //процент
                     });
                     item.Font = new Font(lvDirProfs.Font, FontStyle.Regular);
                     lvDirProfs.Items.Add(item);
@@ -605,8 +635,8 @@ namespace WorkDivision
             }
             finally
             {
-                if (sqlReader != null && !sqlReader.IsClosed)
-                    sqlReader.Close();
+                if (_sqlReader != null && !_sqlReader.IsClosed)
+                    _sqlReader.Close();
             }
             toolStripStatusLabel1.Text = "Кол-во записей: " + lvDirProfs.Items.Count;
         }
@@ -658,7 +688,7 @@ namespace WorkDivision
                 {
                     case DialogResult.OK:
 
-                        SQLiteCommand delArrCommand = new SQLiteCommand("DELETE FROM DirProfs WHERE id=@id", dblite);
+                        SQLiteCommand delArrCommand = new SQLiteCommand("DELETE FROM DirProfs WHERE id=@id", _dblite);
 
                         delArrCommand.Parameters.AddWithValue("id", Convert.ToString(lvDirProfs.SelectedItems[0].SubItems[0].Text));
 
@@ -693,23 +723,23 @@ namespace WorkDivision
             {
                 string query = @"SELECT * FROM DirOpers ORDER BY UCH,PER";
 
-                m_sqlCmd = new SQLiteCommand(query, dblite);
-                m_sqlCmd.Connection = dblite;
+                _m_sqlCmd = new SQLiteCommand(query, _dblite);
+                _m_sqlCmd.Connection = _dblite;
 
-                sqlReader = m_sqlCmd.ExecuteReader();
+                _sqlReader = _m_sqlCmd.ExecuteReader();
 
-                while (await sqlReader.ReadAsync())
+                while (await _sqlReader.ReadAsync())
                 {
                     ListViewItem item = new ListViewItem(new string[] {
-                    Convert.ToString(sqlReader["id"]),
-                    Convert.ToString(sqlReader["UCH"]),  //Учсток
-                    Convert.ToString(sqlReader["PER"]),   //Переход
-                    Convert.ToString(sqlReader["Name"]),    //Название операции
-                    Convert.ToString(sqlReader["parent"]),  //id родительской операции
+                    Convert.ToString(_sqlReader["id"]),
+                    Convert.ToString(_sqlReader["UCH"]),  //Учсток
+                    Convert.ToString(_sqlReader["PER"]),   //Переход
+                    Convert.ToString(_sqlReader["Name"]),    //Название операции
+                    Convert.ToString(_sqlReader["parent"]),  //id родительской операции
                     });
                     item.Font = new Font(lvDirOpers.Font, FontStyle.Regular);
                     lvDirOpers.Items.Add(item);
-                    if (Convert.ToInt32(sqlReader["UCH"]) % 2 == 0)  // Выделение цветом нечетных заходов
+                    if (Convert.ToInt32(_sqlReader["UCH"]) % 2 == 0)  // Выделение цветом нечетных заходов
                     {
                         item.BackColor = Color.LightBlue;
                     }
@@ -724,8 +754,8 @@ namespace WorkDivision
             }
             finally
             {
-                if (sqlReader != null && !sqlReader.IsClosed)
-                    sqlReader.Close();
+                if (_sqlReader != null && !_sqlReader.IsClosed)
+                    _sqlReader.Close();
             }
             toolStripStatusLabel1.Text = "Кол-во записей: " + lvDirOpers.Items.Count;
         }
@@ -785,7 +815,7 @@ namespace WorkDivision
 
                         string deleted_id = Convert.ToString(lvDirOpers.SelectedItems[0].SubItems[0].Text);
 
-                        SQLiteCommand delArrCommand = new SQLiteCommand("DELETE FROM DirOpers WHERE id=@id", dblite);
+                        SQLiteCommand delArrCommand = new SQLiteCommand("DELETE FROM DirOpers WHERE id=@id", _dblite);
 
                         delArrCommand.Parameters.AddWithValue("id", deleted_id);
 
@@ -799,7 +829,7 @@ namespace WorkDivision
                         }
 
                         //Удаление операции из разделений
-                        delArrCommand = new SQLiteCommand("DELETE FROM inDivision WHERE id_oper=@id", dblite);
+                        delArrCommand = new SQLiteCommand("DELETE FROM inDivision WHERE id_oper=@id", _dblite);
 
                         delArrCommand.Parameters.AddWithValue("id", deleted_id);
 
@@ -835,21 +865,21 @@ namespace WorkDivision
                                LEFT JOIN DirProdCat as dpc on dpc.id=dm.id_cat 
                                LEFT JOIN DirProdGRP as dpg on dpg.id=dm.id_grp ORDER BY dm.Name";
 
-                m_sqlCmd = new SQLiteCommand(query, dblite);
-                m_sqlCmd.Connection = dblite;
+                _m_sqlCmd = new SQLiteCommand(query, _dblite);
+                _m_sqlCmd.Connection = _dblite;
 
-                sqlReader = m_sqlCmd.ExecuteReader();
+                _sqlReader = _m_sqlCmd.ExecuteReader();
 
-                while (await sqlReader.ReadAsync())
+                while (await _sqlReader.ReadAsync())
                 {
                     ListViewItem item = new ListViewItem(new string[] {
-                    Convert.ToString(sqlReader["id"]),
-                    Convert.ToString(sqlReader["KMOD"]),
-                    Convert.ToString(sqlReader["Name"]),
-                    Convert.ToString(sqlReader["pName"]),
-                    Convert.ToString(sqlReader["category"]),
-                    Convert.ToString(sqlReader["GRP"]),
-                    Convert.ToString(sqlReader["EI"])
+                    Convert.ToString(_sqlReader["id"]),
+                    Convert.ToString(_sqlReader["KMOD"]),
+                    Convert.ToString(_sqlReader["Name"]),
+                    Convert.ToString(_sqlReader["pName"]),
+                    Convert.ToString(_sqlReader["category"]),
+                    Convert.ToString(_sqlReader["GRP"]),
+                    Convert.ToString(_sqlReader["EI"])
                     });
                     item.Font = new Font(lvDirModels.Font, FontStyle.Regular);
                     lvDirModels.Items.Add(item);
@@ -865,8 +895,8 @@ namespace WorkDivision
             }
             finally
             {
-                if (sqlReader != null && !sqlReader.IsClosed)
-                    sqlReader.Close();
+                if (_sqlReader != null && !_sqlReader.IsClosed)
+                    _sqlReader.Close();
             }
             toolStripStatusLabel1.Text = "Кол-во записей: " + lvDirModels.Items.Count;
         }
@@ -922,7 +952,7 @@ namespace WorkDivision
                 {
                     case DialogResult.OK:
 
-                        SQLiteCommand delArrCommand = new SQLiteCommand("DELETE FROM DirModels WHERE id=@id", dblite);
+                        SQLiteCommand delArrCommand = new SQLiteCommand("DELETE FROM DirModels WHERE id=@id", _dblite);
 
                         delArrCommand.Parameters.AddWithValue("id", Convert.ToString(lvDirModels.SelectedItems[0].SubItems[0].Text));
 
@@ -955,16 +985,16 @@ namespace WorkDivision
             {
                 string query = @"SELECT * FROM DirProducts ORDER BY id";
 
-                m_sqlCmd = new SQLiteCommand(query, dblite);
-                m_sqlCmd.Connection = dblite;
+                _m_sqlCmd = new SQLiteCommand(query, _dblite);
+                _m_sqlCmd.Connection = _dblite;
 
-                sqlReader = m_sqlCmd.ExecuteReader();
+                _sqlReader = _m_sqlCmd.ExecuteReader();
 
-                while (await sqlReader.ReadAsync())
+                while (await _sqlReader.ReadAsync())
                 {
                     ListViewItem item = new ListViewItem(new string[] {
-                    Convert.ToString(sqlReader["id"]),
-                    Convert.ToString(sqlReader["Name"])
+                    Convert.ToString(_sqlReader["id"]),
+                    Convert.ToString(_sqlReader["Name"])
                     });
                     item.Font = new Font(lvDirProducts.Font, FontStyle.Regular);
                     lvDirProducts.Items.Add(item);
@@ -979,8 +1009,8 @@ namespace WorkDivision
             }
             finally
             {
-                if (sqlReader != null && !sqlReader.IsClosed)
-                    sqlReader.Close();
+                if (_sqlReader != null && !_sqlReader.IsClosed)
+                    _sqlReader.Close();
             }
             toolStripStatusLabel1.Text = "Кол-во записей: " + lvDirProducts.Items.Count;
         }
@@ -1032,7 +1062,7 @@ namespace WorkDivision
                 {
                     case DialogResult.OK:
 
-                        SQLiteCommand delArrCommand = new SQLiteCommand("DELETE FROM DirProducts WHERE id=@id", dblite);
+                        SQLiteCommand delArrCommand = new SQLiteCommand("DELETE FROM DirProducts WHERE id=@id", _dblite);
 
                         delArrCommand.Parameters.AddWithValue("id", Convert.ToString(lvDirProducts.SelectedItems[0].SubItems[0].Text));
 
@@ -1066,18 +1096,18 @@ namespace WorkDivision
             {
                 string query = @"SELECT * FROM DirTarif ORDER BY rank";
 
-                m_sqlCmd = new SQLiteCommand(query, dblite);
-                m_sqlCmd.Connection = dblite;
+                _m_sqlCmd = new SQLiteCommand(query, _dblite);
+                _m_sqlCmd.Connection = _dblite;
 
-                sqlReader = m_sqlCmd.ExecuteReader();
+                _sqlReader = _m_sqlCmd.ExecuteReader();
 
-                while (await sqlReader.ReadAsync())
+                while (await _sqlReader.ReadAsync())
                 {
                     ListViewItem item = new ListViewItem(new string[] {
-                    Convert.ToString(sqlReader["id"]),
-                    Convert.ToString(sqlReader["rank"]),
-                    Convert.ToString(sqlReader["TAR_VR"]),
-                    Convert.ToString(sqlReader["K_SD"])
+                    Convert.ToString(_sqlReader["id"]),
+                    Convert.ToString(_sqlReader["rank"]),
+                    Convert.ToString(_sqlReader["TAR_VR"]),
+                    Convert.ToString(_sqlReader["K_SD"])
                     });
                     item.Font = new Font(lvDirTarif.Font, FontStyle.Regular);
                     lvDirTarif.Items.Add(item);
@@ -1092,8 +1122,8 @@ namespace WorkDivision
             }
             finally
             {
-                if (sqlReader != null && !sqlReader.IsClosed)
-                    sqlReader.Close();
+                if (_sqlReader != null && !_sqlReader.IsClosed)
+                    _sqlReader.Close();
             }
             toolStripStatusLabel1.Text = "Кол-во записей: " + lvDirTarif.Items.Count;
         }
@@ -1145,7 +1175,7 @@ namespace WorkDivision
                 {
                     case DialogResult.OK:
 
-                        SQLiteCommand delArrCommand = new SQLiteCommand("DELETE FROM DirTarif WHERE id=@id", dblite);
+                        SQLiteCommand delArrCommand = new SQLiteCommand("DELETE FROM DirTarif WHERE id=@id", _dblite);
 
                         delArrCommand.Parameters.AddWithValue("id", Convert.ToString(lvDirTarif.SelectedItems[0].SubItems[0].Text));
 
@@ -1179,17 +1209,17 @@ namespace WorkDivision
             {
                 string query = @"SELECT * FROM DirNormNastil ORDER BY id";
 
-                m_sqlCmd = new SQLiteCommand(query, dblite);
-                m_sqlCmd.Connection = dblite;
+                _m_sqlCmd = new SQLiteCommand(query, _dblite);
+                _m_sqlCmd.Connection = _dblite;
 
-                sqlReader = m_sqlCmd.ExecuteReader();
+                _sqlReader = _m_sqlCmd.ExecuteReader();
 
-                while (await sqlReader.ReadAsync())
+                while (await _sqlReader.ReadAsync())
                 {
                     ListViewItem item = new ListViewItem(new string[] {
-                    Convert.ToString(sqlReader["id"]),
-                    Convert.ToString(sqlReader["VIDTK"]),
-                    Convert.ToString(sqlReader["NORMVR"])
+                    Convert.ToString(_sqlReader["id"]),
+                    Convert.ToString(_sqlReader["VIDTK"]),
+                    Convert.ToString(_sqlReader["NORMVR"])
                     });
                     item.Font = new Font(lvDirNormNastil.Font, FontStyle.Regular);
                     lvDirNormNastil.Items.Add(item);
@@ -1204,8 +1234,8 @@ namespace WorkDivision
             }
             finally
             {
-                if (sqlReader != null && !sqlReader.IsClosed)
-                    sqlReader.Close();
+                if (_sqlReader != null && !_sqlReader.IsClosed)
+                    _sqlReader.Close();
             }
             toolStripStatusLabel1.Text = "Кол-во записей: " + lvDirNormNastil.Items.Count;
         }
@@ -1257,7 +1287,7 @@ namespace WorkDivision
                 {
                     case DialogResult.OK:
 
-                        SQLiteCommand delArrCommand = new SQLiteCommand("DELETE FROM DirNormNastil WHERE id=@id", dblite);
+                        SQLiteCommand delArrCommand = new SQLiteCommand("DELETE FROM DirNormNastil WHERE id=@id", _dblite);
 
                         delArrCommand.Parameters.AddWithValue("id", Convert.ToString(lvDirNormNastil.SelectedItems[0].SubItems[0].Text));
 
@@ -1291,17 +1321,17 @@ namespace WorkDivision
             {
                 string query = @"SELECT * FROM DirNormControl ORDER BY id";
 
-                m_sqlCmd = new SQLiteCommand(query, dblite);
-                m_sqlCmd.Connection = dblite;
+                _m_sqlCmd = new SQLiteCommand(query, _dblite);
+                _m_sqlCmd.Connection = _dblite;
 
-                sqlReader = m_sqlCmd.ExecuteReader();
+                _sqlReader = _m_sqlCmd.ExecuteReader();
 
-                while (await sqlReader.ReadAsync())
+                while (await _sqlReader.ReadAsync())
                 {
                     ListViewItem item = new ListViewItem(new string[] {
-                    Convert.ToString(sqlReader["id"]),
-                    Convert.ToString(sqlReader["VIDTK"]),
-                    Convert.ToString(sqlReader["NORMVR"])
+                    Convert.ToString(_sqlReader["id"]),
+                    Convert.ToString(_sqlReader["VIDTK"]),
+                    Convert.ToString(_sqlReader["NORMVR"])
                     });
                     item.Font = new Font(lvDirNormControl.Font, FontStyle.Regular);
                     lvDirNormControl.Items.Add(item);
@@ -1316,8 +1346,8 @@ namespace WorkDivision
             }
             finally
             {
-                if (sqlReader != null && !sqlReader.IsClosed)
-                    sqlReader.Close();
+                if (_sqlReader != null && !_sqlReader.IsClosed)
+                    _sqlReader.Close();
             }
             toolStripStatusLabel1.Text = "Кол-во записей: " + lvDirNormControl.Items.Count;
         }
@@ -1369,7 +1399,7 @@ namespace WorkDivision
                 {
                     case DialogResult.OK:
 
-                        SQLiteCommand delArrCommand = new SQLiteCommand("DELETE FROM DirNormControl WHERE id=@id", dblite);
+                        SQLiteCommand delArrCommand = new SQLiteCommand("DELETE FROM DirNormControl WHERE id=@id", _dblite);
 
                         delArrCommand.Parameters.AddWithValue("id", Convert.ToString(lvDirNormControl.SelectedItems[0].SubItems[0].Text));
 
@@ -1403,17 +1433,17 @@ namespace WorkDivision
             {
                 string query = @"SELECT * FROM DirSigners ORDER BY ord";
 
-                m_sqlCmd = new SQLiteCommand(query, dblite);
+                _m_sqlCmd = new SQLiteCommand(query, _dblite);
 
-                sqlReader = m_sqlCmd.ExecuteReader();
+                _sqlReader = _m_sqlCmd.ExecuteReader();
 
-                while (await sqlReader.ReadAsync())
+                while (await _sqlReader.ReadAsync())
                 {
                     ListViewItem item = new ListViewItem(new string[] {
-                    Convert.ToString(sqlReader["id"]),
-                    Convert.ToString(sqlReader["post"]),
-                    Convert.ToString(sqlReader["FIO"]),
-                    Convert.ToString(sqlReader["ord"])
+                    Convert.ToString(_sqlReader["id"]),
+                    Convert.ToString(_sqlReader["post"]),
+                    Convert.ToString(_sqlReader["FIO"]),
+                    Convert.ToString(_sqlReader["ord"])
                     });
                     item.Font = new Font(lvDirSigners.Font, FontStyle.Regular);
                     lvDirSigners.Items.Add(item);
@@ -1428,8 +1458,8 @@ namespace WorkDivision
             }
             finally
             {
-                if (sqlReader != null && !sqlReader.IsClosed)
-                    sqlReader.Close();
+                if (_sqlReader != null && !_sqlReader.IsClosed)
+                    _sqlReader.Close();
             }
             toolStripStatusLabel1.Text = "Кол-во записей: " + lvDirSigners.Items.Count;
         }
@@ -1481,7 +1511,7 @@ namespace WorkDivision
                 {
                     case DialogResult.OK:
 
-                        SQLiteCommand delArrCommand = new SQLiteCommand("DELETE FROM DirSigners WHERE id=@id", dblite);
+                        SQLiteCommand delArrCommand = new SQLiteCommand("DELETE FROM DirSigners WHERE id=@id", _dblite);
 
                         delArrCommand.Parameters.AddWithValue("id", Convert.ToString(lvDirSigners.SelectedItems[0].SubItems[0].Text));
 
@@ -1543,20 +1573,20 @@ namespace WorkDivision
                     + dateTimePicker1.Value.Year.ToString() +
                     " ORDER BY div.id";
 
-                m_sqlCmd = new SQLiteCommand(query, dblite);
-                m_sqlCmd.Connection = dblite;
+                _m_sqlCmd = new SQLiteCommand(query, _dblite);
+                _m_sqlCmd.Connection = _dblite;
 
-                sqlReader = m_sqlCmd.ExecuteReader();
+                _sqlReader = _m_sqlCmd.ExecuteReader();
 
-                while (await sqlReader.ReadAsync())
+                while (await _sqlReader.ReadAsync())
                 {
                     ListViewItem item = new ListViewItem(new string[] {
-                    Convert.ToString(sqlReader["id"]),
-                    Convert.ToString(sqlReader["id_model"]),
-                    Convert.ToString(sqlReader["mName"]),
-                    Convert.ToString(sqlReader["pName"])+" "+Convert.ToString(sqlReader["category"])+" "+Convert.ToString(sqlReader["GRP"]),
-                    Convert.ToString(sqlReader["work_time"]),
-                    Convert.ToString(sqlReader["cost"])
+                    Convert.ToString(_sqlReader["id"]),
+                    Convert.ToString(_sqlReader["id_model"]),
+                    Convert.ToString(_sqlReader["mName"]),
+                    Convert.ToString(_sqlReader["pName"])+" "+Convert.ToString(_sqlReader["category"])+" "+Convert.ToString(_sqlReader["GRP"]),
+                    Convert.ToString(_sqlReader["work_time"]),
+                    Convert.ToString(_sqlReader["cost"])
                     });
                     item.Font = new Font(lvDivision.Font, FontStyle.Regular);
                     lvDivision.Items.Add(item);
@@ -1571,8 +1601,8 @@ namespace WorkDivision
             }
             finally
             {
-                if (sqlReader != null && !sqlReader.IsClosed)
-                    sqlReader.Close();
+                if (_sqlReader != null && !_sqlReader.IsClosed)
+                    _sqlReader.Close();
             }
             toolStripStatusLabel1.Text = "Кол-во записей: " + lvDivision.Items.Count;
         }
@@ -1628,7 +1658,7 @@ namespace WorkDivision
                 {
                     case DialogResult.OK:
 
-                        SQLiteCommand delArrCommand = new SQLiteCommand("DELETE FROM Division WHERE id=@id", dblite);
+                        SQLiteCommand delArrCommand = new SQLiteCommand("DELETE FROM Division WHERE id=@id", _dblite);
 
                         delArrCommand.Parameters.AddWithValue("id", Convert.ToString(lvDivision.SelectedItems[0].SubItems[0].Text));
 
@@ -1642,7 +1672,7 @@ namespace WorkDivision
                         }
 
                         //Удалить внутренности разделения
-                        delArrCommand = new SQLiteCommand("DELETE FROM inDivision WHERE id_division=@id", dblite);
+                        delArrCommand = new SQLiteCommand("DELETE FROM inDivision WHERE id_division=@id", _dblite);
 
                         delArrCommand.Parameters.AddWithValue("id", Convert.ToString(lvDivision.SelectedItems[0].SubItems[0].Text));
 
@@ -1700,15 +1730,15 @@ namespace WorkDivision
                                 LEFT JOIN DirTarif as dt on dt.rank=i.rank
                                 WHERE id_division='" + id_div + @"' ORDER BY d.UCH,d.PER";
 
-                m_sqlCmd = new SQLiteCommand(query, dblite);
-                m_sqlCmd.Connection = dblite;
+                _m_sqlCmd = new SQLiteCommand(query, _dblite);
+                _m_sqlCmd.Connection = _dblite;
 
-                sqlReader = m_sqlCmd.ExecuteReader();
+                _sqlReader = _m_sqlCmd.ExecuteReader();
 
-                while (await sqlReader.ReadAsync())
+                while (await _sqlReader.ReadAsync())
                 {
                     //Если подкатегории операции
-                    if ((Convert.ToInt32(sqlReader["parent"]) > 0) && (Convert.ToInt32(sqlReader["parent"]) != Convert.ToInt32(sqlReader["id_oper"])))
+                    if ((Convert.ToInt32(_sqlReader["parent"]) > 0) && (Convert.ToInt32(_sqlReader["parent"]) != Convert.ToInt32(_sqlReader["id_oper"])))
                     {
                         st_cnt = string.Empty;  //Порядковый номер пустой
                     }
@@ -1719,21 +1749,21 @@ namespace WorkDivision
                     }
 
                     ListViewItem item = new ListViewItem(new string[] {
-                    Convert.ToString(sqlReader["id"]),
-                    Convert.ToString(sqlReader["UCH"]),     //Участок
+                    Convert.ToString(_sqlReader["id"]),
+                    Convert.ToString(_sqlReader["UCH"]),     //Участок
                     Convert.ToString(st_cnt),               //Порядковый номер
-                    Convert.ToString(sqlReader["Name"]),    //Наименование операции
-                    Convert.ToString(sqlReader["MatRate"]), //Расход ткани
-                    Convert.ToString(sqlReader["rank"]),        //Разряд
-                    Convert.ToString(sqlReader["NVRforOper"]),  //Норма времени для операции
-                    Convert.ToString(sqlReader["workers_cnt"]), //кол-во работников
-                    Convert.ToString(sqlReader["Cost"]),        //Расценка
-                    Convert.ToString(sqlReader["NVRbyItem"]),   //Норма времени на единицу
-                    Convert.ToString(sqlReader["SumItem"])      //Стоимость единицы
+                    Convert.ToString(_sqlReader["Name"]),    //Наименование операции
+                    Convert.ToString(_sqlReader["MatRate"]), //Расход ткани
+                    Convert.ToString(_sqlReader["rank"]),        //Разряд
+                    Convert.ToString(_sqlReader["NVRforOper"]),  //Норма времени для операции
+                    Convert.ToString(_sqlReader["workers_cnt"]), //кол-во работников
+                    Convert.ToString(_sqlReader["Cost"]),        //Расценка
+                    Convert.ToString(_sqlReader["NVRbyItem"]),   //Норма времени на единицу
+                    Convert.ToString(_sqlReader["SumItem"])      //Стоимость единицы
                     });
                     item.Font = new Font(lvDivision.Font, FontStyle.Regular);
                     lvinDivision.Items.Add(item);
-                    if (Convert.ToInt32(sqlReader["UCH"]) % 2 == 0)  // Выделение цветом нечетных заходов
+                    if (Convert.ToInt32(_sqlReader["UCH"]) % 2 == 0)  // Выделение цветом нечетных заходов
                     {
                         item.BackColor = Color.LightBlue;
                     }
@@ -1748,8 +1778,8 @@ namespace WorkDivision
             }
             finally
             {
-                if (sqlReader != null && !sqlReader.IsClosed)
-                    sqlReader.Close();
+                if (_sqlReader != null && !_sqlReader.IsClosed)
+                    _sqlReader.Close();
             }
             toolStripStatusLabel1.Text = "Кол-во записей: " + lvinDivision.Items.Count;
 
@@ -1787,7 +1817,7 @@ namespace WorkDivision
                         //Пакетное удаление операций
                         foreach (ListViewItem item in lvinDivision.SelectedItems)
                         {
-                            SQLiteCommand delArrCommand = new SQLiteCommand("DELETE FROM inDivision WHERE id=@id", dblite);
+                            SQLiteCommand delArrCommand = new SQLiteCommand("DELETE FROM inDivision WHERE id=@id", _dblite);
 
                             delArrCommand.Parameters.AddWithValue("id", Convert.ToString(item.SubItems[0].Text));
 
@@ -1905,15 +1935,15 @@ namespace WorkDivision
                 {
                     string query = @"SELECT * FROM DirSigners ORDER BY ord LIMIT 2";
 
-                    m_sqlCmd = new SQLiteCommand(query, dblite);
+                    _m_sqlCmd = new SQLiteCommand(query, _dblite);
 
-                    sqlReader = m_sqlCmd.ExecuteReader();
+                    _sqlReader = _m_sqlCmd.ExecuteReader();
 
-                    while (await sqlReader.ReadAsync())
+                    while (await _sqlReader.ReadAsync())
                     {
                         i++;
-                        oDoc.Bookmarks["Signer" + i.ToString()].Range.Text = Convert.ToString(sqlReader["post"]) +
-                                            @"                       /" + Convert.ToString(sqlReader["FIO"]) + @"/";
+                        oDoc.Bookmarks["Signer" + i.ToString()].Range.Text = Convert.ToString(_sqlReader["post"]) +
+                                            @"                       /" + Convert.ToString(_sqlReader["FIO"]) + @"/";
                     }
                 }
                 catch (Exception ex)
@@ -1922,15 +1952,15 @@ namespace WorkDivision
                 }
                 finally
                 {
-                    if (sqlReader != null && !sqlReader.IsClosed)
-                        sqlReader.Close();
+                    if (_sqlReader != null && !_sqlReader.IsClosed)
+                        _sqlReader.Close();
                 }
 
                 //Таблица разделения
                 //Название модели
                 oDoc.Bookmarks["model2"].Range.Text = Division.model;
                 Table wTable = oDoc.Tables[1];
-                for (int row = 0; row < lvinDivision.Items.Count; row++) //проход по записейам
+                for (int row = 0; row < lvinDivision.Items.Count; row++) //проход по записям
                 {
                     for (int col = 0; col < lvinDivision.Items[row].SubItems.Count - 2; col++)  //проход по столбцам
                     {
@@ -1975,7 +2005,7 @@ namespace WorkDivision
                 {
                     case DialogResult.OK:
 
-                        SQLiteCommand delArrCommand = new SQLiteCommand("DELETE FROM inDivision WHERE id_division=@id", dblite);
+                        SQLiteCommand delArrCommand = new SQLiteCommand("DELETE FROM inDivision WHERE id_division=@id", _dblite);
 
                         delArrCommand.Parameters.AddWithValue("id", Division.id);
 
@@ -2000,6 +2030,198 @@ namespace WorkDivision
             }
 
             LoadOpersByDivision(Division.id);
+        }
+
+        public async void LoadDirCat1()
+        {
+            lvDirCat1.Items.Clear();  //Чистим listview2
+
+            try
+            {
+                string query = @"SELECT * FROM DirProdCat ORDER BY Category";
+
+                _m_sqlCmd = new SQLiteCommand(query, _dblite);
+
+                _sqlReader = _m_sqlCmd.ExecuteReader();
+
+                while (await _sqlReader.ReadAsync())
+                {
+                    ListViewItem item = new ListViewItem(new string[] {
+                    Convert.ToString(_sqlReader["id"]),
+                    Convert.ToString(_sqlReader["Category"])
+                    });
+                    item.Font = new Font(lvDirCat1.Font, FontStyle.Regular);
+                    lvDirCat1.Items.Add(item);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка 5.01.07", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (_sqlReader != null && !_sqlReader.IsClosed)
+                    _sqlReader.Close();
+            }
+            toolStripStatusLabel1.Text = "Кол-во записей: " + lvDirCat1.Items.Count;
+        }
+        
+        public async void LoadDirCat2()
+        {
+            lvDirCat2.Items.Clear();  //Чистим listview2
+
+            try
+            {
+                string query = @"SELECT * FROM DirProdGRP ORDER BY GRP";
+
+                _m_sqlCmd = new SQLiteCommand(query, _dblite);
+
+                _sqlReader = _m_sqlCmd.ExecuteReader();
+
+                while (await _sqlReader.ReadAsync())
+                {
+                    ListViewItem item = new ListViewItem(new string[] {
+                    Convert.ToString(_sqlReader["id"]),
+                    Convert.ToString(_sqlReader["GRP"])
+                    });
+                    item.Font = new Font(lvDirCat2.Font, FontStyle.Regular);
+                    lvDirCat2.Items.Add(item);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка 5.01.09", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (_sqlReader != null && !_sqlReader.IsClosed)
+                    _sqlReader.Close();
+            }
+            toolStripStatusLabel1.Text = "Кол-во записей: " + lvDirCat2.Items.Count;
+        }
+
+        private void tsBtnCat1Add_Click(object sender, EventArgs e)
+        {
+            fAddCat1.id_rec = "";
+            fAddCat1.StartPosition = FormStartPosition.CenterParent;
+            fAddCat1.Text = "Добавить запись";
+            fAddCat1.ShowDialog();
+            LoadDirCat1();
+        }
+
+        private void lvDirCat1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (lvDirCat1.SelectedItems.Count > 0)
+            {
+                fAddCat1.id_rec = Convert.ToString(lvDirCat1.SelectedItems[0].SubItems[0].Text);
+                fAddCat1.StartPosition = FormStartPosition.CenterParent;
+                fAddCat1.Text = "Изменить запись";
+                fAddCat1.ShowDialog();
+                LoadDirCat1();
+            }
+        }
+
+        private void tsBtnCat1Edit_Click(object sender, EventArgs e)
+        {
+            lvDirCat1_MouseDoubleClick(this, null);
+        }
+
+        private async void tsBtnCat1Del_Click(object sender, EventArgs e)
+        {
+            if (lvDirCat1.SelectedItems.Count > 0)
+            {
+                DialogResult res = MessageBox.Show("Вы действительно хотите удалить эту запись?", "Удаление...", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+
+                switch (res)
+                {
+                    case DialogResult.OK:
+
+                        SQLiteCommand delArrCommand = new SQLiteCommand("DELETE FROM DirProdCat WHERE id=@id", _dblite);
+
+                        delArrCommand.Parameters.AddWithValue("id", Convert.ToString(lvDirCat1.SelectedItems[0].SubItems[0].Text));
+
+                        try
+                        {
+                            await delArrCommand.ExecuteNonQueryAsync();
+                        }
+                        catch (SQLiteException ex)
+                        {
+                            MessageBox.Show(ex.Message, "Ошибка 5.07.04", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+
+                        // автообновление после удаления
+                        LoadDirCat1();
+
+                        break;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Выберите запись для удаления.", "Ошибка 5.07.05", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void tsBtnCat2Add_Click(object sender, EventArgs e)
+        {
+            fAddCat2.id_rec = "";
+            fAddCat2.StartPosition = FormStartPosition.CenterParent;
+            fAddCat2.Text = "Добавить запись";
+            fAddCat2.ShowDialog();
+            LoadDirCat2();
+        }
+
+        private void tsBtnCat2Edit_Click(object sender, EventArgs e)
+        {
+            if (lvDirCat2.SelectedItems.Count > 0)
+            {
+                fAddCat2.id_rec = Convert.ToString(lvDirCat2.SelectedItems[0].SubItems[0].Text);
+                fAddCat2.StartPosition = FormStartPosition.CenterParent;
+                fAddCat2.Text = "Изменить запись";
+                fAddCat2.ShowDialog();
+                LoadDirCat2();
+            }
+        }
+
+        private void lvDirCat2_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            tsBtnCat2Edit_Click(this, null);
+        }
+
+        private async void tsBtnCat2Del_Click(object sender, EventArgs e)
+        {
+            if (lvDirCat2.SelectedItems.Count > 0)
+            {
+                DialogResult res = MessageBox.Show("Вы действительно хотите удалить эту запись?", "Удаление...", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+
+                switch (res)
+                {
+                    case DialogResult.OK:
+
+                        SQLiteCommand delArrCommand = new SQLiteCommand("DELETE FROM DirProdGRP WHERE id=@id", _dblite);
+
+                        delArrCommand.Parameters.AddWithValue("id", Convert.ToString(lvDirCat2.SelectedItems[0].SubItems[0].Text));
+
+                        try
+                        {
+                            await delArrCommand.ExecuteNonQueryAsync();
+                        }
+                        catch (SQLiteException ex)
+                        {
+                            MessageBox.Show(ex.Message, "Ошибка 5.07.04", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+
+                        // автообновление после удаления
+                        LoadDirCat2();
+
+                        break;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Выберите запись для удаления.", "Ошибка 5.07.05", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
     }
 }

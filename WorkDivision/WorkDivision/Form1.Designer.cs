@@ -117,6 +117,26 @@
             this.tsBtnDelProd = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator21 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel7 = new System.Windows.Forms.ToolStripLabel();
+            this.tpDirCat1 = new System.Windows.Forms.TabPage();
+            this.lvDirCat1 = new System.Windows.Forms.ListView();
+            this.tsDirCat1 = new System.Windows.Forms.ToolStrip();
+            this.tsBtnCat1Add = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator39 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsBtnCat1Edit = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator40 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsBtnCat1Del = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator41 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripLabel13 = new System.Windows.Forms.ToolStripLabel();
+            this.tpDirCat2 = new System.Windows.Forms.TabPage();
+            this.lvDirCat2 = new System.Windows.Forms.ListView();
+            this.tsCat2 = new System.Windows.Forms.ToolStrip();
+            this.tsBtnCat2Add = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator42 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsBtnCat2Edit = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator43 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsBtnCat2Del = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator44 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripLabel14 = new System.Windows.Forms.ToolStripLabel();
             this.tpDirTarif = new System.Windows.Forms.TabPage();
             this.lvDirTarif = new System.Windows.Forms.ListView();
             this.tsDirTarif = new System.Windows.Forms.ToolStrip();
@@ -191,6 +211,10 @@
             this.tsDirModels.SuspendLayout();
             this.tpDirProducts.SuspendLayout();
             this.tsDirProducts.SuspendLayout();
+            this.tpDirCat1.SuspendLayout();
+            this.tsDirCat1.SuspendLayout();
+            this.tpDirCat2.SuspendLayout();
+            this.tsCat2.SuspendLayout();
             this.tpDirTarif.SuspendLayout();
             this.tsDirTarif.SuspendLayout();
             this.tpDirNormNastil.SuspendLayout();
@@ -212,10 +236,11 @@
             this.tabControl1.Controls.Add(this.tpDivision);
             this.tabControl1.Controls.Add(this.tpinDivision);
             this.tabControl1.Controls.Add(this.tpDirs);
-            this.tabControl1.Location = new System.Drawing.Point(1, 88);
+            this.tabControl1.Location = new System.Drawing.Point(1, 108);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1131, 441);
+            this.tabControl1.Size = new System.Drawing.Size(1508, 543);
             this.tabControl1.TabIndex = 19;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
@@ -223,10 +248,11 @@
             // 
             this.tpDivision.Controls.Add(this.toolStrip2);
             this.tpDivision.Controls.Add(this.lvDivision);
-            this.tpDivision.Location = new System.Drawing.Point(4, 22);
+            this.tpDivision.Location = new System.Drawing.Point(4, 25);
+            this.tpDivision.Margin = new System.Windows.Forms.Padding(4);
             this.tpDivision.Name = "tpDivision";
-            this.tpDivision.Padding = new System.Windows.Forms.Padding(3);
-            this.tpDivision.Size = new System.Drawing.Size(1123, 415);
+            this.tpDivision.Padding = new System.Windows.Forms.Padding(4);
+            this.tpDivision.Size = new System.Drawing.Size(1500, 514);
             this.tpDivision.TabIndex = 0;
             this.tpDivision.Text = "Разделение";
             this.tpDivision.UseVisualStyleBackColor = true;
@@ -245,9 +271,9 @@
             this.toolStripLabel2,
             this.tsBtnGotoDivision,
             this.toolStripSeparator6});
-            this.toolStrip2.Location = new System.Drawing.Point(3, 3);
+            this.toolStrip2.Location = new System.Drawing.Point(4, 4);
             this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(1117, 27);
+            this.toolStrip2.Size = new System.Drawing.Size(1492, 27);
             this.toolStrip2.TabIndex = 0;
             this.toolStrip2.Text = "toolStrip2";
             // 
@@ -256,7 +282,7 @@
             this.tsBtnAddDivision.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnAddDivision.Image")));
             this.tsBtnAddDivision.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnAddDivision.Name = "tsBtnAddDivision";
-            this.tsBtnAddDivision.Size = new System.Drawing.Size(83, 24);
+            this.tsBtnAddDivision.Size = new System.Drawing.Size(100, 24);
             this.tsBtnAddDivision.Text = "Добавить";
             this.tsBtnAddDivision.Click += new System.EventHandler(this.tsBtnAddDivision_Click);
             // 
@@ -270,7 +296,7 @@
             this.tsBtnEditDivision.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnEditDivision.Image")));
             this.tsBtnEditDivision.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnEditDivision.Name = "tsBtnEditDivision";
-            this.tsBtnEditDivision.Size = new System.Drawing.Size(85, 24);
+            this.tsBtnEditDivision.Size = new System.Drawing.Size(102, 24);
             this.tsBtnEditDivision.Text = "Изменить";
             this.tsBtnEditDivision.Click += new System.EventHandler(this.tsBtnEditDivision_Click);
             // 
@@ -284,7 +310,7 @@
             this.tsBtnDelDivision.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnDelDivision.Image")));
             this.tsBtnDelDivision.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnDelDivision.Name = "tsBtnDelDivision";
-            this.tsBtnDelDivision.Size = new System.Drawing.Size(75, 24);
+            this.tsBtnDelDivision.Size = new System.Drawing.Size(89, 24);
             this.tsBtnDelDivision.Text = "Удалить";
             this.tsBtnDelDivision.Click += new System.EventHandler(this.tsBtnDelDivision_Click);
             // 
@@ -303,7 +329,7 @@
             this.tsBtnGotoDivision.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnGotoDivision.Image")));
             this.tsBtnGotoDivision.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnGotoDivision.Name = "tsBtnGotoDivision";
-            this.tsBtnGotoDivision.Size = new System.Drawing.Size(153, 24);
+            this.tsBtnGotoDivision.Size = new System.Drawing.Size(191, 24);
             this.tsBtnGotoDivision.Text = "Перейти в разделение";
             this.tsBtnGotoDivision.Click += new System.EventHandler(this.tsBtnGotoDivision_Click);
             // 
@@ -319,9 +345,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lvDivision.HideSelection = false;
-            this.lvDivision.Location = new System.Drawing.Point(-3, 33);
+            this.lvDivision.Location = new System.Drawing.Point(-4, 41);
+            this.lvDivision.Margin = new System.Windows.Forms.Padding(4);
             this.lvDivision.Name = "lvDivision";
-            this.lvDivision.Size = new System.Drawing.Size(1126, 383);
+            this.lvDivision.Size = new System.Drawing.Size(1500, 470);
             this.lvDivision.TabIndex = 1;
             this.lvDivision.UseCompatibleStateImageBehavior = false;
             this.lvDivision.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lvDivision_MouseDoubleClick);
@@ -330,10 +357,10 @@
             // 
             this.tpinDivision.Controls.Add(this.toolStrip1);
             this.tpinDivision.Controls.Add(this.lvinDivision);
-            this.tpinDivision.Location = new System.Drawing.Point(4, 22);
-            this.tpinDivision.Margin = new System.Windows.Forms.Padding(2);
+            this.tpinDivision.Location = new System.Drawing.Point(4, 25);
+            this.tpinDivision.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tpinDivision.Name = "tpinDivision";
-            this.tpinDivision.Size = new System.Drawing.Size(1123, 415);
+            this.tpinDivision.Size = new System.Drawing.Size(1500, 514);
             this.tpinDivision.TabIndex = 3;
             this.tpinDivision.Text = "tpinDivision";
             this.tpinDivision.UseVisualStyleBackColor = true;
@@ -355,7 +382,7 @@
             this.tsPrintDivision});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1123, 27);
+            this.toolStrip1.Size = new System.Drawing.Size(1500, 27);
             this.toolStrip1.TabIndex = 3;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -364,7 +391,7 @@
             this.tsBtnCopyDivision.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnCopyDivision.Image")));
             this.tsBtnCopyDivision.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnCopyDivision.Name = "tsBtnCopyDivision";
-            this.tsBtnCopyDivision.Size = new System.Drawing.Size(169, 24);
+            this.tsBtnCopyDivision.Size = new System.Drawing.Size(210, 24);
             this.tsBtnCopyDivision.Text = "Скопировать разделение";
             this.tsBtnCopyDivision.Click += new System.EventHandler(this.tsBtnCopyDivision_Click);
             // 
@@ -378,7 +405,7 @@
             this.tsBtnAddOperInDivision.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnAddOperInDivision.Image")));
             this.tsBtnAddOperInDivision.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnAddOperInDivision.Name = "tsBtnAddOperInDivision";
-            this.tsBtnAddOperInDivision.Size = new System.Drawing.Size(140, 24);
+            this.tsBtnAddOperInDivision.Size = new System.Drawing.Size(174, 24);
             this.tsBtnAddOperInDivision.Text = "Добавить операции";
             this.tsBtnAddOperInDivision.Click += new System.EventHandler(this.tsBtnAddOperInDivision_Click);
             // 
@@ -392,7 +419,7 @@
             this.tsBtnEditOperInDivision.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnEditOperInDivision.Image")));
             this.tsBtnEditOperInDivision.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnEditOperInDivision.Name = "tsBtnEditOperInDivision";
-            this.tsBtnEditOperInDivision.Size = new System.Drawing.Size(145, 24);
+            this.tsBtnEditOperInDivision.Size = new System.Drawing.Size(179, 24);
             this.tsBtnEditOperInDivision.Text = "Изменить операцию";
             this.tsBtnEditOperInDivision.Click += new System.EventHandler(this.tsBtnEditOperInDivision_Click);
             // 
@@ -406,7 +433,7 @@
             this.tsBtnDelOperInDivision.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnDelOperInDivision.Image")));
             this.tsBtnDelOperInDivision.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnDelOperInDivision.Name = "tsBtnDelOperInDivision";
-            this.tsBtnDelOperInDivision.Size = new System.Drawing.Size(135, 24);
+            this.tsBtnDelOperInDivision.Size = new System.Drawing.Size(166, 24);
             this.tsBtnDelOperInDivision.Text = "Удалить операцию";
             this.tsBtnDelOperInDivision.Click += new System.EventHandler(this.tsBtnDelOperInDivision_Click);
             // 
@@ -425,7 +452,7 @@
             this.tsPrintDivision.Image = ((System.Drawing.Image)(resources.GetObject("tsPrintDivision.Image")));
             this.tsPrintDivision.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsPrintDivision.Name = "tsPrintDivision";
-            this.tsPrintDivision.Size = new System.Drawing.Size(160, 24);
+            this.tsPrintDivision.Size = new System.Drawing.Size(199, 24);
             this.tsPrintDivision.Text = "Напечатать разделение";
             this.tsPrintDivision.Click += new System.EventHandler(this.tsPrintDivision_Click);
             // 
@@ -436,9 +463,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lvinDivision.HideSelection = false;
-            this.lvinDivision.Location = new System.Drawing.Point(0, 30);
+            this.lvinDivision.Location = new System.Drawing.Point(0, 37);
+            this.lvinDivision.Margin = new System.Windows.Forms.Padding(4);
             this.lvinDivision.Name = "lvinDivision";
-            this.lvinDivision.Size = new System.Drawing.Size(1126, 382);
+            this.lvinDivision.Size = new System.Drawing.Size(1500, 469);
             this.lvinDivision.TabIndex = 2;
             this.lvinDivision.UseCompatibleStateImageBehavior = false;
             this.lvinDivision.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lvinDivision_MouseDoubleClick);
@@ -446,9 +474,10 @@
             // tpDirs
             // 
             this.tpDirs.Controls.Add(this.tabControl2);
-            this.tpDirs.Location = new System.Drawing.Point(4, 22);
+            this.tpDirs.Location = new System.Drawing.Point(4, 25);
+            this.tpDirs.Margin = new System.Windows.Forms.Padding(4);
             this.tpDirs.Name = "tpDirs";
-            this.tpDirs.Size = new System.Drawing.Size(1123, 415);
+            this.tpDirs.Size = new System.Drawing.Size(1500, 514);
             this.tpDirs.TabIndex = 1;
             this.tpDirs.Text = "Справочники";
             this.tpDirs.UseVisualStyleBackColor = true;
@@ -464,14 +493,17 @@
             this.tabControl2.Controls.Add(this.tpDirOpers);
             this.tabControl2.Controls.Add(this.tpDirModels);
             this.tabControl2.Controls.Add(this.tpDirProducts);
+            this.tabControl2.Controls.Add(this.tpDirCat1);
+            this.tabControl2.Controls.Add(this.tpDirCat2);
             this.tabControl2.Controls.Add(this.tpDirTarif);
             this.tabControl2.Controls.Add(this.tpDirNormNastil);
             this.tabControl2.Controls.Add(this.tpDirNormControl);
             this.tabControl2.Controls.Add(this.tpDirSigners);
             this.tabControl2.Location = new System.Drawing.Point(0, 0);
+            this.tabControl2.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(1127, 419);
+            this.tabControl2.Size = new System.Drawing.Size(1503, 516);
             this.tabControl2.TabIndex = 4;
             this.tabControl2.SelectedIndexChanged += new System.EventHandler(this.tabControl2_SelectedIndexChanged);
             // 
@@ -479,10 +511,11 @@
             // 
             this.tpDirWorkers.Controls.Add(this.toolStrip3);
             this.tpDirWorkers.Controls.Add(this.lvDirWorkers);
-            this.tpDirWorkers.Location = new System.Drawing.Point(4, 22);
+            this.tpDirWorkers.Location = new System.Drawing.Point(4, 25);
+            this.tpDirWorkers.Margin = new System.Windows.Forms.Padding(4);
             this.tpDirWorkers.Name = "tpDirWorkers";
-            this.tpDirWorkers.Padding = new System.Windows.Forms.Padding(3);
-            this.tpDirWorkers.Size = new System.Drawing.Size(1119, 393);
+            this.tpDirWorkers.Padding = new System.Windows.Forms.Padding(4);
+            this.tpDirWorkers.Size = new System.Drawing.Size(1495, 487);
             this.tpDirWorkers.TabIndex = 0;
             this.tpDirWorkers.Text = "Работники";
             this.tpDirWorkers.UseVisualStyleBackColor = true;
@@ -499,9 +532,9 @@
             this.tsBtnDelWorker,
             this.toolStripSeparator9,
             this.toolStripLabel3});
-            this.toolStrip3.Location = new System.Drawing.Point(3, 3);
+            this.toolStrip3.Location = new System.Drawing.Point(4, 4);
             this.toolStrip3.Name = "toolStrip3";
-            this.toolStrip3.Size = new System.Drawing.Size(1113, 27);
+            this.toolStrip3.Size = new System.Drawing.Size(1487, 27);
             this.toolStrip3.TabIndex = 3;
             this.toolStrip3.Text = "tsDirWorkers";
             // 
@@ -510,7 +543,7 @@
             this.tsBtnAddWorker.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnAddWorker.Image")));
             this.tsBtnAddWorker.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnAddWorker.Name = "tsBtnAddWorker";
-            this.tsBtnAddWorker.Size = new System.Drawing.Size(83, 24);
+            this.tsBtnAddWorker.Size = new System.Drawing.Size(100, 24);
             this.tsBtnAddWorker.Text = "Добавить";
             this.tsBtnAddWorker.Click += new System.EventHandler(this.tsBtnAddWorker_Click);
             // 
@@ -524,7 +557,7 @@
             this.tsBtnEditWorker.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnEditWorker.Image")));
             this.tsBtnEditWorker.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnEditWorker.Name = "tsBtnEditWorker";
-            this.tsBtnEditWorker.Size = new System.Drawing.Size(85, 24);
+            this.tsBtnEditWorker.Size = new System.Drawing.Size(102, 24);
             this.tsBtnEditWorker.Text = "Изменить";
             this.tsBtnEditWorker.Click += new System.EventHandler(this.tsBtnEditWorker_Click);
             // 
@@ -538,7 +571,7 @@
             this.tsBtnDelWorker.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnDelWorker.Image")));
             this.tsBtnDelWorker.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnDelWorker.Name = "tsBtnDelWorker";
-            this.tsBtnDelWorker.Size = new System.Drawing.Size(75, 24);
+            this.tsBtnDelWorker.Size = new System.Drawing.Size(89, 24);
             this.tsBtnDelWorker.Text = "Удалить";
             this.tsBtnDelWorker.Click += new System.EventHandler(this.tsBtnDelWorker_Click);
             // 
@@ -558,9 +591,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lvDirWorkers.HideSelection = false;
-            this.lvDirWorkers.Location = new System.Drawing.Point(0, 31);
+            this.lvDirWorkers.Location = new System.Drawing.Point(0, 38);
+            this.lvDirWorkers.Margin = new System.Windows.Forms.Padding(4);
             this.lvDirWorkers.Name = "lvDirWorkers";
-            this.lvDirWorkers.Size = new System.Drawing.Size(1119, 362);
+            this.lvDirWorkers.Size = new System.Drawing.Size(1491, 441);
             this.lvDirWorkers.TabIndex = 0;
             this.lvDirWorkers.UseCompatibleStateImageBehavior = false;
             this.lvDirWorkers.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lvDirWorkers_MouseDoubleClick);
@@ -569,10 +603,11 @@
             // 
             this.tpDirBrigs.Controls.Add(this.tsDirBrigs);
             this.tpDirBrigs.Controls.Add(this.lvDirBrigs);
-            this.tpDirBrigs.Location = new System.Drawing.Point(4, 22);
+            this.tpDirBrigs.Location = new System.Drawing.Point(4, 25);
+            this.tpDirBrigs.Margin = new System.Windows.Forms.Padding(4);
             this.tpDirBrigs.Name = "tpDirBrigs";
-            this.tpDirBrigs.Padding = new System.Windows.Forms.Padding(3);
-            this.tpDirBrigs.Size = new System.Drawing.Size(1119, 393);
+            this.tpDirBrigs.Padding = new System.Windows.Forms.Padding(4);
+            this.tpDirBrigs.Size = new System.Drawing.Size(1495, 487);
             this.tpDirBrigs.TabIndex = 1;
             this.tpDirBrigs.Text = "Бригады";
             this.tpDirBrigs.UseVisualStyleBackColor = true;
@@ -589,9 +624,9 @@
             this.tsBtnDelBrig,
             this.toolStripSeparator3,
             this.toolStripLabel1});
-            this.tsDirBrigs.Location = new System.Drawing.Point(3, 3);
+            this.tsDirBrigs.Location = new System.Drawing.Point(4, 4);
             this.tsDirBrigs.Name = "tsDirBrigs";
-            this.tsDirBrigs.Size = new System.Drawing.Size(1113, 27);
+            this.tsDirBrigs.Size = new System.Drawing.Size(1487, 27);
             this.tsDirBrigs.TabIndex = 5;
             this.tsDirBrigs.Text = "tsDirBrigs";
             // 
@@ -600,7 +635,7 @@
             this.tsBtnAddBrig.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnAddBrig.Image")));
             this.tsBtnAddBrig.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnAddBrig.Name = "tsBtnAddBrig";
-            this.tsBtnAddBrig.Size = new System.Drawing.Size(83, 24);
+            this.tsBtnAddBrig.Size = new System.Drawing.Size(100, 24);
             this.tsBtnAddBrig.Text = "Добавить";
             this.tsBtnAddBrig.Click += new System.EventHandler(this.tsBtnAddBrig_Click);
             // 
@@ -614,7 +649,7 @@
             this.tsBtnEditBrig.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnEditBrig.Image")));
             this.tsBtnEditBrig.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnEditBrig.Name = "tsBtnEditBrig";
-            this.tsBtnEditBrig.Size = new System.Drawing.Size(85, 24);
+            this.tsBtnEditBrig.Size = new System.Drawing.Size(102, 24);
             this.tsBtnEditBrig.Text = "Изменить";
             this.tsBtnEditBrig.Click += new System.EventHandler(this.tsBtnEditBrig_Click);
             // 
@@ -628,7 +663,7 @@
             this.tsBtnDelBrig.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnDelBrig.Image")));
             this.tsBtnDelBrig.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnDelBrig.Name = "tsBtnDelBrig";
-            this.tsBtnDelBrig.Size = new System.Drawing.Size(75, 24);
+            this.tsBtnDelBrig.Size = new System.Drawing.Size(89, 24);
             this.tsBtnDelBrig.Text = "Удалить";
             this.tsBtnDelBrig.Click += new System.EventHandler(this.tsBtnDelBrig_Click);
             // 
@@ -648,9 +683,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lvDirBrigs.HideSelection = false;
-            this.lvDirBrigs.Location = new System.Drawing.Point(2, 32);
+            this.lvDirBrigs.Location = new System.Drawing.Point(3, 39);
+            this.lvDirBrigs.Margin = new System.Windows.Forms.Padding(4);
             this.lvDirBrigs.Name = "lvDirBrigs";
-            this.lvDirBrigs.Size = new System.Drawing.Size(1119, 362);
+            this.lvDirBrigs.Size = new System.Drawing.Size(1491, 441);
             this.lvDirBrigs.TabIndex = 4;
             this.lvDirBrigs.UseCompatibleStateImageBehavior = false;
             this.lvDirBrigs.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lvDirBrigs_MouseDoubleClick);
@@ -659,10 +695,10 @@
             // 
             this.tpDirProfs.Controls.Add(this.lvDirProfs);
             this.tpDirProfs.Controls.Add(this.tsDirProfs);
-            this.tpDirProfs.Location = new System.Drawing.Point(4, 22);
-            this.tpDirProfs.Margin = new System.Windows.Forms.Padding(2);
+            this.tpDirProfs.Location = new System.Drawing.Point(4, 25);
+            this.tpDirProfs.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tpDirProfs.Name = "tpDirProfs";
-            this.tpDirProfs.Size = new System.Drawing.Size(1119, 393);
+            this.tpDirProfs.Size = new System.Drawing.Size(1495, 487);
             this.tpDirProfs.TabIndex = 2;
             this.tpDirProfs.Text = "Профессии";
             this.tpDirProfs.UseVisualStyleBackColor = true;
@@ -673,9 +709,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lvDirProfs.HideSelection = false;
-            this.lvDirProfs.Location = new System.Drawing.Point(0, 30);
+            this.lvDirProfs.Location = new System.Drawing.Point(0, 37);
+            this.lvDirProfs.Margin = new System.Windows.Forms.Padding(4);
             this.lvDirProfs.Name = "lvDirProfs";
-            this.lvDirProfs.Size = new System.Drawing.Size(1119, 362);
+            this.lvDirProfs.Size = new System.Drawing.Size(1491, 441);
             this.lvDirProfs.TabIndex = 7;
             this.lvDirProfs.UseCompatibleStateImageBehavior = false;
             this.lvDirProfs.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lvDirProfs_MouseDoubleClick);
@@ -694,7 +731,7 @@
             this.toolStripLabel4});
             this.tsDirProfs.Location = new System.Drawing.Point(0, 0);
             this.tsDirProfs.Name = "tsDirProfs";
-            this.tsDirProfs.Size = new System.Drawing.Size(1119, 27);
+            this.tsDirProfs.Size = new System.Drawing.Size(1495, 27);
             this.tsDirProfs.TabIndex = 6;
             this.tsDirProfs.Text = "tsDirBrigs";
             // 
@@ -703,7 +740,7 @@
             this.tsBtnAddProf.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnAddProf.Image")));
             this.tsBtnAddProf.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnAddProf.Name = "tsBtnAddProf";
-            this.tsBtnAddProf.Size = new System.Drawing.Size(83, 24);
+            this.tsBtnAddProf.Size = new System.Drawing.Size(100, 24);
             this.tsBtnAddProf.Text = "Добавить";
             this.tsBtnAddProf.Click += new System.EventHandler(this.tsBtnAddProf_Click);
             // 
@@ -717,7 +754,7 @@
             this.tsBtnEditProf.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnEditProf.Image")));
             this.tsBtnEditProf.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnEditProf.Name = "tsBtnEditProf";
-            this.tsBtnEditProf.Size = new System.Drawing.Size(85, 24);
+            this.tsBtnEditProf.Size = new System.Drawing.Size(102, 24);
             this.tsBtnEditProf.Text = "Изменить";
             this.tsBtnEditProf.Click += new System.EventHandler(this.tsBtnEditProf_Click);
             // 
@@ -731,7 +768,7 @@
             this.tsBtnDelProf.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnDelProf.Image")));
             this.tsBtnDelProf.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnDelProf.Name = "tsBtnDelProf";
-            this.tsBtnDelProf.Size = new System.Drawing.Size(75, 24);
+            this.tsBtnDelProf.Size = new System.Drawing.Size(89, 24);
             this.tsBtnDelProf.Text = "Удалить";
             this.tsBtnDelProf.Click += new System.EventHandler(this.tsBtnDelProf_Click);
             // 
@@ -749,10 +786,10 @@
             // 
             this.tpDirOpers.Controls.Add(this.lvDirOpers);
             this.tpDirOpers.Controls.Add(this.tsDirOpers);
-            this.tpDirOpers.Location = new System.Drawing.Point(4, 22);
-            this.tpDirOpers.Margin = new System.Windows.Forms.Padding(2);
+            this.tpDirOpers.Location = new System.Drawing.Point(4, 25);
+            this.tpDirOpers.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tpDirOpers.Name = "tpDirOpers";
-            this.tpDirOpers.Size = new System.Drawing.Size(1119, 393);
+            this.tpDirOpers.Size = new System.Drawing.Size(1495, 487);
             this.tpDirOpers.TabIndex = 3;
             this.tpDirOpers.Text = "Операции";
             this.tpDirOpers.UseVisualStyleBackColor = true;
@@ -763,9 +800,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lvDirOpers.HideSelection = false;
-            this.lvDirOpers.Location = new System.Drawing.Point(0, 30);
+            this.lvDirOpers.Location = new System.Drawing.Point(0, 37);
+            this.lvDirOpers.Margin = new System.Windows.Forms.Padding(4);
             this.lvDirOpers.Name = "lvDirOpers";
-            this.lvDirOpers.Size = new System.Drawing.Size(1119, 362);
+            this.lvDirOpers.Size = new System.Drawing.Size(1491, 441);
             this.lvDirOpers.TabIndex = 7;
             this.lvDirOpers.UseCompatibleStateImageBehavior = false;
             this.lvDirOpers.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lvDirOpers_MouseDoubleClick);
@@ -784,7 +822,7 @@
             this.toolStripLabel5});
             this.tsDirOpers.Location = new System.Drawing.Point(0, 0);
             this.tsDirOpers.Name = "tsDirOpers";
-            this.tsDirOpers.Size = new System.Drawing.Size(1119, 27);
+            this.tsDirOpers.Size = new System.Drawing.Size(1495, 27);
             this.tsDirOpers.TabIndex = 6;
             this.tsDirOpers.Text = "tsDirBrigs";
             // 
@@ -793,7 +831,7 @@
             this.tsBtnAddOper.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnAddOper.Image")));
             this.tsBtnAddOper.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnAddOper.Name = "tsBtnAddOper";
-            this.tsBtnAddOper.Size = new System.Drawing.Size(83, 24);
+            this.tsBtnAddOper.Size = new System.Drawing.Size(100, 24);
             this.tsBtnAddOper.Text = "Добавить";
             this.tsBtnAddOper.Click += new System.EventHandler(this.tsBtnAddOper_Click);
             // 
@@ -807,7 +845,7 @@
             this.tsBtnEditOper.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnEditOper.Image")));
             this.tsBtnEditOper.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnEditOper.Name = "tsBtnEditOper";
-            this.tsBtnEditOper.Size = new System.Drawing.Size(85, 24);
+            this.tsBtnEditOper.Size = new System.Drawing.Size(102, 24);
             this.tsBtnEditOper.Text = "Изменить";
             this.tsBtnEditOper.Click += new System.EventHandler(this.tsBtnEditOper_Click);
             // 
@@ -821,7 +859,7 @@
             this.tsBtnDelOper.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnDelOper.Image")));
             this.tsBtnDelOper.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnDelOper.Name = "tsBtnDelOper";
-            this.tsBtnDelOper.Size = new System.Drawing.Size(75, 24);
+            this.tsBtnDelOper.Size = new System.Drawing.Size(89, 24);
             this.tsBtnDelOper.Text = "Удалить";
             this.tsBtnDelOper.Click += new System.EventHandler(this.tsBtnDelOper_Click);
             // 
@@ -839,9 +877,10 @@
             // 
             this.tpDirModels.Controls.Add(this.lvDirModels);
             this.tpDirModels.Controls.Add(this.tsDirModels);
-            this.tpDirModels.Location = new System.Drawing.Point(4, 22);
+            this.tpDirModels.Location = new System.Drawing.Point(4, 25);
+            this.tpDirModels.Margin = new System.Windows.Forms.Padding(4);
             this.tpDirModels.Name = "tpDirModels";
-            this.tpDirModels.Size = new System.Drawing.Size(1119, 393);
+            this.tpDirModels.Size = new System.Drawing.Size(1495, 487);
             this.tpDirModels.TabIndex = 4;
             this.tpDirModels.Text = "Модели";
             this.tpDirModels.UseVisualStyleBackColor = true;
@@ -852,9 +891,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lvDirModels.HideSelection = false;
-            this.lvDirModels.Location = new System.Drawing.Point(0, 30);
+            this.lvDirModels.Location = new System.Drawing.Point(0, 37);
+            this.lvDirModels.Margin = new System.Windows.Forms.Padding(4);
             this.lvDirModels.Name = "lvDirModels";
-            this.lvDirModels.Size = new System.Drawing.Size(1119, 362);
+            this.lvDirModels.Size = new System.Drawing.Size(1491, 441);
             this.lvDirModels.TabIndex = 7;
             this.lvDirModels.UseCompatibleStateImageBehavior = false;
             this.lvDirModels.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lvDirModels_MouseDoubleClick);
@@ -873,7 +913,7 @@
             this.toolStripLabel6});
             this.tsDirModels.Location = new System.Drawing.Point(0, 0);
             this.tsDirModels.Name = "tsDirModels";
-            this.tsDirModels.Size = new System.Drawing.Size(1119, 27);
+            this.tsDirModels.Size = new System.Drawing.Size(1495, 27);
             this.tsDirModels.TabIndex = 6;
             this.tsDirModels.Text = "tsDirBrigs";
             // 
@@ -882,7 +922,7 @@
             this.tsBtnAddMod.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnAddMod.Image")));
             this.tsBtnAddMod.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnAddMod.Name = "tsBtnAddMod";
-            this.tsBtnAddMod.Size = new System.Drawing.Size(83, 24);
+            this.tsBtnAddMod.Size = new System.Drawing.Size(100, 24);
             this.tsBtnAddMod.Text = "Добавить";
             this.tsBtnAddMod.Click += new System.EventHandler(this.tsBtnAddMod_Click);
             // 
@@ -896,7 +936,7 @@
             this.tsBtnEditMod.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnEditMod.Image")));
             this.tsBtnEditMod.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnEditMod.Name = "tsBtnEditMod";
-            this.tsBtnEditMod.Size = new System.Drawing.Size(85, 24);
+            this.tsBtnEditMod.Size = new System.Drawing.Size(102, 24);
             this.tsBtnEditMod.Text = "Изменить";
             this.tsBtnEditMod.Click += new System.EventHandler(this.tsBtnEditMod_Click);
             // 
@@ -910,7 +950,7 @@
             this.tsBtnDelMod.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnDelMod.Image")));
             this.tsBtnDelMod.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnDelMod.Name = "tsBtnDelMod";
-            this.tsBtnDelMod.Size = new System.Drawing.Size(75, 24);
+            this.tsBtnDelMod.Size = new System.Drawing.Size(89, 24);
             this.tsBtnDelMod.Text = "Удалить";
             this.tsBtnDelMod.Click += new System.EventHandler(this.tsBtnDelMod_Click);
             // 
@@ -928,9 +968,10 @@
             // 
             this.tpDirProducts.Controls.Add(this.lvDirProducts);
             this.tpDirProducts.Controls.Add(this.tsDirProducts);
-            this.tpDirProducts.Location = new System.Drawing.Point(4, 22);
+            this.tpDirProducts.Location = new System.Drawing.Point(4, 25);
+            this.tpDirProducts.Margin = new System.Windows.Forms.Padding(4);
             this.tpDirProducts.Name = "tpDirProducts";
-            this.tpDirProducts.Size = new System.Drawing.Size(1119, 393);
+            this.tpDirProducts.Size = new System.Drawing.Size(1495, 487);
             this.tpDirProducts.TabIndex = 5;
             this.tpDirProducts.Text = "Виды изделий";
             this.tpDirProducts.UseVisualStyleBackColor = true;
@@ -941,9 +982,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lvDirProducts.HideSelection = false;
-            this.lvDirProducts.Location = new System.Drawing.Point(0, 30);
+            this.lvDirProducts.Location = new System.Drawing.Point(0, 37);
+            this.lvDirProducts.Margin = new System.Windows.Forms.Padding(4);
             this.lvDirProducts.Name = "lvDirProducts";
-            this.lvDirProducts.Size = new System.Drawing.Size(1119, 362);
+            this.lvDirProducts.Size = new System.Drawing.Size(1491, 441);
             this.lvDirProducts.TabIndex = 9;
             this.lvDirProducts.UseCompatibleStateImageBehavior = false;
             this.lvDirProducts.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lvDirProducts_MouseDoubleClick);
@@ -962,7 +1004,7 @@
             this.toolStripLabel7});
             this.tsDirProducts.Location = new System.Drawing.Point(0, 0);
             this.tsDirProducts.Name = "tsDirProducts";
-            this.tsDirProducts.Size = new System.Drawing.Size(1119, 27);
+            this.tsDirProducts.Size = new System.Drawing.Size(1495, 27);
             this.tsDirProducts.TabIndex = 8;
             this.tsDirProducts.Text = "tsDirBrigs";
             // 
@@ -971,7 +1013,7 @@
             this.tsBtnAddProd.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnAddProd.Image")));
             this.tsBtnAddProd.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnAddProd.Name = "tsBtnAddProd";
-            this.tsBtnAddProd.Size = new System.Drawing.Size(83, 24);
+            this.tsBtnAddProd.Size = new System.Drawing.Size(100, 24);
             this.tsBtnAddProd.Text = "Добавить";
             this.tsBtnAddProd.Click += new System.EventHandler(this.tsBtnAddProd_Click);
             // 
@@ -985,7 +1027,7 @@
             this.tsBtnEditProd.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnEditProd.Image")));
             this.tsBtnEditProd.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnEditProd.Name = "tsBtnEditProd";
-            this.tsBtnEditProd.Size = new System.Drawing.Size(85, 24);
+            this.tsBtnEditProd.Size = new System.Drawing.Size(102, 24);
             this.tsBtnEditProd.Text = "Изменить";
             this.tsBtnEditProd.Click += new System.EventHandler(this.tsBtnEditProd_Click);
             // 
@@ -999,7 +1041,7 @@
             this.tsBtnDelProd.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnDelProd.Image")));
             this.tsBtnDelProd.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnDelProd.Name = "tsBtnDelProd";
-            this.tsBtnDelProd.Size = new System.Drawing.Size(75, 24);
+            this.tsBtnDelProd.Size = new System.Drawing.Size(89, 24);
             this.tsBtnDelProd.Text = "Удалить";
             this.tsBtnDelProd.Click += new System.EventHandler(this.tsBtnDelProd_Click);
             // 
@@ -1013,14 +1055,196 @@
             this.toolStripLabel7.Name = "toolStripLabel7";
             this.toolStripLabel7.Size = new System.Drawing.Size(0, 24);
             // 
+            // tpDirCat1
+            // 
+            this.tpDirCat1.Controls.Add(this.lvDirCat1);
+            this.tpDirCat1.Controls.Add(this.tsDirCat1);
+            this.tpDirCat1.Location = new System.Drawing.Point(4, 25);
+            this.tpDirCat1.Name = "tpDirCat1";
+            this.tpDirCat1.Padding = new System.Windows.Forms.Padding(3);
+            this.tpDirCat1.Size = new System.Drawing.Size(1495, 487);
+            this.tpDirCat1.TabIndex = 10;
+            this.tpDirCat1.Text = "Категория 1";
+            this.tpDirCat1.UseVisualStyleBackColor = true;
+            // 
+            // lvDirCat1
+            // 
+            this.lvDirCat1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvDirCat1.HideSelection = false;
+            this.lvDirCat1.Location = new System.Drawing.Point(1, 40);
+            this.lvDirCat1.Margin = new System.Windows.Forms.Padding(4);
+            this.lvDirCat1.Name = "lvDirCat1";
+            this.lvDirCat1.Size = new System.Drawing.Size(1491, 441);
+            this.lvDirCat1.TabIndex = 11;
+            this.lvDirCat1.UseCompatibleStateImageBehavior = false;
+            this.lvDirCat1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lvDirCat1_MouseDoubleClick);
+            // 
+            // tsDirCat1
+            // 
+            this.tsDirCat1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.tsDirCat1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.tsDirCat1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsBtnCat1Add,
+            this.toolStripSeparator39,
+            this.tsBtnCat1Edit,
+            this.toolStripSeparator40,
+            this.tsBtnCat1Del,
+            this.toolStripSeparator41,
+            this.toolStripLabel13});
+            this.tsDirCat1.Location = new System.Drawing.Point(3, 3);
+            this.tsDirCat1.Name = "tsDirCat1";
+            this.tsDirCat1.Size = new System.Drawing.Size(1489, 27);
+            this.tsDirCat1.TabIndex = 10;
+            this.tsDirCat1.Text = "tsDirBrigs";
+            // 
+            // tsBtnCat1Add
+            // 
+            this.tsBtnCat1Add.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnCat1Add.Image")));
+            this.tsBtnCat1Add.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsBtnCat1Add.Name = "tsBtnCat1Add";
+            this.tsBtnCat1Add.Size = new System.Drawing.Size(100, 24);
+            this.tsBtnCat1Add.Text = "Добавить";
+            this.tsBtnCat1Add.Click += new System.EventHandler(this.tsBtnCat1Add_Click);
+            // 
+            // toolStripSeparator39
+            // 
+            this.toolStripSeparator39.Name = "toolStripSeparator39";
+            this.toolStripSeparator39.Size = new System.Drawing.Size(6, 27);
+            // 
+            // tsBtnCat1Edit
+            // 
+            this.tsBtnCat1Edit.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnCat1Edit.Image")));
+            this.tsBtnCat1Edit.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsBtnCat1Edit.Name = "tsBtnCat1Edit";
+            this.tsBtnCat1Edit.Size = new System.Drawing.Size(102, 24);
+            this.tsBtnCat1Edit.Text = "Изменить";
+            this.tsBtnCat1Edit.Click += new System.EventHandler(this.tsBtnCat1Edit_Click);
+            // 
+            // toolStripSeparator40
+            // 
+            this.toolStripSeparator40.Name = "toolStripSeparator40";
+            this.toolStripSeparator40.Size = new System.Drawing.Size(6, 27);
+            // 
+            // tsBtnCat1Del
+            // 
+            this.tsBtnCat1Del.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnCat1Del.Image")));
+            this.tsBtnCat1Del.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsBtnCat1Del.Name = "tsBtnCat1Del";
+            this.tsBtnCat1Del.Size = new System.Drawing.Size(89, 24);
+            this.tsBtnCat1Del.Text = "Удалить";
+            this.tsBtnCat1Del.Click += new System.EventHandler(this.tsBtnCat1Del_Click);
+            // 
+            // toolStripSeparator41
+            // 
+            this.toolStripSeparator41.Name = "toolStripSeparator41";
+            this.toolStripSeparator41.Size = new System.Drawing.Size(6, 27);
+            // 
+            // toolStripLabel13
+            // 
+            this.toolStripLabel13.Name = "toolStripLabel13";
+            this.toolStripLabel13.Size = new System.Drawing.Size(0, 24);
+            // 
+            // tpDirCat2
+            // 
+            this.tpDirCat2.Controls.Add(this.lvDirCat2);
+            this.tpDirCat2.Controls.Add(this.tsCat2);
+            this.tpDirCat2.Location = new System.Drawing.Point(4, 25);
+            this.tpDirCat2.Name = "tpDirCat2";
+            this.tpDirCat2.Padding = new System.Windows.Forms.Padding(3);
+            this.tpDirCat2.Size = new System.Drawing.Size(1495, 487);
+            this.tpDirCat2.TabIndex = 11;
+            this.tpDirCat2.Text = "Категория 2";
+            this.tpDirCat2.UseVisualStyleBackColor = true;
+            // 
+            // lvDirCat2
+            // 
+            this.lvDirCat2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvDirCat2.HideSelection = false;
+            this.lvDirCat2.Location = new System.Drawing.Point(1, 40);
+            this.lvDirCat2.Margin = new System.Windows.Forms.Padding(4);
+            this.lvDirCat2.Name = "lvDirCat2";
+            this.lvDirCat2.Size = new System.Drawing.Size(1491, 441);
+            this.lvDirCat2.TabIndex = 11;
+            this.lvDirCat2.UseCompatibleStateImageBehavior = false;
+            this.lvDirCat2.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lvDirCat2_MouseDoubleClick);
+            // 
+            // tsCat2
+            // 
+            this.tsCat2.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.tsCat2.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.tsCat2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsBtnCat2Add,
+            this.toolStripSeparator42,
+            this.tsBtnCat2Edit,
+            this.toolStripSeparator43,
+            this.tsBtnCat2Del,
+            this.toolStripSeparator44,
+            this.toolStripLabel14});
+            this.tsCat2.Location = new System.Drawing.Point(3, 3);
+            this.tsCat2.Name = "tsCat2";
+            this.tsCat2.Size = new System.Drawing.Size(1489, 27);
+            this.tsCat2.TabIndex = 10;
+            this.tsCat2.Text = "tsDirBrigs";
+            // 
+            // tsBtnCat2Add
+            // 
+            this.tsBtnCat2Add.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnCat2Add.Image")));
+            this.tsBtnCat2Add.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsBtnCat2Add.Name = "tsBtnCat2Add";
+            this.tsBtnCat2Add.Size = new System.Drawing.Size(100, 24);
+            this.tsBtnCat2Add.Text = "Добавить";
+            this.tsBtnCat2Add.Click += new System.EventHandler(this.tsBtnCat2Add_Click);
+            // 
+            // toolStripSeparator42
+            // 
+            this.toolStripSeparator42.Name = "toolStripSeparator42";
+            this.toolStripSeparator42.Size = new System.Drawing.Size(6, 27);
+            // 
+            // tsBtnCat2Edit
+            // 
+            this.tsBtnCat2Edit.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnCat2Edit.Image")));
+            this.tsBtnCat2Edit.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsBtnCat2Edit.Name = "tsBtnCat2Edit";
+            this.tsBtnCat2Edit.Size = new System.Drawing.Size(102, 24);
+            this.tsBtnCat2Edit.Text = "Изменить";
+            this.tsBtnCat2Edit.Click += new System.EventHandler(this.tsBtnCat2Edit_Click);
+            // 
+            // toolStripSeparator43
+            // 
+            this.toolStripSeparator43.Name = "toolStripSeparator43";
+            this.toolStripSeparator43.Size = new System.Drawing.Size(6, 27);
+            // 
+            // tsBtnCat2Del
+            // 
+            this.tsBtnCat2Del.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnCat2Del.Image")));
+            this.tsBtnCat2Del.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsBtnCat2Del.Name = "tsBtnCat2Del";
+            this.tsBtnCat2Del.Size = new System.Drawing.Size(89, 24);
+            this.tsBtnCat2Del.Text = "Удалить";
+            this.tsBtnCat2Del.Click += new System.EventHandler(this.tsBtnCat2Del_Click);
+            // 
+            // toolStripSeparator44
+            // 
+            this.toolStripSeparator44.Name = "toolStripSeparator44";
+            this.toolStripSeparator44.Size = new System.Drawing.Size(6, 27);
+            // 
+            // toolStripLabel14
+            // 
+            this.toolStripLabel14.Name = "toolStripLabel14";
+            this.toolStripLabel14.Size = new System.Drawing.Size(0, 24);
+            // 
             // tpDirTarif
             // 
             this.tpDirTarif.Controls.Add(this.lvDirTarif);
             this.tpDirTarif.Controls.Add(this.tsDirTarif);
-            this.tpDirTarif.Location = new System.Drawing.Point(4, 22);
-            this.tpDirTarif.Margin = new System.Windows.Forms.Padding(2);
+            this.tpDirTarif.Location = new System.Drawing.Point(4, 25);
+            this.tpDirTarif.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tpDirTarif.Name = "tpDirTarif";
-            this.tpDirTarif.Size = new System.Drawing.Size(1119, 393);
+            this.tpDirTarif.Size = new System.Drawing.Size(1495, 487);
             this.tpDirTarif.TabIndex = 6;
             this.tpDirTarif.Text = "Тарифные ставки";
             this.tpDirTarif.UseVisualStyleBackColor = true;
@@ -1031,9 +1255,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lvDirTarif.HideSelection = false;
-            this.lvDirTarif.Location = new System.Drawing.Point(0, 28);
+            this.lvDirTarif.Location = new System.Drawing.Point(0, 34);
+            this.lvDirTarif.Margin = new System.Windows.Forms.Padding(4);
             this.lvDirTarif.Name = "lvDirTarif";
-            this.lvDirTarif.Size = new System.Drawing.Size(1119, 362);
+            this.lvDirTarif.Size = new System.Drawing.Size(1491, 441);
             this.lvDirTarif.TabIndex = 11;
             this.lvDirTarif.UseCompatibleStateImageBehavior = false;
             this.lvDirTarif.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lvDirTarif_MouseDoubleClick);
@@ -1052,7 +1277,7 @@
             this.toolStripLabel8});
             this.tsDirTarif.Location = new System.Drawing.Point(0, 0);
             this.tsDirTarif.Name = "tsDirTarif";
-            this.tsDirTarif.Size = new System.Drawing.Size(1119, 27);
+            this.tsDirTarif.Size = new System.Drawing.Size(1495, 27);
             this.tsDirTarif.TabIndex = 10;
             this.tsDirTarif.Text = "tsDirBrigs";
             // 
@@ -1061,7 +1286,7 @@
             this.tsBtnAddTarif.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnAddTarif.Image")));
             this.tsBtnAddTarif.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnAddTarif.Name = "tsBtnAddTarif";
-            this.tsBtnAddTarif.Size = new System.Drawing.Size(83, 24);
+            this.tsBtnAddTarif.Size = new System.Drawing.Size(100, 24);
             this.tsBtnAddTarif.Text = "Добавить";
             this.tsBtnAddTarif.Click += new System.EventHandler(this.tsBtnAddTarif_Click);
             // 
@@ -1075,7 +1300,7 @@
             this.tsBtnEditTarif.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnEditTarif.Image")));
             this.tsBtnEditTarif.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnEditTarif.Name = "tsBtnEditTarif";
-            this.tsBtnEditTarif.Size = new System.Drawing.Size(85, 24);
+            this.tsBtnEditTarif.Size = new System.Drawing.Size(102, 24);
             this.tsBtnEditTarif.Text = "Изменить";
             this.tsBtnEditTarif.Click += new System.EventHandler(this.tsBtnEditTarif_Click);
             // 
@@ -1089,7 +1314,7 @@
             this.tsBtnDelTarif.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnDelTarif.Image")));
             this.tsBtnDelTarif.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnDelTarif.Name = "tsBtnDelTarif";
-            this.tsBtnDelTarif.Size = new System.Drawing.Size(75, 24);
+            this.tsBtnDelTarif.Size = new System.Drawing.Size(89, 24);
             this.tsBtnDelTarif.Text = "Удалить";
             this.tsBtnDelTarif.Click += new System.EventHandler(this.tsBtnDelTarif_Click);
             // 
@@ -1107,10 +1332,10 @@
             // 
             this.tpDirNormNastil.Controls.Add(this.lvDirNormNastil);
             this.tpDirNormNastil.Controls.Add(this.tsDirNormNastil);
-            this.tpDirNormNastil.Location = new System.Drawing.Point(4, 22);
-            this.tpDirNormNastil.Margin = new System.Windows.Forms.Padding(2);
+            this.tpDirNormNastil.Location = new System.Drawing.Point(4, 25);
+            this.tpDirNormNastil.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tpDirNormNastil.Name = "tpDirNormNastil";
-            this.tpDirNormNastil.Size = new System.Drawing.Size(1119, 393);
+            this.tpDirNormNastil.Size = new System.Drawing.Size(1495, 487);
             this.tpDirNormNastil.TabIndex = 7;
             this.tpDirNormNastil.Text = "Нормы на настилание тканей";
             this.tpDirNormNastil.UseVisualStyleBackColor = true;
@@ -1121,9 +1346,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lvDirNormNastil.HideSelection = false;
-            this.lvDirNormNastil.Location = new System.Drawing.Point(0, 33);
+            this.lvDirNormNastil.Location = new System.Drawing.Point(0, 41);
+            this.lvDirNormNastil.Margin = new System.Windows.Forms.Padding(4);
             this.lvDirNormNastil.Name = "lvDirNormNastil";
-            this.lvDirNormNastil.Size = new System.Drawing.Size(1119, 362);
+            this.lvDirNormNastil.Size = new System.Drawing.Size(1491, 441);
             this.lvDirNormNastil.TabIndex = 11;
             this.lvDirNormNastil.UseCompatibleStateImageBehavior = false;
             this.lvDirNormNastil.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lvDirNormNastil_MouseDoubleClick);
@@ -1142,7 +1368,7 @@
             this.toolStripLabel9});
             this.tsDirNormNastil.Location = new System.Drawing.Point(0, 0);
             this.tsDirNormNastil.Name = "tsDirNormNastil";
-            this.tsDirNormNastil.Size = new System.Drawing.Size(1119, 27);
+            this.tsDirNormNastil.Size = new System.Drawing.Size(1495, 27);
             this.tsDirNormNastil.TabIndex = 10;
             this.tsDirNormNastil.Text = "tsDirBrigs";
             this.tsDirNormNastil.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lvDirNormNastil_MouseDoubleClick);
@@ -1152,7 +1378,7 @@
             this.tsBtnAddNormNastil.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnAddNormNastil.Image")));
             this.tsBtnAddNormNastil.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnAddNormNastil.Name = "tsBtnAddNormNastil";
-            this.tsBtnAddNormNastil.Size = new System.Drawing.Size(83, 24);
+            this.tsBtnAddNormNastil.Size = new System.Drawing.Size(100, 24);
             this.tsBtnAddNormNastil.Text = "Добавить";
             this.tsBtnAddNormNastil.Click += new System.EventHandler(this.tsBtnAddNormNastil_Click);
             // 
@@ -1166,7 +1392,7 @@
             this.tsBtnEditNormNastil.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnEditNormNastil.Image")));
             this.tsBtnEditNormNastil.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnEditNormNastil.Name = "tsBtnEditNormNastil";
-            this.tsBtnEditNormNastil.Size = new System.Drawing.Size(85, 24);
+            this.tsBtnEditNormNastil.Size = new System.Drawing.Size(102, 24);
             this.tsBtnEditNormNastil.Text = "Изменить";
             this.tsBtnEditNormNastil.Click += new System.EventHandler(this.tsBtnEditNormNastil_Click);
             // 
@@ -1180,7 +1406,7 @@
             this.tsBtnDelNormNastil.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnDelNormNastil.Image")));
             this.tsBtnDelNormNastil.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnDelNormNastil.Name = "tsBtnDelNormNastil";
-            this.tsBtnDelNormNastil.Size = new System.Drawing.Size(75, 24);
+            this.tsBtnDelNormNastil.Size = new System.Drawing.Size(89, 24);
             this.tsBtnDelNormNastil.Text = "Удалить";
             this.tsBtnDelNormNastil.Click += new System.EventHandler(this.tsBtnDelNormNastil_Click);
             // 
@@ -1198,10 +1424,10 @@
             // 
             this.tpDirNormControl.Controls.Add(this.lvDirNormControl);
             this.tpDirNormControl.Controls.Add(this.tsDirNormControl);
-            this.tpDirNormControl.Location = new System.Drawing.Point(4, 22);
-            this.tpDirNormControl.Margin = new System.Windows.Forms.Padding(2);
+            this.tpDirNormControl.Location = new System.Drawing.Point(4, 25);
+            this.tpDirNormControl.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tpDirNormControl.Name = "tpDirNormControl";
-            this.tpDirNormControl.Size = new System.Drawing.Size(1119, 393);
+            this.tpDirNormControl.Size = new System.Drawing.Size(1495, 487);
             this.tpDirNormControl.TabIndex = 8;
             this.tpDirNormControl.Text = "Нормы на операцию контроль";
             // 
@@ -1211,9 +1437,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lvDirNormControl.HideSelection = false;
-            this.lvDirNormControl.Location = new System.Drawing.Point(0, 33);
+            this.lvDirNormControl.Location = new System.Drawing.Point(0, 41);
+            this.lvDirNormControl.Margin = new System.Windows.Forms.Padding(4);
             this.lvDirNormControl.Name = "lvDirNormControl";
-            this.lvDirNormControl.Size = new System.Drawing.Size(1119, 362);
+            this.lvDirNormControl.Size = new System.Drawing.Size(1491, 441);
             this.lvDirNormControl.TabIndex = 11;
             this.lvDirNormControl.UseCompatibleStateImageBehavior = false;
             this.lvDirNormControl.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lvDirNormControl_MouseDoubleClick);
@@ -1232,7 +1459,7 @@
             this.toolStripLabel10});
             this.tsDirNormControl.Location = new System.Drawing.Point(0, 0);
             this.tsDirNormControl.Name = "tsDirNormControl";
-            this.tsDirNormControl.Size = new System.Drawing.Size(1119, 27);
+            this.tsDirNormControl.Size = new System.Drawing.Size(1495, 27);
             this.tsDirNormControl.TabIndex = 10;
             this.tsDirNormControl.Text = "tsDirBrigs";
             // 
@@ -1241,7 +1468,7 @@
             this.tsBtnAddNormControl.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnAddNormControl.Image")));
             this.tsBtnAddNormControl.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnAddNormControl.Name = "tsBtnAddNormControl";
-            this.tsBtnAddNormControl.Size = new System.Drawing.Size(83, 24);
+            this.tsBtnAddNormControl.Size = new System.Drawing.Size(100, 24);
             this.tsBtnAddNormControl.Text = "Добавить";
             this.tsBtnAddNormControl.Click += new System.EventHandler(this.tsBtnAddNormControl_Click);
             // 
@@ -1255,7 +1482,7 @@
             this.tsEditNormControl.Image = ((System.Drawing.Image)(resources.GetObject("tsEditNormControl.Image")));
             this.tsEditNormControl.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsEditNormControl.Name = "tsEditNormControl";
-            this.tsEditNormControl.Size = new System.Drawing.Size(85, 24);
+            this.tsEditNormControl.Size = new System.Drawing.Size(102, 24);
             this.tsEditNormControl.Text = "Изменить";
             this.tsEditNormControl.Click += new System.EventHandler(this.tsBtnEditNormControl_Click);
             // 
@@ -1269,7 +1496,7 @@
             this.tsBtnDelNormControl.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnDelNormControl.Image")));
             this.tsBtnDelNormControl.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnDelNormControl.Name = "tsBtnDelNormControl";
-            this.tsBtnDelNormControl.Size = new System.Drawing.Size(75, 24);
+            this.tsBtnDelNormControl.Size = new System.Drawing.Size(89, 24);
             this.tsBtnDelNormControl.Text = "Удалить";
             this.tsBtnDelNormControl.Click += new System.EventHandler(this.tsBtnDelNormControl_Click);
             // 
@@ -1287,10 +1514,10 @@
             // 
             this.tpDirSigners.Controls.Add(this.lvDirSigners);
             this.tpDirSigners.Controls.Add(this.tsDirSigners);
-            this.tpDirSigners.Location = new System.Drawing.Point(4, 22);
-            this.tpDirSigners.Margin = new System.Windows.Forms.Padding(2);
+            this.tpDirSigners.Location = new System.Drawing.Point(4, 25);
+            this.tpDirSigners.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tpDirSigners.Name = "tpDirSigners";
-            this.tpDirSigners.Size = new System.Drawing.Size(1119, 393);
+            this.tpDirSigners.Size = new System.Drawing.Size(1495, 487);
             this.tpDirSigners.TabIndex = 9;
             this.tpDirSigners.Text = "Подписанты";
             this.tpDirSigners.UseVisualStyleBackColor = true;
@@ -1301,9 +1528,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lvDirSigners.HideSelection = false;
-            this.lvDirSigners.Location = new System.Drawing.Point(0, 33);
+            this.lvDirSigners.Location = new System.Drawing.Point(0, 41);
+            this.lvDirSigners.Margin = new System.Windows.Forms.Padding(4);
             this.lvDirSigners.Name = "lvDirSigners";
-            this.lvDirSigners.Size = new System.Drawing.Size(1119, 362);
+            this.lvDirSigners.Size = new System.Drawing.Size(1491, 441);
             this.lvDirSigners.TabIndex = 9;
             this.lvDirSigners.UseCompatibleStateImageBehavior = false;
             this.lvDirSigners.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lvDirSigners_MouseDoubleClick);
@@ -1322,7 +1550,7 @@
             this.toolStripLabel12});
             this.tsDirSigners.Location = new System.Drawing.Point(0, 0);
             this.tsDirSigners.Name = "tsDirSigners";
-            this.tsDirSigners.Size = new System.Drawing.Size(1119, 27);
+            this.tsDirSigners.Size = new System.Drawing.Size(1495, 27);
             this.tsDirSigners.TabIndex = 8;
             this.tsDirSigners.Text = "tsDirBrigs";
             // 
@@ -1331,7 +1559,7 @@
             this.tsBtnAddSigner.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnAddSigner.Image")));
             this.tsBtnAddSigner.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnAddSigner.Name = "tsBtnAddSigner";
-            this.tsBtnAddSigner.Size = new System.Drawing.Size(83, 24);
+            this.tsBtnAddSigner.Size = new System.Drawing.Size(100, 24);
             this.tsBtnAddSigner.Text = "Добавить";
             this.tsBtnAddSigner.Click += new System.EventHandler(this.tsBtnAddSigner_Click);
             // 
@@ -1345,7 +1573,7 @@
             this.tsBtnEditSigner.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnEditSigner.Image")));
             this.tsBtnEditSigner.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnEditSigner.Name = "tsBtnEditSigner";
-            this.tsBtnEditSigner.Size = new System.Drawing.Size(85, 24);
+            this.tsBtnEditSigner.Size = new System.Drawing.Size(102, 24);
             this.tsBtnEditSigner.Text = "Изменить";
             this.tsBtnEditSigner.Click += new System.EventHandler(this.tsBtnEditSigner_Click);
             // 
@@ -1359,7 +1587,7 @@
             this.tsBtnDelSigner.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnDelSigner.Image")));
             this.tsBtnDelSigner.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnDelSigner.Name = "tsBtnDelSigner";
-            this.tsBtnDelSigner.Size = new System.Drawing.Size(75, 24);
+            this.tsBtnDelSigner.Size = new System.Drawing.Size(89, 24);
             this.tsBtnDelSigner.Text = "Удалить";
             this.tsBtnDelSigner.Click += new System.EventHandler(this.tsBtnDelSigner_Click);
             // 
@@ -1380,25 +1608,28 @@
             this.panel1.AutoSize = true;
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.dateTimePicker1);
-            this.panel1.Location = new System.Drawing.Point(1, 26);
+            this.panel1.Location = new System.Drawing.Point(1, 32);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1132, 56);
+            this.panel1.Size = new System.Drawing.Size(1509, 69);
             this.panel1.TabIndex = 20;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(16, 18);
+            this.label1.Location = new System.Drawing.Point(21, 22);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(39, 13);
+            this.label1.Size = new System.Drawing.Size(45, 16);
             this.label1.TabIndex = 1;
             this.label1.Text = "Дата :";
             // 
             // dateTimePicker1
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(56, 12);
+            this.dateTimePicker1.Location = new System.Drawing.Point(75, 15);
+            this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(4);
             this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(148, 20);
+            this.dateTimePicker1.Size = new System.Drawing.Size(196, 22);
             this.dateTimePicker1.TabIndex = 0;
             this.dateTimePicker1.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
             // 
@@ -1411,42 +1642,43 @@
             this.tsStatusSumCost,
             this.tsStatusNVRbyItem,
             this.tsStatusSumItem});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 532);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 660);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1133, 22);
+            this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 19, 0);
+            this.statusStrip1.Size = new System.Drawing.Size(1511, 22);
             this.statusStrip1.TabIndex = 21;
             this.statusStrip1.Text = "statusStrip1";
             // 
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 17);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 16);
             // 
             // toolStripStatusLabel2
             // 
             this.toolStripStatusLabel2.AutoSize = false;
             this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(300, 17);
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(300, 16);
             // 
             // tsStatusSumCost
             // 
             this.tsStatusSumCost.AutoSize = false;
             this.tsStatusSumCost.Name = "tsStatusSumCost";
-            this.tsStatusSumCost.Size = new System.Drawing.Size(250, 17);
+            this.tsStatusSumCost.Size = new System.Drawing.Size(250, 16);
             this.tsStatusSumCost.Text = "Расценка:";
             // 
             // tsStatusNVRbyItem
             // 
             this.tsStatusNVRbyItem.AutoSize = false;
             this.tsStatusNVRbyItem.Name = "tsStatusNVRbyItem";
-            this.tsStatusNVRbyItem.Size = new System.Drawing.Size(250, 17);
+            this.tsStatusNVRbyItem.Size = new System.Drawing.Size(250, 16);
             this.tsStatusNVRbyItem.Text = "Время обработки:";
             // 
             // tsStatusSumItem
             // 
             this.tsStatusSumItem.AutoSize = false;
             this.tsStatusSumItem.Name = "tsStatusSumItem";
-            this.tsStatusSumItem.Size = new System.Drawing.Size(250, 17);
+            this.tsStatusSumItem.Size = new System.Drawing.Size(250, 16);
             this.tsStatusSumItem.Text = "Стоимость обработки:";
             // 
             // menuStrip1
@@ -1458,8 +1690,8 @@
             this.AboutToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(1133, 24);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
+            this.menuStrip1.Size = new System.Drawing.Size(1511, 28);
             this.menuStrip1.TabIndex = 22;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -1468,13 +1700,13 @@
             this.настройкаToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.BackUpDBItem});
             this.настройкаToolStripMenuItem.Name = "настройкаToolStripMenuItem";
-            this.настройкаToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
+            this.настройкаToolStripMenuItem.Size = new System.Drawing.Size(73, 24);
             this.настройкаToolStripMenuItem.Text = "Сервис";
             // 
             // BackUpDBItem
             // 
             this.BackUpDBItem.Name = "BackUpDBItem";
-            this.BackUpDBItem.Size = new System.Drawing.Size(239, 22);
+            this.BackUpDBItem.Size = new System.Drawing.Size(301, 26);
             this.BackUpDBItem.Text = "Сделать резервную копию БД";
             this.BackUpDBItem.Click += new System.EventHandler(this.BackUpDBItem_Click);
             // 
@@ -1483,35 +1715,36 @@
             this.PrintToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.printDivisionToolStripMenuItem});
             this.PrintToolStripMenuItem.Name = "PrintToolStripMenuItem";
-            this.PrintToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
+            this.PrintToolStripMenuItem.Size = new System.Drawing.Size(72, 24);
             this.PrintToolStripMenuItem.Text = "Печать";
             this.PrintToolStripMenuItem.Visible = false;
             // 
             // printDivisionToolStripMenuItem
             // 
             this.printDivisionToolStripMenuItem.Name = "printDivisionToolStripMenuItem";
-            this.printDivisionToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.printDivisionToolStripMenuItem.Size = new System.Drawing.Size(227, 26);
             this.printDivisionToolStripMenuItem.Text = "Печать разделения";
             this.printDivisionToolStripMenuItem.Click += new System.EventHandler(this.printDivisionToolStripMenuItem_Click);
             // 
             // AboutToolStripMenuItem
             // 
             this.AboutToolStripMenuItem.Name = "AboutToolStripMenuItem";
-            this.AboutToolStripMenuItem.Size = new System.Drawing.Size(94, 20);
+            this.AboutToolStripMenuItem.Size = new System.Drawing.Size(118, 24);
             this.AboutToolStripMenuItem.Text = "О программе";
             this.AboutToolStripMenuItem.Click += new System.EventHandler(this.AboutToolStripMenuItem_Click);
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(1133, 554);
+            this.ClientSize = new System.Drawing.Size(1511, 682);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.tabControl1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = "Разделение труда";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
@@ -1552,6 +1785,14 @@
             this.tpDirProducts.PerformLayout();
             this.tsDirProducts.ResumeLayout(false);
             this.tsDirProducts.PerformLayout();
+            this.tpDirCat1.ResumeLayout(false);
+            this.tpDirCat1.PerformLayout();
+            this.tsDirCat1.ResumeLayout(false);
+            this.tsDirCat1.PerformLayout();
+            this.tpDirCat2.ResumeLayout(false);
+            this.tpDirCat2.PerformLayout();
+            this.tsCat2.ResumeLayout(false);
+            this.tsCat2.PerformLayout();
             this.tpDirTarif.ResumeLayout(false);
             this.tpDirTarif.PerformLayout();
             this.tsDirTarif.ResumeLayout(false);
@@ -1724,6 +1965,26 @@
         private System.Windows.Forms.ToolStripMenuItem printDivisionToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton tsBtnCopyDivision;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator38;
+        private System.Windows.Forms.TabPage tpDirCat1;
+        private System.Windows.Forms.TabPage tpDirCat2;
+        private System.Windows.Forms.ListView lvDirCat1;
+        private System.Windows.Forms.ToolStrip tsDirCat1;
+        private System.Windows.Forms.ToolStripButton tsBtnCat1Add;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator39;
+        private System.Windows.Forms.ToolStripButton tsBtnCat1Edit;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator40;
+        private System.Windows.Forms.ToolStripButton tsBtnCat1Del;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator41;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel13;
+        private System.Windows.Forms.ListView lvDirCat2;
+        private System.Windows.Forms.ToolStrip tsCat2;
+        private System.Windows.Forms.ToolStripButton tsBtnCat2Add;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator42;
+        private System.Windows.Forms.ToolStripButton tsBtnCat2Edit;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator43;
+        private System.Windows.Forms.ToolStripButton tsBtnCat2Del;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator44;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel14;
     }
 }
 
