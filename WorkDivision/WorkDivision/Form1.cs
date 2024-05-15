@@ -67,7 +67,8 @@ namespace WorkDivision
             _dblite = _liteDB.GetConn();
             _dblite.Open();
 
-            tpinDivision.Parent = null;  //Скрываем вкладку 
+            tpinDivision.Parent = null;  //Скрываем вкладку инфы по разделению
+            tpPieceWork.Parent = null;  //Скрываем вкладку начислений
             //Настройка даты
             dateTimePicker1.Format = DateTimePickerFormat.Short;
             dateTimePicker1.Value = DateTime.Now;
@@ -269,6 +270,7 @@ namespace WorkDivision
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
             tpinDivision.Parent = null;
+            tpPieceWork.Parent = null;
             lvDivision.Items.Clear();  //Чистим listview2
 
             try

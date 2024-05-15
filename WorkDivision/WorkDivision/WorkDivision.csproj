@@ -77,8 +77,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DB.cs" />
-    <Compile Include="Division.cs" />
+    <Compile Include="Config\DB.cs" />
+    <Compile Include="Contracts\Division.cs" />
     <Compile Include="fAddCat2.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -290,6 +290,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Migrations\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
