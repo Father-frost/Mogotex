@@ -268,7 +268,7 @@ namespace WorkDivision
         {
             if (e.KeyCode == Keys.Enter)
             {
-                btCalculate.Focus();
+                btSave.Focus();
             }
         }
 
