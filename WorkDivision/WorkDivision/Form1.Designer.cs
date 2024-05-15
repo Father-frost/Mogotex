@@ -41,6 +41,7 @@
             this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
             this.tsBtnGotoDivision = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsBtnGotoPiecework = new System.Windows.Forms.ToolStripButton();
             this.lvDivision = new System.Windows.Forms.ListView();
             this.tpinDivision = new System.Windows.Forms.TabPage();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
@@ -55,6 +56,7 @@
             this.toolStripLabel11 = new System.Windows.Forms.ToolStripLabel();
             this.tsPrintDivision = new System.Windows.Forms.ToolStripButton();
             this.lvinDivision = new System.Windows.Forms.ListView();
+            this.tpPieceWork = new System.Windows.Forms.TabPage();
             this.tpDirs = new System.Windows.Forms.TabPage();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tpDirWorkers = new System.Windows.Forms.TabPage();
@@ -192,11 +194,22 @@
             this.PrintToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.printDivisionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStrip4 = new System.Windows.Forms.ToolStrip();
+            this.tsBtnAddPieceWork = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator46 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsBtnEditPieceWork = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator47 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsBtnDelPieceWork = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator48 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripLabel15 = new System.Windows.Forms.ToolStripLabel();
+            this.tsBtnPrintPieceWork = new System.Windows.Forms.ToolStripButton();
+            this.lvPieceWork = new System.Windows.Forms.ListView();
             this.tabControl1.SuspendLayout();
             this.tpDivision.SuspendLayout();
             this.toolStrip2.SuspendLayout();
             this.tpinDivision.SuspendLayout();
             this.toolStrip1.SuspendLayout();
+            this.tpPieceWork.SuspendLayout();
             this.tpDirs.SuspendLayout();
             this.tabControl2.SuspendLayout();
             this.tpDirWorkers.SuspendLayout();
@@ -226,6 +239,7 @@
             this.panel1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            this.toolStrip4.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -235,6 +249,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tpDivision);
             this.tabControl1.Controls.Add(this.tpinDivision);
+            this.tabControl1.Controls.Add(this.tpPieceWork);
             this.tabControl1.Controls.Add(this.tpDirs);
             this.tabControl1.Location = new System.Drawing.Point(1, 108);
             this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
@@ -270,7 +285,8 @@
             this.toolStripSeparator34,
             this.toolStripLabel2,
             this.tsBtnGotoDivision,
-            this.toolStripSeparator6});
+            this.toolStripSeparator6,
+            this.tsBtnGotoPiecework});
             this.toolStrip2.Location = new System.Drawing.Point(4, 4);
             this.toolStrip2.Name = "toolStrip2";
             this.toolStrip2.Size = new System.Drawing.Size(1492, 27);
@@ -337,6 +353,14 @@
             // 
             this.toolStripSeparator6.Name = "toolStripSeparator6";
             this.toolStripSeparator6.Size = new System.Drawing.Size(6, 27);
+            // 
+            // tsBtnGotoPiecework
+            // 
+            this.tsBtnGotoPiecework.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnGotoPiecework.Image")));
+            this.tsBtnGotoPiecework.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsBtnGotoPiecework.Name = "tsBtnGotoPiecework";
+            this.tsBtnGotoPiecework.Size = new System.Drawing.Size(315, 24);
+            this.tsBtnGotoPiecework.Text = "Перейти к информации для начисления";
             // 
             // lvDivision
             // 
@@ -470,6 +494,17 @@
             this.lvinDivision.TabIndex = 2;
             this.lvinDivision.UseCompatibleStateImageBehavior = false;
             this.lvinDivision.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lvinDivision_MouseDoubleClick);
+            // 
+            // tpPieceWork
+            // 
+            this.tpPieceWork.Controls.Add(this.lvPieceWork);
+            this.tpPieceWork.Controls.Add(this.toolStrip4);
+            this.tpPieceWork.Location = new System.Drawing.Point(4, 25);
+            this.tpPieceWork.Name = "tpPieceWork";
+            this.tpPieceWork.Size = new System.Drawing.Size(1500, 514);
+            this.tpPieceWork.TabIndex = 4;
+            this.tpPieceWork.Text = "tpPieceWork";
+            this.tpPieceWork.UseVisualStyleBackColor = true;
             // 
             // tpDirs
             // 
@@ -1733,6 +1768,91 @@
             this.AboutToolStripMenuItem.Text = "О программе";
             this.AboutToolStripMenuItem.Click += new System.EventHandler(this.AboutToolStripMenuItem_Click);
             // 
+            // toolStrip4
+            // 
+            this.toolStrip4.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStrip4.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.toolStrip4.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsBtnAddPieceWork,
+            this.toolStripSeparator46,
+            this.tsBtnEditPieceWork,
+            this.toolStripSeparator47,
+            this.tsBtnDelPieceWork,
+            this.toolStripSeparator48,
+            this.toolStripLabel15,
+            this.tsBtnPrintPieceWork});
+            this.toolStrip4.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip4.Name = "toolStrip4";
+            this.toolStrip4.Size = new System.Drawing.Size(1500, 27);
+            this.toolStrip4.TabIndex = 4;
+            this.toolStrip4.Text = "toolStrip4";
+            // 
+            // tsBtnAddPieceWork
+            // 
+            this.tsBtnAddPieceWork.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnAddPieceWork.Image")));
+            this.tsBtnAddPieceWork.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsBtnAddPieceWork.Name = "tsBtnAddPieceWork";
+            this.tsBtnAddPieceWork.Size = new System.Drawing.Size(100, 24);
+            this.tsBtnAddPieceWork.Text = "Добавить";
+            // 
+            // toolStripSeparator46
+            // 
+            this.toolStripSeparator46.Name = "toolStripSeparator46";
+            this.toolStripSeparator46.Size = new System.Drawing.Size(6, 27);
+            // 
+            // tsBtnEditPieceWork
+            // 
+            this.tsBtnEditPieceWork.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnEditPieceWork.Image")));
+            this.tsBtnEditPieceWork.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsBtnEditPieceWork.Name = "tsBtnEditPieceWork";
+            this.tsBtnEditPieceWork.Size = new System.Drawing.Size(102, 24);
+            this.tsBtnEditPieceWork.Text = "Изменить";
+            // 
+            // toolStripSeparator47
+            // 
+            this.toolStripSeparator47.Name = "toolStripSeparator47";
+            this.toolStripSeparator47.Size = new System.Drawing.Size(6, 27);
+            // 
+            // tsBtnDelPieceWork
+            // 
+            this.tsBtnDelPieceWork.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnDelPieceWork.Image")));
+            this.tsBtnDelPieceWork.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsBtnDelPieceWork.Name = "tsBtnDelPieceWork";
+            this.tsBtnDelPieceWork.Size = new System.Drawing.Size(89, 24);
+            this.tsBtnDelPieceWork.Text = "Удалить";
+            // 
+            // toolStripSeparator48
+            // 
+            this.toolStripSeparator48.Name = "toolStripSeparator48";
+            this.toolStripSeparator48.Size = new System.Drawing.Size(6, 27);
+            // 
+            // toolStripLabel15
+            // 
+            this.toolStripLabel15.Name = "toolStripLabel15";
+            this.toolStripLabel15.Size = new System.Drawing.Size(0, 24);
+            // 
+            // tsBtnPrintPieceWork
+            // 
+            this.tsBtnPrintPieceWork.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnPrintPieceWork.Image")));
+            this.tsBtnPrintPieceWork.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsBtnPrintPieceWork.Name = "tsBtnPrintPieceWork";
+            this.tsBtnPrintPieceWork.Size = new System.Drawing.Size(327, 24);
+            this.tsBtnPrintPieceWork.Text = "Напечатать информацию для начисления";
+            // 
+            // lvPieceWork
+            // 
+            this.lvPieceWork.AllowColumnReorder = true;
+            this.lvPieceWork.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvPieceWork.HideSelection = false;
+            this.lvPieceWork.Location = new System.Drawing.Point(0, 31);
+            this.lvPieceWork.Margin = new System.Windows.Forms.Padding(4);
+            this.lvPieceWork.Name = "lvPieceWork";
+            this.lvPieceWork.Size = new System.Drawing.Size(1500, 461);
+            this.lvPieceWork.TabIndex = 5;
+            this.lvPieceWork.UseCompatibleStateImageBehavior = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1759,6 +1879,8 @@
             this.tpinDivision.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            this.tpPieceWork.ResumeLayout(false);
+            this.tpPieceWork.PerformLayout();
             this.tpDirs.ResumeLayout(false);
             this.tabControl2.ResumeLayout(false);
             this.tpDirWorkers.ResumeLayout(false);
@@ -1815,6 +1937,8 @@
             this.statusStrip1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.toolStrip4.ResumeLayout(false);
+            this.toolStrip4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1985,6 +2109,18 @@
         private System.Windows.Forms.ToolStripButton tsBtnCat2Del;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator44;
         private System.Windows.Forms.ToolStripLabel toolStripLabel14;
+        private System.Windows.Forms.TabPage tpPieceWork;
+        private System.Windows.Forms.ToolStripButton tsBtnGotoPiecework;
+        private System.Windows.Forms.ListView lvPieceWork;
+        private System.Windows.Forms.ToolStrip toolStrip4;
+        private System.Windows.Forms.ToolStripButton tsBtnAddPieceWork;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator46;
+        private System.Windows.Forms.ToolStripButton tsBtnEditPieceWork;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator47;
+        private System.Windows.Forms.ToolStripButton tsBtnDelPieceWork;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator48;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel15;
+        private System.Windows.Forms.ToolStripButton tsBtnPrintPieceWork;
     }
 }
 

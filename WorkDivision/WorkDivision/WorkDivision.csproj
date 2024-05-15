@@ -115,6 +115,12 @@
     <Compile Include="fAddSigner.Designer.cs">
       <DependentUpon>fAddSigner.cs</DependentUpon>
     </Compile>
+    <Compile Include="fEditPieceWork.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fEditPieceWork.Designer.cs">
+      <DependentUpon>fEditPieceWork.cs</DependentUpon>
+    </Compile>
     <Compile Include="fEditOperByDivision.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -206,6 +212,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="fAddSigner.resx">
       <DependentUpon>fAddSigner.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fEditPieceWork.resx">
+      <DependentUpon>fEditPieceWork.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="fEditOperByDivision.resx">
       <DependentUpon>fEditOperByDivision.cs</DependentUpon>

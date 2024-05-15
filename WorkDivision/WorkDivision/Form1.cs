@@ -238,6 +238,18 @@ namespace WorkDivision
             lvinDivision.Columns.Add("Стоимость 1ед.");
             Division.autoResizeColumns(lvinDivision);
 
+            //Информация для начисления
+            lvPieceWork.GridLines = true;
+            lvPieceWork.FullRowSelect = true;
+            lvPieceWork.View = View.Details;
+            lvPieceWork.Font = new Font(lvPieceWork.Font, FontStyle.Bold);
+            lvPieceWork.Columns.Add("id");
+            lvPieceWork.Columns.Add("ФИО");
+            lvPieceWork.Columns.Add("Таб.ном.");
+            lvPieceWork.Columns.Add("Номер карты");
+            lvPieceWork.Columns.Add("Расценка");
+            Division.autoResizeColumns(lvPieceWork);
+
 
             dateTimePicker1_ValueChanged(this, null);
 
@@ -256,11 +268,13 @@ namespace WorkDivision
         //Изменение даты
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
+            tpinDivision.Parent = null;
             lvDivision.Items.Clear();  //Чистим listview2
 
             try
             {
                 LoadDivisions();  //Загружаем разделения за выбранный период
+
             }
             catch (Exception ex)
             {
