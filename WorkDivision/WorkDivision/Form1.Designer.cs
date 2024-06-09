@@ -57,6 +57,16 @@
             this.tsPrintDivision = new System.Windows.Forms.ToolStripButton();
             this.lvinDivision = new System.Windows.Forms.ListView();
             this.tpPieceWork = new System.Windows.Forms.TabPage();
+            this.lvPieceWork = new System.Windows.Forms.ListView();
+            this.toolStrip4 = new System.Windows.Forms.ToolStrip();
+            this.tsBtnAddPieceWork = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator46 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsBtnEditPieceWork = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator47 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsBtnDelPieceWork = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator48 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripLabel15 = new System.Windows.Forms.ToolStripLabel();
+            this.tsBtnPrintPieceWork = new System.Windows.Forms.ToolStripButton();
             this.tpDirs = new System.Windows.Forms.TabPage();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tpDirWorkers = new System.Windows.Forms.TabPage();
@@ -194,22 +204,15 @@
             this.PrintToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.printDivisionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStrip4 = new System.Windows.Forms.ToolStrip();
-            this.tsBtnAddPieceWork = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator46 = new System.Windows.Forms.ToolStripSeparator();
-            this.tsBtnEditPieceWork = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator47 = new System.Windows.Forms.ToolStripSeparator();
-            this.tsBtnDelPieceWork = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator48 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripLabel15 = new System.Windows.Forms.ToolStripLabel();
-            this.tsBtnPrintPieceWork = new System.Windows.Forms.ToolStripButton();
-            this.lvPieceWork = new System.Windows.Forms.ListView();
+            this.tsBtnPrintMonth = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator45 = new System.Windows.Forms.ToolStripSeparator();
             this.tabControl1.SuspendLayout();
             this.tpDivision.SuspendLayout();
             this.toolStrip2.SuspendLayout();
             this.tpinDivision.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.tpPieceWork.SuspendLayout();
+            this.toolStrip4.SuspendLayout();
             this.tpDirs.SuspendLayout();
             this.tabControl2.SuspendLayout();
             this.tpDirWorkers.SuspendLayout();
@@ -239,7 +242,6 @@
             this.panel1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
-            this.toolStrip4.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -286,7 +288,9 @@
             this.toolStripLabel2,
             this.tsBtnGotoDivision,
             this.toolStripSeparator6,
-            this.tsBtnGotoPiecework});
+            this.tsBtnGotoPiecework,
+            this.toolStripSeparator45,
+            this.tsBtnPrintMonth});
             this.toolStrip2.Location = new System.Drawing.Point(4, 4);
             this.toolStrip2.Name = "toolStrip2";
             this.toolStrip2.Size = new System.Drawing.Size(1492, 27);
@@ -305,62 +309,63 @@
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 31);
             // 
             // tsBtnEditDivision
             // 
             this.tsBtnEditDivision.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnEditDivision.Image")));
             this.tsBtnEditDivision.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnEditDivision.Name = "tsBtnEditDivision";
-            this.tsBtnEditDivision.Size = new System.Drawing.Size(102, 24);
+            this.tsBtnEditDivision.Size = new System.Drawing.Size(102, 28);
             this.tsBtnEditDivision.Text = "Изменить";
             this.tsBtnEditDivision.Click += new System.EventHandler(this.tsBtnEditDivision_Click);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 31);
             // 
             // tsBtnDelDivision
             // 
             this.tsBtnDelDivision.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnDelDivision.Image")));
             this.tsBtnDelDivision.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnDelDivision.Name = "tsBtnDelDivision";
-            this.tsBtnDelDivision.Size = new System.Drawing.Size(89, 24);
+            this.tsBtnDelDivision.Size = new System.Drawing.Size(89, 28);
             this.tsBtnDelDivision.Text = "Удалить";
             this.tsBtnDelDivision.Click += new System.EventHandler(this.tsBtnDelDivision_Click);
             // 
             // toolStripSeparator34
             // 
             this.toolStripSeparator34.Name = "toolStripSeparator34";
-            this.toolStripSeparator34.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator34.Size = new System.Drawing.Size(6, 31);
             // 
             // toolStripLabel2
             // 
             this.toolStripLabel2.Name = "toolStripLabel2";
-            this.toolStripLabel2.Size = new System.Drawing.Size(0, 24);
+            this.toolStripLabel2.Size = new System.Drawing.Size(0, 28);
             // 
             // tsBtnGotoDivision
             // 
             this.tsBtnGotoDivision.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnGotoDivision.Image")));
             this.tsBtnGotoDivision.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnGotoDivision.Name = "tsBtnGotoDivision";
-            this.tsBtnGotoDivision.Size = new System.Drawing.Size(191, 24);
+            this.tsBtnGotoDivision.Size = new System.Drawing.Size(191, 28);
             this.tsBtnGotoDivision.Text = "Перейти в разделение";
             this.tsBtnGotoDivision.Click += new System.EventHandler(this.tsBtnGotoDivision_Click);
             // 
             // toolStripSeparator6
             // 
             this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 31);
             // 
             // tsBtnGotoPiecework
             // 
             this.tsBtnGotoPiecework.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnGotoPiecework.Image")));
             this.tsBtnGotoPiecework.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnGotoPiecework.Name = "tsBtnGotoPiecework";
-            this.tsBtnGotoPiecework.Size = new System.Drawing.Size(315, 24);
+            this.tsBtnGotoPiecework.Size = new System.Drawing.Size(315, 28);
             this.tsBtnGotoPiecework.Text = "Перейти к информации для начисления";
+            this.tsBtnGotoPiecework.Click += new System.EventHandler(this.tsBtnGotoPiecework_Click);
             // 
             // lvDivision
             // 
@@ -415,68 +420,68 @@
             this.tsBtnCopyDivision.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnCopyDivision.Image")));
             this.tsBtnCopyDivision.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnCopyDivision.Name = "tsBtnCopyDivision";
-            this.tsBtnCopyDivision.Size = new System.Drawing.Size(210, 24);
+            this.tsBtnCopyDivision.Size = new System.Drawing.Size(210, 28);
             this.tsBtnCopyDivision.Text = "Скопировать разделение";
             this.tsBtnCopyDivision.Click += new System.EventHandler(this.tsBtnCopyDivision_Click);
             // 
             // toolStripSeparator38
             // 
             this.toolStripSeparator38.Name = "toolStripSeparator38";
-            this.toolStripSeparator38.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator38.Size = new System.Drawing.Size(6, 31);
             // 
             // tsBtnAddOperInDivision
             // 
             this.tsBtnAddOperInDivision.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnAddOperInDivision.Image")));
             this.tsBtnAddOperInDivision.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnAddOperInDivision.Name = "tsBtnAddOperInDivision";
-            this.tsBtnAddOperInDivision.Size = new System.Drawing.Size(174, 24);
+            this.tsBtnAddOperInDivision.Size = new System.Drawing.Size(174, 28);
             this.tsBtnAddOperInDivision.Text = "Добавить операции";
             this.tsBtnAddOperInDivision.Click += new System.EventHandler(this.tsBtnAddOperInDivision_Click);
             // 
             // toolStripSeparator31
             // 
             this.toolStripSeparator31.Name = "toolStripSeparator31";
-            this.toolStripSeparator31.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator31.Size = new System.Drawing.Size(6, 31);
             // 
             // tsBtnEditOperInDivision
             // 
             this.tsBtnEditOperInDivision.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnEditOperInDivision.Image")));
             this.tsBtnEditOperInDivision.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnEditOperInDivision.Name = "tsBtnEditOperInDivision";
-            this.tsBtnEditOperInDivision.Size = new System.Drawing.Size(179, 24);
+            this.tsBtnEditOperInDivision.Size = new System.Drawing.Size(179, 28);
             this.tsBtnEditOperInDivision.Text = "Изменить операцию";
             this.tsBtnEditOperInDivision.Click += new System.EventHandler(this.tsBtnEditOperInDivision_Click);
             // 
             // toolStripSeparator32
             // 
             this.toolStripSeparator32.Name = "toolStripSeparator32";
-            this.toolStripSeparator32.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator32.Size = new System.Drawing.Size(6, 31);
             // 
             // tsBtnDelOperInDivision
             // 
             this.tsBtnDelOperInDivision.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnDelOperInDivision.Image")));
             this.tsBtnDelOperInDivision.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnDelOperInDivision.Name = "tsBtnDelOperInDivision";
-            this.tsBtnDelOperInDivision.Size = new System.Drawing.Size(166, 24);
+            this.tsBtnDelOperInDivision.Size = new System.Drawing.Size(166, 28);
             this.tsBtnDelOperInDivision.Text = "Удалить операцию";
             this.tsBtnDelOperInDivision.Click += new System.EventHandler(this.tsBtnDelOperInDivision_Click);
             // 
             // toolStripSeparator33
             // 
             this.toolStripSeparator33.Name = "toolStripSeparator33";
-            this.toolStripSeparator33.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator33.Size = new System.Drawing.Size(6, 31);
             // 
             // toolStripLabel11
             // 
             this.toolStripLabel11.Name = "toolStripLabel11";
-            this.toolStripLabel11.Size = new System.Drawing.Size(0, 24);
+            this.toolStripLabel11.Size = new System.Drawing.Size(0, 28);
             // 
             // tsPrintDivision
             // 
             this.tsPrintDivision.Image = ((System.Drawing.Image)(resources.GetObject("tsPrintDivision.Image")));
             this.tsPrintDivision.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsPrintDivision.Name = "tsPrintDivision";
-            this.tsPrintDivision.Size = new System.Drawing.Size(199, 24);
+            this.tsPrintDivision.Size = new System.Drawing.Size(199, 28);
             this.tsPrintDivision.Text = "Напечатать разделение";
             this.tsPrintDivision.Click += new System.EventHandler(this.tsPrintDivision_Click);
             // 
@@ -505,6 +510,96 @@
             this.tpPieceWork.TabIndex = 4;
             this.tpPieceWork.Text = "tpPieceWork";
             this.tpPieceWork.UseVisualStyleBackColor = true;
+            // 
+            // lvPieceWork
+            // 
+            this.lvPieceWork.AllowColumnReorder = true;
+            this.lvPieceWork.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvPieceWork.HideSelection = false;
+            this.lvPieceWork.Location = new System.Drawing.Point(0, 31);
+            this.lvPieceWork.Margin = new System.Windows.Forms.Padding(4);
+            this.lvPieceWork.Name = "lvPieceWork";
+            this.lvPieceWork.Size = new System.Drawing.Size(1500, 461);
+            this.lvPieceWork.TabIndex = 5;
+            this.lvPieceWork.UseCompatibleStateImageBehavior = false;
+            this.lvPieceWork.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lvPieceWork_MouseDoubleClick);
+            // 
+            // toolStrip4
+            // 
+            this.toolStrip4.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStrip4.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.toolStrip4.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsBtnAddPieceWork,
+            this.toolStripSeparator46,
+            this.tsBtnEditPieceWork,
+            this.toolStripSeparator47,
+            this.tsBtnDelPieceWork,
+            this.toolStripSeparator48,
+            this.toolStripLabel15,
+            this.tsBtnPrintPieceWork});
+            this.toolStrip4.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip4.Name = "toolStrip4";
+            this.toolStrip4.Size = new System.Drawing.Size(1500, 27);
+            this.toolStrip4.TabIndex = 4;
+            this.toolStrip4.Text = "toolStrip4";
+            // 
+            // tsBtnAddPieceWork
+            // 
+            this.tsBtnAddPieceWork.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnAddPieceWork.Image")));
+            this.tsBtnAddPieceWork.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsBtnAddPieceWork.Name = "tsBtnAddPieceWork";
+            this.tsBtnAddPieceWork.Size = new System.Drawing.Size(100, 28);
+            this.tsBtnAddPieceWork.Text = "Добавить";
+            this.tsBtnAddPieceWork.Click += new System.EventHandler(this.tsBtnAddPieceWork_Click);
+            // 
+            // toolStripSeparator46
+            // 
+            this.toolStripSeparator46.Name = "toolStripSeparator46";
+            this.toolStripSeparator46.Size = new System.Drawing.Size(6, 31);
+            // 
+            // tsBtnEditPieceWork
+            // 
+            this.tsBtnEditPieceWork.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnEditPieceWork.Image")));
+            this.tsBtnEditPieceWork.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsBtnEditPieceWork.Name = "tsBtnEditPieceWork";
+            this.tsBtnEditPieceWork.Size = new System.Drawing.Size(102, 28);
+            this.tsBtnEditPieceWork.Text = "Изменить";
+            this.tsBtnEditPieceWork.Click += new System.EventHandler(this.tsBtnEditPieceWork_Click);
+            // 
+            // toolStripSeparator47
+            // 
+            this.toolStripSeparator47.Name = "toolStripSeparator47";
+            this.toolStripSeparator47.Size = new System.Drawing.Size(6, 31);
+            // 
+            // tsBtnDelPieceWork
+            // 
+            this.tsBtnDelPieceWork.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnDelPieceWork.Image")));
+            this.tsBtnDelPieceWork.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsBtnDelPieceWork.Name = "tsBtnDelPieceWork";
+            this.tsBtnDelPieceWork.Size = new System.Drawing.Size(89, 28);
+            this.tsBtnDelPieceWork.Text = "Удалить";
+            this.tsBtnDelPieceWork.Click += new System.EventHandler(this.tsBtnDelPieceWork_Click);
+            // 
+            // toolStripSeparator48
+            // 
+            this.toolStripSeparator48.Name = "toolStripSeparator48";
+            this.toolStripSeparator48.Size = new System.Drawing.Size(6, 31);
+            // 
+            // toolStripLabel15
+            // 
+            this.toolStripLabel15.Name = "toolStripLabel15";
+            this.toolStripLabel15.Size = new System.Drawing.Size(0, 28);
+            // 
+            // tsBtnPrintPieceWork
+            // 
+            this.tsBtnPrintPieceWork.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnPrintPieceWork.Image")));
+            this.tsBtnPrintPieceWork.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsBtnPrintPieceWork.Name = "tsBtnPrintPieceWork";
+            this.tsBtnPrintPieceWork.Size = new System.Drawing.Size(312, 28);
+            this.tsBtnPrintPieceWork.Text = "Напечатать начисления по разделению";
+            this.tsBtnPrintPieceWork.Click += new System.EventHandler(this.tsBtnPrintPieceWork_Click);
             // 
             // tpDirs
             // 
@@ -578,47 +673,47 @@
             this.tsBtnAddWorker.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnAddWorker.Image")));
             this.tsBtnAddWorker.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnAddWorker.Name = "tsBtnAddWorker";
-            this.tsBtnAddWorker.Size = new System.Drawing.Size(100, 24);
+            this.tsBtnAddWorker.Size = new System.Drawing.Size(100, 28);
             this.tsBtnAddWorker.Text = "Добавить";
             this.tsBtnAddWorker.Click += new System.EventHandler(this.tsBtnAddWorker_Click);
             // 
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator7.Size = new System.Drawing.Size(6, 31);
             // 
             // tsBtnEditWorker
             // 
             this.tsBtnEditWorker.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnEditWorker.Image")));
             this.tsBtnEditWorker.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnEditWorker.Name = "tsBtnEditWorker";
-            this.tsBtnEditWorker.Size = new System.Drawing.Size(102, 24);
+            this.tsBtnEditWorker.Size = new System.Drawing.Size(102, 28);
             this.tsBtnEditWorker.Text = "Изменить";
             this.tsBtnEditWorker.Click += new System.EventHandler(this.tsBtnEditWorker_Click);
             // 
             // toolStripSeparator8
             // 
             this.toolStripSeparator8.Name = "toolStripSeparator8";
-            this.toolStripSeparator8.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator8.Size = new System.Drawing.Size(6, 31);
             // 
             // tsBtnDelWorker
             // 
             this.tsBtnDelWorker.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnDelWorker.Image")));
             this.tsBtnDelWorker.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnDelWorker.Name = "tsBtnDelWorker";
-            this.tsBtnDelWorker.Size = new System.Drawing.Size(89, 24);
+            this.tsBtnDelWorker.Size = new System.Drawing.Size(89, 28);
             this.tsBtnDelWorker.Text = "Удалить";
             this.tsBtnDelWorker.Click += new System.EventHandler(this.tsBtnDelWorker_Click);
             // 
             // toolStripSeparator9
             // 
             this.toolStripSeparator9.Name = "toolStripSeparator9";
-            this.toolStripSeparator9.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator9.Size = new System.Drawing.Size(6, 31);
             // 
             // toolStripLabel3
             // 
             this.toolStripLabel3.Name = "toolStripLabel3";
-            this.toolStripLabel3.Size = new System.Drawing.Size(0, 24);
+            this.toolStripLabel3.Size = new System.Drawing.Size(0, 28);
             // 
             // lvDirWorkers
             // 
@@ -670,47 +765,47 @@
             this.tsBtnAddBrig.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnAddBrig.Image")));
             this.tsBtnAddBrig.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnAddBrig.Name = "tsBtnAddBrig";
-            this.tsBtnAddBrig.Size = new System.Drawing.Size(100, 24);
+            this.tsBtnAddBrig.Size = new System.Drawing.Size(100, 28);
             this.tsBtnAddBrig.Text = "Добавить";
             this.tsBtnAddBrig.Click += new System.EventHandler(this.tsBtnAddBrig_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 31);
             // 
             // tsBtnEditBrig
             // 
             this.tsBtnEditBrig.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnEditBrig.Image")));
             this.tsBtnEditBrig.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnEditBrig.Name = "tsBtnEditBrig";
-            this.tsBtnEditBrig.Size = new System.Drawing.Size(102, 24);
+            this.tsBtnEditBrig.Size = new System.Drawing.Size(102, 28);
             this.tsBtnEditBrig.Text = "Изменить";
             this.tsBtnEditBrig.Click += new System.EventHandler(this.tsBtnEditBrig_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 31);
             // 
             // tsBtnDelBrig
             // 
             this.tsBtnDelBrig.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnDelBrig.Image")));
             this.tsBtnDelBrig.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnDelBrig.Name = "tsBtnDelBrig";
-            this.tsBtnDelBrig.Size = new System.Drawing.Size(89, 24);
+            this.tsBtnDelBrig.Size = new System.Drawing.Size(89, 28);
             this.tsBtnDelBrig.Text = "Удалить";
             this.tsBtnDelBrig.Click += new System.EventHandler(this.tsBtnDelBrig_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 31);
             // 
             // toolStripLabel1
             // 
             this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(0, 24);
+            this.toolStripLabel1.Size = new System.Drawing.Size(0, 28);
             // 
             // lvDirBrigs
             // 
@@ -775,47 +870,47 @@
             this.tsBtnAddProf.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnAddProf.Image")));
             this.tsBtnAddProf.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnAddProf.Name = "tsBtnAddProf";
-            this.tsBtnAddProf.Size = new System.Drawing.Size(100, 24);
+            this.tsBtnAddProf.Size = new System.Drawing.Size(100, 28);
             this.tsBtnAddProf.Text = "Добавить";
             this.tsBtnAddProf.Click += new System.EventHandler(this.tsBtnAddProf_Click);
             // 
             // toolStripSeparator10
             // 
             this.toolStripSeparator10.Name = "toolStripSeparator10";
-            this.toolStripSeparator10.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator10.Size = new System.Drawing.Size(6, 31);
             // 
             // tsBtnEditProf
             // 
             this.tsBtnEditProf.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnEditProf.Image")));
             this.tsBtnEditProf.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnEditProf.Name = "tsBtnEditProf";
-            this.tsBtnEditProf.Size = new System.Drawing.Size(102, 24);
+            this.tsBtnEditProf.Size = new System.Drawing.Size(102, 28);
             this.tsBtnEditProf.Text = "Изменить";
             this.tsBtnEditProf.Click += new System.EventHandler(this.tsBtnEditProf_Click);
             // 
             // toolStripSeparator11
             // 
             this.toolStripSeparator11.Name = "toolStripSeparator11";
-            this.toolStripSeparator11.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator11.Size = new System.Drawing.Size(6, 31);
             // 
             // tsBtnDelProf
             // 
             this.tsBtnDelProf.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnDelProf.Image")));
             this.tsBtnDelProf.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnDelProf.Name = "tsBtnDelProf";
-            this.tsBtnDelProf.Size = new System.Drawing.Size(89, 24);
+            this.tsBtnDelProf.Size = new System.Drawing.Size(89, 28);
             this.tsBtnDelProf.Text = "Удалить";
             this.tsBtnDelProf.Click += new System.EventHandler(this.tsBtnDelProf_Click);
             // 
             // toolStripSeparator12
             // 
             this.toolStripSeparator12.Name = "toolStripSeparator12";
-            this.toolStripSeparator12.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator12.Size = new System.Drawing.Size(6, 31);
             // 
             // toolStripLabel4
             // 
             this.toolStripLabel4.Name = "toolStripLabel4";
-            this.toolStripLabel4.Size = new System.Drawing.Size(0, 24);
+            this.toolStripLabel4.Size = new System.Drawing.Size(0, 28);
             // 
             // tpDirOpers
             // 
@@ -866,47 +961,47 @@
             this.tsBtnAddOper.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnAddOper.Image")));
             this.tsBtnAddOper.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnAddOper.Name = "tsBtnAddOper";
-            this.tsBtnAddOper.Size = new System.Drawing.Size(100, 24);
+            this.tsBtnAddOper.Size = new System.Drawing.Size(100, 28);
             this.tsBtnAddOper.Text = "Добавить";
             this.tsBtnAddOper.Click += new System.EventHandler(this.tsBtnAddOper_Click);
             // 
             // toolStripSeparator13
             // 
             this.toolStripSeparator13.Name = "toolStripSeparator13";
-            this.toolStripSeparator13.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator13.Size = new System.Drawing.Size(6, 31);
             // 
             // tsBtnEditOper
             // 
             this.tsBtnEditOper.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnEditOper.Image")));
             this.tsBtnEditOper.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnEditOper.Name = "tsBtnEditOper";
-            this.tsBtnEditOper.Size = new System.Drawing.Size(102, 24);
+            this.tsBtnEditOper.Size = new System.Drawing.Size(102, 28);
             this.tsBtnEditOper.Text = "Изменить";
             this.tsBtnEditOper.Click += new System.EventHandler(this.tsBtnEditOper_Click);
             // 
             // toolStripSeparator14
             // 
             this.toolStripSeparator14.Name = "toolStripSeparator14";
-            this.toolStripSeparator14.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator14.Size = new System.Drawing.Size(6, 31);
             // 
             // tsBtnDelOper
             // 
             this.tsBtnDelOper.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnDelOper.Image")));
             this.tsBtnDelOper.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnDelOper.Name = "tsBtnDelOper";
-            this.tsBtnDelOper.Size = new System.Drawing.Size(89, 24);
+            this.tsBtnDelOper.Size = new System.Drawing.Size(89, 28);
             this.tsBtnDelOper.Text = "Удалить";
             this.tsBtnDelOper.Click += new System.EventHandler(this.tsBtnDelOper_Click);
             // 
             // toolStripSeparator15
             // 
             this.toolStripSeparator15.Name = "toolStripSeparator15";
-            this.toolStripSeparator15.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator15.Size = new System.Drawing.Size(6, 31);
             // 
             // toolStripLabel5
             // 
             this.toolStripLabel5.Name = "toolStripLabel5";
-            this.toolStripLabel5.Size = new System.Drawing.Size(0, 24);
+            this.toolStripLabel5.Size = new System.Drawing.Size(0, 28);
             // 
             // tpDirModels
             // 
@@ -957,47 +1052,47 @@
             this.tsBtnAddMod.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnAddMod.Image")));
             this.tsBtnAddMod.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnAddMod.Name = "tsBtnAddMod";
-            this.tsBtnAddMod.Size = new System.Drawing.Size(100, 24);
+            this.tsBtnAddMod.Size = new System.Drawing.Size(100, 28);
             this.tsBtnAddMod.Text = "Добавить";
             this.tsBtnAddMod.Click += new System.EventHandler(this.tsBtnAddMod_Click);
             // 
             // toolStripSeparator16
             // 
             this.toolStripSeparator16.Name = "toolStripSeparator16";
-            this.toolStripSeparator16.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator16.Size = new System.Drawing.Size(6, 31);
             // 
             // tsBtnEditMod
             // 
             this.tsBtnEditMod.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnEditMod.Image")));
             this.tsBtnEditMod.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnEditMod.Name = "tsBtnEditMod";
-            this.tsBtnEditMod.Size = new System.Drawing.Size(102, 24);
+            this.tsBtnEditMod.Size = new System.Drawing.Size(102, 28);
             this.tsBtnEditMod.Text = "Изменить";
             this.tsBtnEditMod.Click += new System.EventHandler(this.tsBtnEditMod_Click);
             // 
             // toolStripSeparator17
             // 
             this.toolStripSeparator17.Name = "toolStripSeparator17";
-            this.toolStripSeparator17.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator17.Size = new System.Drawing.Size(6, 31);
             // 
             // tsBtnDelMod
             // 
             this.tsBtnDelMod.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnDelMod.Image")));
             this.tsBtnDelMod.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnDelMod.Name = "tsBtnDelMod";
-            this.tsBtnDelMod.Size = new System.Drawing.Size(89, 24);
+            this.tsBtnDelMod.Size = new System.Drawing.Size(89, 28);
             this.tsBtnDelMod.Text = "Удалить";
             this.tsBtnDelMod.Click += new System.EventHandler(this.tsBtnDelMod_Click);
             // 
             // toolStripSeparator18
             // 
             this.toolStripSeparator18.Name = "toolStripSeparator18";
-            this.toolStripSeparator18.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator18.Size = new System.Drawing.Size(6, 31);
             // 
             // toolStripLabel6
             // 
             this.toolStripLabel6.Name = "toolStripLabel6";
-            this.toolStripLabel6.Size = new System.Drawing.Size(0, 24);
+            this.toolStripLabel6.Size = new System.Drawing.Size(0, 28);
             // 
             // tpDirProducts
             // 
@@ -1048,47 +1143,47 @@
             this.tsBtnAddProd.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnAddProd.Image")));
             this.tsBtnAddProd.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnAddProd.Name = "tsBtnAddProd";
-            this.tsBtnAddProd.Size = new System.Drawing.Size(100, 24);
+            this.tsBtnAddProd.Size = new System.Drawing.Size(100, 28);
             this.tsBtnAddProd.Text = "Добавить";
             this.tsBtnAddProd.Click += new System.EventHandler(this.tsBtnAddProd_Click);
             // 
             // toolStripSeparator19
             // 
             this.toolStripSeparator19.Name = "toolStripSeparator19";
-            this.toolStripSeparator19.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator19.Size = new System.Drawing.Size(6, 31);
             // 
             // tsBtnEditProd
             // 
             this.tsBtnEditProd.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnEditProd.Image")));
             this.tsBtnEditProd.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnEditProd.Name = "tsBtnEditProd";
-            this.tsBtnEditProd.Size = new System.Drawing.Size(102, 24);
+            this.tsBtnEditProd.Size = new System.Drawing.Size(102, 28);
             this.tsBtnEditProd.Text = "Изменить";
             this.tsBtnEditProd.Click += new System.EventHandler(this.tsBtnEditProd_Click);
             // 
             // toolStripSeparator20
             // 
             this.toolStripSeparator20.Name = "toolStripSeparator20";
-            this.toolStripSeparator20.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator20.Size = new System.Drawing.Size(6, 31);
             // 
             // tsBtnDelProd
             // 
             this.tsBtnDelProd.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnDelProd.Image")));
             this.tsBtnDelProd.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnDelProd.Name = "tsBtnDelProd";
-            this.tsBtnDelProd.Size = new System.Drawing.Size(89, 24);
+            this.tsBtnDelProd.Size = new System.Drawing.Size(89, 28);
             this.tsBtnDelProd.Text = "Удалить";
             this.tsBtnDelProd.Click += new System.EventHandler(this.tsBtnDelProd_Click);
             // 
             // toolStripSeparator21
             // 
             this.toolStripSeparator21.Name = "toolStripSeparator21";
-            this.toolStripSeparator21.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator21.Size = new System.Drawing.Size(6, 31);
             // 
             // toolStripLabel7
             // 
             this.toolStripLabel7.Name = "toolStripLabel7";
-            this.toolStripLabel7.Size = new System.Drawing.Size(0, 24);
+            this.toolStripLabel7.Size = new System.Drawing.Size(0, 28);
             // 
             // tpDirCat1
             // 
@@ -1139,47 +1234,47 @@
             this.tsBtnCat1Add.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnCat1Add.Image")));
             this.tsBtnCat1Add.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnCat1Add.Name = "tsBtnCat1Add";
-            this.tsBtnCat1Add.Size = new System.Drawing.Size(100, 24);
+            this.tsBtnCat1Add.Size = new System.Drawing.Size(100, 28);
             this.tsBtnCat1Add.Text = "Добавить";
             this.tsBtnCat1Add.Click += new System.EventHandler(this.tsBtnCat1Add_Click);
             // 
             // toolStripSeparator39
             // 
             this.toolStripSeparator39.Name = "toolStripSeparator39";
-            this.toolStripSeparator39.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator39.Size = new System.Drawing.Size(6, 31);
             // 
             // tsBtnCat1Edit
             // 
             this.tsBtnCat1Edit.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnCat1Edit.Image")));
             this.tsBtnCat1Edit.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnCat1Edit.Name = "tsBtnCat1Edit";
-            this.tsBtnCat1Edit.Size = new System.Drawing.Size(102, 24);
+            this.tsBtnCat1Edit.Size = new System.Drawing.Size(102, 28);
             this.tsBtnCat1Edit.Text = "Изменить";
             this.tsBtnCat1Edit.Click += new System.EventHandler(this.tsBtnCat1Edit_Click);
             // 
             // toolStripSeparator40
             // 
             this.toolStripSeparator40.Name = "toolStripSeparator40";
-            this.toolStripSeparator40.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator40.Size = new System.Drawing.Size(6, 31);
             // 
             // tsBtnCat1Del
             // 
             this.tsBtnCat1Del.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnCat1Del.Image")));
             this.tsBtnCat1Del.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnCat1Del.Name = "tsBtnCat1Del";
-            this.tsBtnCat1Del.Size = new System.Drawing.Size(89, 24);
+            this.tsBtnCat1Del.Size = new System.Drawing.Size(89, 28);
             this.tsBtnCat1Del.Text = "Удалить";
             this.tsBtnCat1Del.Click += new System.EventHandler(this.tsBtnCat1Del_Click);
             // 
             // toolStripSeparator41
             // 
             this.toolStripSeparator41.Name = "toolStripSeparator41";
-            this.toolStripSeparator41.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator41.Size = new System.Drawing.Size(6, 31);
             // 
             // toolStripLabel13
             // 
             this.toolStripLabel13.Name = "toolStripLabel13";
-            this.toolStripLabel13.Size = new System.Drawing.Size(0, 24);
+            this.toolStripLabel13.Size = new System.Drawing.Size(0, 28);
             // 
             // tpDirCat2
             // 
@@ -1230,47 +1325,47 @@
             this.tsBtnCat2Add.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnCat2Add.Image")));
             this.tsBtnCat2Add.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnCat2Add.Name = "tsBtnCat2Add";
-            this.tsBtnCat2Add.Size = new System.Drawing.Size(100, 24);
+            this.tsBtnCat2Add.Size = new System.Drawing.Size(100, 28);
             this.tsBtnCat2Add.Text = "Добавить";
             this.tsBtnCat2Add.Click += new System.EventHandler(this.tsBtnCat2Add_Click);
             // 
             // toolStripSeparator42
             // 
             this.toolStripSeparator42.Name = "toolStripSeparator42";
-            this.toolStripSeparator42.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator42.Size = new System.Drawing.Size(6, 31);
             // 
             // tsBtnCat2Edit
             // 
             this.tsBtnCat2Edit.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnCat2Edit.Image")));
             this.tsBtnCat2Edit.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnCat2Edit.Name = "tsBtnCat2Edit";
-            this.tsBtnCat2Edit.Size = new System.Drawing.Size(102, 24);
+            this.tsBtnCat2Edit.Size = new System.Drawing.Size(102, 28);
             this.tsBtnCat2Edit.Text = "Изменить";
             this.tsBtnCat2Edit.Click += new System.EventHandler(this.tsBtnCat2Edit_Click);
             // 
             // toolStripSeparator43
             // 
             this.toolStripSeparator43.Name = "toolStripSeparator43";
-            this.toolStripSeparator43.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator43.Size = new System.Drawing.Size(6, 31);
             // 
             // tsBtnCat2Del
             // 
             this.tsBtnCat2Del.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnCat2Del.Image")));
             this.tsBtnCat2Del.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnCat2Del.Name = "tsBtnCat2Del";
-            this.tsBtnCat2Del.Size = new System.Drawing.Size(89, 24);
+            this.tsBtnCat2Del.Size = new System.Drawing.Size(89, 28);
             this.tsBtnCat2Del.Text = "Удалить";
             this.tsBtnCat2Del.Click += new System.EventHandler(this.tsBtnCat2Del_Click);
             // 
             // toolStripSeparator44
             // 
             this.toolStripSeparator44.Name = "toolStripSeparator44";
-            this.toolStripSeparator44.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator44.Size = new System.Drawing.Size(6, 31);
             // 
             // toolStripLabel14
             // 
             this.toolStripLabel14.Name = "toolStripLabel14";
-            this.toolStripLabel14.Size = new System.Drawing.Size(0, 24);
+            this.toolStripLabel14.Size = new System.Drawing.Size(0, 28);
             // 
             // tpDirTarif
             // 
@@ -1321,47 +1416,47 @@
             this.tsBtnAddTarif.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnAddTarif.Image")));
             this.tsBtnAddTarif.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnAddTarif.Name = "tsBtnAddTarif";
-            this.tsBtnAddTarif.Size = new System.Drawing.Size(100, 24);
+            this.tsBtnAddTarif.Size = new System.Drawing.Size(100, 28);
             this.tsBtnAddTarif.Text = "Добавить";
             this.tsBtnAddTarif.Click += new System.EventHandler(this.tsBtnAddTarif_Click);
             // 
             // toolStripSeparator22
             // 
             this.toolStripSeparator22.Name = "toolStripSeparator22";
-            this.toolStripSeparator22.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator22.Size = new System.Drawing.Size(6, 31);
             // 
             // tsBtnEditTarif
             // 
             this.tsBtnEditTarif.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnEditTarif.Image")));
             this.tsBtnEditTarif.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnEditTarif.Name = "tsBtnEditTarif";
-            this.tsBtnEditTarif.Size = new System.Drawing.Size(102, 24);
+            this.tsBtnEditTarif.Size = new System.Drawing.Size(102, 28);
             this.tsBtnEditTarif.Text = "Изменить";
             this.tsBtnEditTarif.Click += new System.EventHandler(this.tsBtnEditTarif_Click);
             // 
             // toolStripSeparator23
             // 
             this.toolStripSeparator23.Name = "toolStripSeparator23";
-            this.toolStripSeparator23.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator23.Size = new System.Drawing.Size(6, 31);
             // 
             // tsBtnDelTarif
             // 
             this.tsBtnDelTarif.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnDelTarif.Image")));
             this.tsBtnDelTarif.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnDelTarif.Name = "tsBtnDelTarif";
-            this.tsBtnDelTarif.Size = new System.Drawing.Size(89, 24);
+            this.tsBtnDelTarif.Size = new System.Drawing.Size(89, 28);
             this.tsBtnDelTarif.Text = "Удалить";
             this.tsBtnDelTarif.Click += new System.EventHandler(this.tsBtnDelTarif_Click);
             // 
             // toolStripSeparator24
             // 
             this.toolStripSeparator24.Name = "toolStripSeparator24";
-            this.toolStripSeparator24.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator24.Size = new System.Drawing.Size(6, 31);
             // 
             // toolStripLabel8
             // 
             this.toolStripLabel8.Name = "toolStripLabel8";
-            this.toolStripLabel8.Size = new System.Drawing.Size(0, 24);
+            this.toolStripLabel8.Size = new System.Drawing.Size(0, 28);
             // 
             // tpDirNormNastil
             // 
@@ -1413,47 +1508,47 @@
             this.tsBtnAddNormNastil.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnAddNormNastil.Image")));
             this.tsBtnAddNormNastil.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnAddNormNastil.Name = "tsBtnAddNormNastil";
-            this.tsBtnAddNormNastil.Size = new System.Drawing.Size(100, 24);
+            this.tsBtnAddNormNastil.Size = new System.Drawing.Size(100, 28);
             this.tsBtnAddNormNastil.Text = "Добавить";
             this.tsBtnAddNormNastil.Click += new System.EventHandler(this.tsBtnAddNormNastil_Click);
             // 
             // toolStripSeparator25
             // 
             this.toolStripSeparator25.Name = "toolStripSeparator25";
-            this.toolStripSeparator25.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator25.Size = new System.Drawing.Size(6, 31);
             // 
             // tsBtnEditNormNastil
             // 
             this.tsBtnEditNormNastil.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnEditNormNastil.Image")));
             this.tsBtnEditNormNastil.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnEditNormNastil.Name = "tsBtnEditNormNastil";
-            this.tsBtnEditNormNastil.Size = new System.Drawing.Size(102, 24);
+            this.tsBtnEditNormNastil.Size = new System.Drawing.Size(102, 28);
             this.tsBtnEditNormNastil.Text = "Изменить";
             this.tsBtnEditNormNastil.Click += new System.EventHandler(this.tsBtnEditNormNastil_Click);
             // 
             // toolStripSeparator26
             // 
             this.toolStripSeparator26.Name = "toolStripSeparator26";
-            this.toolStripSeparator26.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator26.Size = new System.Drawing.Size(6, 31);
             // 
             // tsBtnDelNormNastil
             // 
             this.tsBtnDelNormNastil.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnDelNormNastil.Image")));
             this.tsBtnDelNormNastil.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnDelNormNastil.Name = "tsBtnDelNormNastil";
-            this.tsBtnDelNormNastil.Size = new System.Drawing.Size(89, 24);
+            this.tsBtnDelNormNastil.Size = new System.Drawing.Size(89, 28);
             this.tsBtnDelNormNastil.Text = "Удалить";
             this.tsBtnDelNormNastil.Click += new System.EventHandler(this.tsBtnDelNormNastil_Click);
             // 
             // toolStripSeparator27
             // 
             this.toolStripSeparator27.Name = "toolStripSeparator27";
-            this.toolStripSeparator27.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator27.Size = new System.Drawing.Size(6, 31);
             // 
             // toolStripLabel9
             // 
             this.toolStripLabel9.Name = "toolStripLabel9";
-            this.toolStripLabel9.Size = new System.Drawing.Size(0, 24);
+            this.toolStripLabel9.Size = new System.Drawing.Size(0, 28);
             // 
             // tpDirNormControl
             // 
@@ -1503,47 +1598,47 @@
             this.tsBtnAddNormControl.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnAddNormControl.Image")));
             this.tsBtnAddNormControl.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnAddNormControl.Name = "tsBtnAddNormControl";
-            this.tsBtnAddNormControl.Size = new System.Drawing.Size(100, 24);
+            this.tsBtnAddNormControl.Size = new System.Drawing.Size(100, 28);
             this.tsBtnAddNormControl.Text = "Добавить";
             this.tsBtnAddNormControl.Click += new System.EventHandler(this.tsBtnAddNormControl_Click);
             // 
             // toolStripSeparator28
             // 
             this.toolStripSeparator28.Name = "toolStripSeparator28";
-            this.toolStripSeparator28.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator28.Size = new System.Drawing.Size(6, 31);
             // 
             // tsEditNormControl
             // 
             this.tsEditNormControl.Image = ((System.Drawing.Image)(resources.GetObject("tsEditNormControl.Image")));
             this.tsEditNormControl.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsEditNormControl.Name = "tsEditNormControl";
-            this.tsEditNormControl.Size = new System.Drawing.Size(102, 24);
+            this.tsEditNormControl.Size = new System.Drawing.Size(102, 28);
             this.tsEditNormControl.Text = "Изменить";
             this.tsEditNormControl.Click += new System.EventHandler(this.tsBtnEditNormControl_Click);
             // 
             // toolStripSeparator29
             // 
             this.toolStripSeparator29.Name = "toolStripSeparator29";
-            this.toolStripSeparator29.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator29.Size = new System.Drawing.Size(6, 31);
             // 
             // tsBtnDelNormControl
             // 
             this.tsBtnDelNormControl.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnDelNormControl.Image")));
             this.tsBtnDelNormControl.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnDelNormControl.Name = "tsBtnDelNormControl";
-            this.tsBtnDelNormControl.Size = new System.Drawing.Size(89, 24);
+            this.tsBtnDelNormControl.Size = new System.Drawing.Size(89, 28);
             this.tsBtnDelNormControl.Text = "Удалить";
             this.tsBtnDelNormControl.Click += new System.EventHandler(this.tsBtnDelNormControl_Click);
             // 
             // toolStripSeparator30
             // 
             this.toolStripSeparator30.Name = "toolStripSeparator30";
-            this.toolStripSeparator30.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator30.Size = new System.Drawing.Size(6, 31);
             // 
             // toolStripLabel10
             // 
             this.toolStripLabel10.Name = "toolStripLabel10";
-            this.toolStripLabel10.Size = new System.Drawing.Size(0, 24);
+            this.toolStripLabel10.Size = new System.Drawing.Size(0, 28);
             // 
             // tpDirSigners
             // 
@@ -1594,47 +1689,47 @@
             this.tsBtnAddSigner.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnAddSigner.Image")));
             this.tsBtnAddSigner.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnAddSigner.Name = "tsBtnAddSigner";
-            this.tsBtnAddSigner.Size = new System.Drawing.Size(100, 24);
+            this.tsBtnAddSigner.Size = new System.Drawing.Size(100, 28);
             this.tsBtnAddSigner.Text = "Добавить";
             this.tsBtnAddSigner.Click += new System.EventHandler(this.tsBtnAddSigner_Click);
             // 
             // toolStripSeparator35
             // 
             this.toolStripSeparator35.Name = "toolStripSeparator35";
-            this.toolStripSeparator35.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator35.Size = new System.Drawing.Size(6, 31);
             // 
             // tsBtnEditSigner
             // 
             this.tsBtnEditSigner.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnEditSigner.Image")));
             this.tsBtnEditSigner.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnEditSigner.Name = "tsBtnEditSigner";
-            this.tsBtnEditSigner.Size = new System.Drawing.Size(102, 24);
+            this.tsBtnEditSigner.Size = new System.Drawing.Size(102, 28);
             this.tsBtnEditSigner.Text = "Изменить";
             this.tsBtnEditSigner.Click += new System.EventHandler(this.tsBtnEditSigner_Click);
             // 
             // toolStripSeparator36
             // 
             this.toolStripSeparator36.Name = "toolStripSeparator36";
-            this.toolStripSeparator36.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator36.Size = new System.Drawing.Size(6, 31);
             // 
             // tsBtnDelSigner
             // 
             this.tsBtnDelSigner.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnDelSigner.Image")));
             this.tsBtnDelSigner.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnDelSigner.Name = "tsBtnDelSigner";
-            this.tsBtnDelSigner.Size = new System.Drawing.Size(89, 24);
+            this.tsBtnDelSigner.Size = new System.Drawing.Size(89, 28);
             this.tsBtnDelSigner.Text = "Удалить";
             this.tsBtnDelSigner.Click += new System.EventHandler(this.tsBtnDelSigner_Click);
             // 
             // toolStripSeparator37
             // 
             this.toolStripSeparator37.Name = "toolStripSeparator37";
-            this.toolStripSeparator37.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator37.Size = new System.Drawing.Size(6, 31);
             // 
             // toolStripLabel12
             // 
             this.toolStripLabel12.Name = "toolStripLabel12";
-            this.toolStripLabel12.Size = new System.Drawing.Size(0, 24);
+            this.toolStripLabel12.Size = new System.Drawing.Size(0, 28);
             // 
             // panel1
             // 
@@ -1726,7 +1821,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(1511, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1511, 30);
             this.menuStrip1.TabIndex = 22;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -1735,7 +1830,7 @@
             this.настройкаToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.BackUpDBItem});
             this.настройкаToolStripMenuItem.Name = "настройкаToolStripMenuItem";
-            this.настройкаToolStripMenuItem.Size = new System.Drawing.Size(73, 24);
+            this.настройкаToolStripMenuItem.Size = new System.Drawing.Size(73, 26);
             this.настройкаToolStripMenuItem.Text = "Сервис";
             // 
             // BackUpDBItem
@@ -1764,94 +1859,23 @@
             // AboutToolStripMenuItem
             // 
             this.AboutToolStripMenuItem.Name = "AboutToolStripMenuItem";
-            this.AboutToolStripMenuItem.Size = new System.Drawing.Size(118, 24);
+            this.AboutToolStripMenuItem.Size = new System.Drawing.Size(118, 26);
             this.AboutToolStripMenuItem.Text = "О программе";
             this.AboutToolStripMenuItem.Click += new System.EventHandler(this.AboutToolStripMenuItem_Click);
             // 
-            // toolStrip4
+            // tsBtnPrintMonth
             // 
-            this.toolStrip4.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.toolStrip4.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.toolStrip4.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsBtnAddPieceWork,
-            this.toolStripSeparator46,
-            this.tsBtnEditPieceWork,
-            this.toolStripSeparator47,
-            this.tsBtnDelPieceWork,
-            this.toolStripSeparator48,
-            this.toolStripLabel15,
-            this.tsBtnPrintPieceWork});
-            this.toolStrip4.Location = new System.Drawing.Point(0, 0);
-            this.toolStrip4.Name = "toolStrip4";
-            this.toolStrip4.Size = new System.Drawing.Size(1500, 27);
-            this.toolStrip4.TabIndex = 4;
-            this.toolStrip4.Text = "toolStrip4";
+            this.tsBtnPrintMonth.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnPrintMonth.Image")));
+            this.tsBtnPrintMonth.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsBtnPrintMonth.Name = "tsBtnPrintMonth";
+            this.tsBtnPrintMonth.Size = new System.Drawing.Size(266, 24);
+            this.tsBtnPrintMonth.Text = "Напечатать начисления за месяц";
+            this.tsBtnPrintMonth.Click += new System.EventHandler(this.tsBtnPrintMonth_Click);
             // 
-            // tsBtnAddPieceWork
+            // toolStripSeparator45
             // 
-            this.tsBtnAddPieceWork.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnAddPieceWork.Image")));
-            this.tsBtnAddPieceWork.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsBtnAddPieceWork.Name = "tsBtnAddPieceWork";
-            this.tsBtnAddPieceWork.Size = new System.Drawing.Size(100, 24);
-            this.tsBtnAddPieceWork.Text = "Добавить";
-            // 
-            // toolStripSeparator46
-            // 
-            this.toolStripSeparator46.Name = "toolStripSeparator46";
-            this.toolStripSeparator46.Size = new System.Drawing.Size(6, 27);
-            // 
-            // tsBtnEditPieceWork
-            // 
-            this.tsBtnEditPieceWork.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnEditPieceWork.Image")));
-            this.tsBtnEditPieceWork.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsBtnEditPieceWork.Name = "tsBtnEditPieceWork";
-            this.tsBtnEditPieceWork.Size = new System.Drawing.Size(102, 24);
-            this.tsBtnEditPieceWork.Text = "Изменить";
-            // 
-            // toolStripSeparator47
-            // 
-            this.toolStripSeparator47.Name = "toolStripSeparator47";
-            this.toolStripSeparator47.Size = new System.Drawing.Size(6, 27);
-            // 
-            // tsBtnDelPieceWork
-            // 
-            this.tsBtnDelPieceWork.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnDelPieceWork.Image")));
-            this.tsBtnDelPieceWork.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsBtnDelPieceWork.Name = "tsBtnDelPieceWork";
-            this.tsBtnDelPieceWork.Size = new System.Drawing.Size(89, 24);
-            this.tsBtnDelPieceWork.Text = "Удалить";
-            // 
-            // toolStripSeparator48
-            // 
-            this.toolStripSeparator48.Name = "toolStripSeparator48";
-            this.toolStripSeparator48.Size = new System.Drawing.Size(6, 27);
-            // 
-            // toolStripLabel15
-            // 
-            this.toolStripLabel15.Name = "toolStripLabel15";
-            this.toolStripLabel15.Size = new System.Drawing.Size(0, 24);
-            // 
-            // tsBtnPrintPieceWork
-            // 
-            this.tsBtnPrintPieceWork.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnPrintPieceWork.Image")));
-            this.tsBtnPrintPieceWork.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsBtnPrintPieceWork.Name = "tsBtnPrintPieceWork";
-            this.tsBtnPrintPieceWork.Size = new System.Drawing.Size(327, 24);
-            this.tsBtnPrintPieceWork.Text = "Напечатать информацию для начисления";
-            // 
-            // lvPieceWork
-            // 
-            this.lvPieceWork.AllowColumnReorder = true;
-            this.lvPieceWork.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lvPieceWork.HideSelection = false;
-            this.lvPieceWork.Location = new System.Drawing.Point(0, 31);
-            this.lvPieceWork.Margin = new System.Windows.Forms.Padding(4);
-            this.lvPieceWork.Name = "lvPieceWork";
-            this.lvPieceWork.Size = new System.Drawing.Size(1500, 461);
-            this.lvPieceWork.TabIndex = 5;
-            this.lvPieceWork.UseCompatibleStateImageBehavior = false;
+            this.toolStripSeparator45.Name = "toolStripSeparator45";
+            this.toolStripSeparator45.Size = new System.Drawing.Size(6, 31);
             // 
             // Form1
             // 
@@ -1881,6 +1905,8 @@
             this.toolStrip1.PerformLayout();
             this.tpPieceWork.ResumeLayout(false);
             this.tpPieceWork.PerformLayout();
+            this.toolStrip4.ResumeLayout(false);
+            this.toolStrip4.PerformLayout();
             this.tpDirs.ResumeLayout(false);
             this.tabControl2.ResumeLayout(false);
             this.tpDirWorkers.ResumeLayout(false);
@@ -1937,8 +1963,6 @@
             this.statusStrip1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.toolStrip4.ResumeLayout(false);
-            this.toolStrip4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2121,6 +2145,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator48;
         private System.Windows.Forms.ToolStripLabel toolStripLabel15;
         private System.Windows.Forms.ToolStripButton tsBtnPrintPieceWork;
+        private System.Windows.Forms.ToolStripButton tsBtnPrintMonth;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator45;
     }
 }
 

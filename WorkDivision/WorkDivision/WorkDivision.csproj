@@ -79,6 +79,7 @@
   <ItemGroup>
     <Compile Include="Config\DB.cs" />
     <Compile Include="Contracts\Division.cs" />
+    <Compile Include="Contracts\PlaceEnum.cs" />
     <Compile Include="fAddCat2.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -115,11 +116,11 @@
     <Compile Include="fAddSigner.Designer.cs">
       <DependentUpon>fAddSigner.cs</DependentUpon>
     </Compile>
-    <Compile Include="fEditPieceWork.cs">
+    <Compile Include="fAddPieceWork.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="fEditPieceWork.Designer.cs">
-      <DependentUpon>fEditPieceWork.cs</DependentUpon>
+    <Compile Include="fAddPieceWork.Designer.cs">
+      <DependentUpon>fAddPieceWork.cs</DependentUpon>
     </Compile>
     <Compile Include="fEditOperByDivision.cs">
       <SubType>Form</SubType>
@@ -213,8 +214,9 @@
     <EmbeddedResource Include="fAddSigner.resx">
       <DependentUpon>fAddSigner.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="fEditPieceWork.resx">
-      <DependentUpon>fEditPieceWork.cs</DependentUpon>
+    <EmbeddedResource Include="fAddPieceWork.resx">
+      <DependentUpon>fAddPieceWork.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="fEditOperByDivision.resx">
       <DependentUpon>fEditOperByDivision.cs</DependentUpon>
