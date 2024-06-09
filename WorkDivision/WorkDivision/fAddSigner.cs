@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Data.SQLite;
 using System.Windows.Forms;
+using WorkDivision.Contracts;
 
 namespace WorkDivision
 {
-	public partial class fAddSigner : Form
+    public partial class fAddSigner : Form
     {
         private SQLiteConnection dblite;
         private SQLiteDataReader sqlReader;
@@ -20,19 +21,23 @@ namespace WorkDivision
         {
             if (id_rec == "")  //Если  id записи не передан (новая запись) 
             {
-                string querySQLite = @"INSERT INTO DirSigners (Post, FIO, ord) VALUES (@Post, @FIO, @ord)";
+                string querySQLite = @"INSERT INTO DirSigners (Post, FIO, ord, place) VALUES (@Post, @FIO, @ord,@place)";
                 m_sqlCmd = new SQLiteCommand(querySQLite, dblite);
                 m_sqlCmd.Parameters.AddWithValue("@Post", tbPost.Text);
                 m_sqlCmd.Parameters.AddWithValue("@FIO", tbFIO.Text);
                 m_sqlCmd.Parameters.AddWithValue("@ord", tbOrder.Text);
+                m_sqlCmd.Parameters.AddWithValue("@place", cbPlace.SelectedIndex.ToString());
+
             }
             else
             {
-                string querySQLite = @"UPDATE DirSigners SET Post=@Post, FIO=@FIO, ord=@ord WHERE id=" + id_rec;
+                string querySQLite = @"UPDATE DirSigners SET Post=@Post, FIO=@FIO, ord=@ord, place=@place WHERE id=" + id_rec;
                 m_sqlCmd = new SQLiteCommand(querySQLite, dblite);
                 m_sqlCmd.Parameters.AddWithValue("@Post", tbPost.Text);
                 m_sqlCmd.Parameters.AddWithValue("@FIO", tbFIO.Text);
                 m_sqlCmd.Parameters.AddWithValue("@ord", tbOrder.Text);
+                m_sqlCmd.Parameters.AddWithValue("@place", cbPlace.SelectedIndex.ToString());
+
             }
             try
             {
@@ -50,21 +55,21 @@ namespace WorkDivision
 
         private void fAddSigner_Load(object sender, EventArgs e)
         {
+            cbPlace.DataSource = Enum.GetValues(typeof(PlaceEnum));
             //Подключение к БД
             dblite = liteDB.GetConn();
             dblite.Open();
             //Если выбран существующий интервал, загружаем параметры
             if (id_rec != "")
-                {
-                    //MessageBox.Show(id_rec.ToString());
-                    GetSigner();
-                }
-                else
-                {
-                    tbPost.Text = "";
-                    tbFIO.Text = "";
-                    tbOrder.Text = "";
-                }
+            {
+                GetSigner();
+            }
+            else
+            {
+                tbPost.Text = "";
+                tbFIO.Text = "";
+                tbOrder.Text = "";
+            }
         }
 
         public async void GetSigner()
@@ -84,6 +89,14 @@ namespace WorkDivision
                     tbPost.Text = Convert.ToString(sqlReader["post"]);
                     tbFIO.Text = Convert.ToString(sqlReader["FIO"]);
                     tbOrder.Text = Convert.ToString(sqlReader["ord"]);
+                    if (sqlReader["place"] == DBNull.Value)
+                    {
+                        cbPlace.SelectedIndex = -1;
+                    }
+                    else
+                    {
+                        cbPlace.SelectedIndex = Convert.ToInt32(sqlReader["place"]);
+                    }
                 }
 
             }
