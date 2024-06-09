@@ -1,6 +1,6 @@
 ﻿namespace WorkDivision
 {
-    partial class fEditPieceWork
+    partial class fAddPieceWork
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(fEditPieceWork));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(fAddPieceWork));
             this.lblID = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -45,22 +45,27 @@
             this.label7 = new System.Windows.Forms.Label();
             this.tbSumItem = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btSave = new System.Windows.Forms.Button();
             this.cbSelectOper = new System.Windows.Forms.ComboBox();
-            this.tbMat = new System.Windows.Forms.TextBox();
             this.cbSelectWorker = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
             this.tbRank = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.tbCardnum = new System.Windows.Forms.TextBox();
+            this.tbCount = new System.Windows.Forms.TextBox();
+            this.tbOper = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.lblInDiv = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblID
             // 
             this.lblID.AutoSize = true;
-            this.lblID.Location = new System.Drawing.Point(27, 111);
+            this.lblID.Location = new System.Drawing.Point(27, 156);
             this.lblID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblID.Name = "lblID";
             this.lblID.Size = new System.Drawing.Size(0, 16);
@@ -81,7 +86,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(19, 106);
+            this.label2.Location = new System.Drawing.Point(19, 151);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(84, 16);
@@ -91,7 +96,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(27, 268);
+            this.label4.Location = new System.Drawing.Point(30, 206);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(115, 16);
@@ -101,8 +106,10 @@
             // tbCost
             // 
             this.tbCost.Enabled = false;
+            this.tbCost.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbCost.ForeColor = System.Drawing.SystemColors.WindowText;
             this.tbCost.Location = new System.Drawing.Point(21, 30);
-            this.tbCost.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tbCost.Margin = new System.Windows.Forms.Padding(4);
             this.tbCost.Name = "tbCost";
             this.tbCost.Size = new System.Drawing.Size(125, 22);
             this.tbCost.TabIndex = 24;
@@ -110,27 +117,25 @@
             // tbMatRate
             // 
             this.tbMatRate.Enabled = false;
-            this.tbMatRate.Location = new System.Drawing.Point(29, 288);
-            this.tbMatRate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tbMatRate.Location = new System.Drawing.Point(32, 226);
+            this.tbMatRate.Margin = new System.Windows.Forms.Padding(4);
             this.tbMatRate.Name = "tbMatRate";
-            this.tbMatRate.Size = new System.Drawing.Size(215, 22);
+            this.tbMatRate.Size = new System.Drawing.Size(113, 22);
             this.tbMatRate.TabIndex = 26;
-            this.tbMatRate.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbMatRate_KeyDown);
-            this.tbMatRate.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbMatRate_KeyPress);
             // 
             // tbTarif
             // 
             this.tbTarif.Enabled = false;
-            this.tbTarif.Location = new System.Drawing.Point(268, 288);
-            this.tbTarif.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tbTarif.Location = new System.Drawing.Point(161, 296);
+            this.tbTarif.Margin = new System.Windows.Forms.Padding(4);
             this.tbTarif.Name = "tbTarif";
-            this.tbTarif.Size = new System.Drawing.Size(121, 22);
+            this.tbTarif.Size = new System.Drawing.Size(136, 22);
             this.tbTarif.TabIndex = 28;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(265, 207);
+            this.label3.Location = new System.Drawing.Point(29, 278);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(58, 16);
@@ -140,18 +145,16 @@
             // tbWorkersCnt
             // 
             this.tbWorkersCnt.Enabled = false;
-            this.tbWorkersCnt.Location = new System.Drawing.Point(563, 287);
-            this.tbWorkersCnt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tbWorkersCnt.Location = new System.Drawing.Point(314, 225);
+            this.tbWorkersCnt.Margin = new System.Windows.Forms.Padding(4);
             this.tbWorkersCnt.Name = "tbWorkersCnt";
             this.tbWorkersCnt.Size = new System.Drawing.Size(132, 22);
             this.tbWorkersCnt.TabIndex = 30;
-            this.tbWorkersCnt.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbWorkersCnt_KeyDown);
-            this.tbWorkersCnt.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbWorkersCnt_KeyPress);
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(560, 268);
+            this.label5.Location = new System.Drawing.Point(311, 206);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(135, 16);
@@ -161,18 +164,16 @@
             // tbNVR
             // 
             this.tbNVR.Enabled = false;
-            this.tbNVR.Location = new System.Drawing.Point(409, 288);
-            this.tbNVR.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tbNVR.Location = new System.Drawing.Point(160, 226);
+            this.tbNVR.Margin = new System.Windows.Forms.Padding(4);
             this.tbNVR.Name = "tbNVR";
             this.tbNVR.Size = new System.Drawing.Size(137, 22);
             this.tbNVR.TabIndex = 32;
-            this.tbNVR.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbNVR_KeyDown);
-            this.tbNVR.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbNVR_KeyPress);
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(405, 266);
+            this.label6.Location = new System.Drawing.Point(156, 204);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(141, 16);
@@ -183,7 +184,7 @@
             // 
             this.tbNVRbyItem.Enabled = false;
             this.tbNVRbyItem.Location = new System.Drawing.Point(172, 30);
-            this.tbNVRbyItem.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tbNVRbyItem.Margin = new System.Windows.Forms.Padding(4);
             this.tbNVRbyItem.Name = "tbNVRbyItem";
             this.tbNVRbyItem.Size = new System.Drawing.Size(176, 22);
             this.tbNVRbyItem.TabIndex = 34;
@@ -203,7 +204,7 @@
             // 
             this.tbSumItem.Enabled = false;
             this.tbSumItem.Location = new System.Drawing.Point(21, 92);
-            this.tbSumItem.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tbSumItem.Margin = new System.Windows.Forms.Padding(4);
             this.tbSumItem.Name = "tbSumItem";
             this.tbSumItem.Size = new System.Drawing.Size(327, 22);
             this.tbSumItem.TabIndex = 36;
@@ -219,20 +220,10 @@
             this.label8.TabIndex = 35;
             this.label8.Text = "Стоимость 1 единицы:";
             // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(27, 205);
-            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(49, 16);
-            this.label9.TabIndex = 37;
-            this.label9.Text = "Ткань:";
-            // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(265, 267);
+            this.label10.Location = new System.Drawing.Point(173, 275);
             this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(125, 16);
@@ -247,7 +238,7 @@
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.tbCost);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(711, 196);
+            this.groupBox1.Location = new System.Drawing.Point(483, 204);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -258,43 +249,34 @@
             // btSave
             // 
             this.btSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btSave.Location = new System.Drawing.Point(711, 368);
-            this.btSave.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btSave.Location = new System.Drawing.Point(483, 376);
+            this.btSave.Margin = new System.Windows.Forms.Padding(4);
             this.btSave.Name = "btSave";
             this.btSave.Size = new System.Drawing.Size(385, 46);
             this.btSave.TabIndex = 46;
             this.btSave.Text = "Сохранить";
             this.btSave.UseVisualStyleBackColor = true;
-            this.btSave.Click += new System.EventHandler(this.btCalculate_Click);
-            this.btSave.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btCalculate_KeyDown);
+            this.btSave.Click += new System.EventHandler(this.btSave_Click);
             // 
             // cbSelectOper
             // 
             this.cbSelectOper.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbSelectOper.FormattingEnabled = true;
-            this.cbSelectOper.Location = new System.Drawing.Point(109, 103);
+            this.cbSelectOper.Location = new System.Drawing.Point(159, 148);
             this.cbSelectOper.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cbSelectOper.Name = "cbSelectOper";
-            this.cbSelectOper.Size = new System.Drawing.Size(986, 24);
+            this.cbSelectOper.Size = new System.Drawing.Size(708, 24);
             this.cbSelectOper.TabIndex = 48;
-            // 
-            // tbMat
-            // 
-            this.tbMat.Enabled = false;
-            this.tbMat.Location = new System.Drawing.Point(30, 225);
-            this.tbMat.Margin = new System.Windows.Forms.Padding(4);
-            this.tbMat.Name = "tbMat";
-            this.tbMat.Size = new System.Drawing.Size(215, 22);
-            this.tbMat.TabIndex = 49;
+            this.cbSelectOper.SelectedIndexChanged += new System.EventHandler(this.cbSelectOper_SelectedIndexChanged);
             // 
             // cbSelectWorker
             // 
             this.cbSelectWorker.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbSelectWorker.FormattingEnabled = true;
-            this.cbSelectWorker.Location = new System.Drawing.Point(110, 31);
+            this.cbSelectWorker.Location = new System.Drawing.Point(159, 31);
             this.cbSelectWorker.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cbSelectWorker.Name = "cbSelectWorker";
-            this.cbSelectWorker.Size = new System.Drawing.Size(986, 24);
+            this.cbSelectWorker.Size = new System.Drawing.Size(708, 24);
             this.cbSelectWorker.TabIndex = 51;
             // 
             // label11
@@ -311,26 +293,103 @@
             // tbRank
             // 
             this.tbRank.Enabled = false;
-            this.tbRank.Location = new System.Drawing.Point(269, 225);
+            this.tbRank.Location = new System.Drawing.Point(33, 296);
             this.tbRank.Margin = new System.Windows.Forms.Padding(4);
             this.tbRank.Name = "tbRank";
-            this.tbRank.Size = new System.Drawing.Size(121, 22);
+            this.tbRank.Size = new System.Drawing.Size(110, 22);
             this.tbRank.TabIndex = 52;
             // 
-            // fEditPieceWork
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label9.Location = new System.Drawing.Point(21, 81);
+            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(107, 16);
+            this.label9.TabIndex = 53;
+            this.label9.Text = "Номер карты:";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label12.Location = new System.Drawing.Point(501, 81);
+            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(99, 16);
+            this.label12.TabIndex = 54;
+            this.label12.Text = "Количество:";
+            // 
+            // tbCardnum
+            // 
+            this.tbCardnum.Location = new System.Drawing.Point(159, 78);
+            this.tbCardnum.Margin = new System.Windows.Forms.Padding(4);
+            this.tbCardnum.Name = "tbCardnum";
+            this.tbCardnum.Size = new System.Drawing.Size(216, 22);
+            this.tbCardnum.TabIndex = 55;
+            this.tbCardnum.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbCardnum_KeyPress);
+            // 
+            // tbCount
+            // 
+            this.tbCount.Location = new System.Drawing.Point(631, 78);
+            this.tbCount.Margin = new System.Windows.Forms.Padding(4);
+            this.tbCount.Name = "tbCount";
+            this.tbCount.Size = new System.Drawing.Size(236, 22);
+            this.tbCount.TabIndex = 56;
+            this.tbCount.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbCount_KeyPress);
+            // 
+            // tbOper
+            // 
+            this.tbOper.Enabled = false;
+            this.tbOper.Location = new System.Drawing.Point(159, 148);
+            this.tbOper.Name = "tbOper";
+            this.tbOper.Size = new System.Drawing.Size(708, 22);
+            this.tbOper.TabIndex = 57;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label13.Location = new System.Drawing.Point(21, 123);
+            this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(90, 16);
+            this.label13.TabIndex = 58;
+            this.label13.Text = "indivisionid:";
+            this.label13.Visible = false;
+            // 
+            // lblInDiv
+            // 
+            this.lblInDiv.AutoSize = true;
+            this.lblInDiv.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblInDiv.Location = new System.Drawing.Point(128, 123);
+            this.lblInDiv.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblInDiv.Name = "lblInDiv";
+            this.lblInDiv.Size = new System.Drawing.Size(20, 16);
+            this.lblInDiv.TabIndex = 59;
+            this.lblInDiv.Text = "id";
+            this.lblInDiv.Visible = false;
+            // 
+            // fAddPieceWork
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1120, 446);
+            this.ClientSize = new System.Drawing.Size(895, 446);
+            this.Controls.Add(this.lblInDiv);
+            this.Controls.Add(this.label13);
+            this.Controls.Add(this.tbOper);
+            this.Controls.Add(this.tbCount);
+            this.Controls.Add(this.tbCardnum);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.tbRank);
             this.Controls.Add(this.cbSelectWorker);
             this.Controls.Add(this.label11);
-            this.Controls.Add(this.tbMat);
             this.Controls.Add(this.cbSelectOper);
             this.Controls.Add(this.btSave);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label10);
-            this.Controls.Add(this.label9);
             this.Controls.Add(this.tbNVR);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.tbWorkersCnt);
@@ -343,12 +402,12 @@
             this.Controls.Add(this.lblID);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "fEditPieceWork";
+            this.Name = "fAddPieceWork";
             this.Text = "Добавить / Изменить запись";
-            this.Load += new System.EventHandler(this.fAddOper_Load);
+            this.Load += new System.EventHandler(this.fEditPieceWork_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -373,14 +432,19 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox tbSumItem;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button btSave;
         private System.Windows.Forms.ComboBox cbSelectOper;
-        private System.Windows.Forms.TextBox tbMat;
         private System.Windows.Forms.ComboBox cbSelectWorker;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox tbRank;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox tbCardnum;
+        private System.Windows.Forms.TextBox tbCount;
+        private System.Windows.Forms.TextBox tbOper;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label lblInDiv;
     }
 }
