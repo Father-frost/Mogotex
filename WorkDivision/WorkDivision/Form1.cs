@@ -1,8 +1,8 @@
 ﻿using Microsoft.Office.Interop.Word;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Data.SQLite;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
@@ -258,6 +258,7 @@ namespace WorkDivision
             lvPieceWork.Columns.Add("Количество");
             lvPieceWork.Columns.Add("Расценка");
             lvPieceWork.Columns.Add("Сумма          ");
+            lvPieceWork.Columns.Add("Кол-во по карте");
             Division.autoResizeColumns(lvPieceWork);
 
 
@@ -1473,7 +1474,7 @@ namespace WorkDivision
                     Convert.ToString(_sqlReader["post"]),
                     Convert.ToString(_sqlReader["FIO"]),
                     Convert.ToString(_sqlReader["ord"]),
-                    Enum.GetValues(typeof(PlaceEnum)).GetValue(Convert.ToInt32(_sqlReader["place"])).ToString(), 
+                    Enum.GetValues(typeof(PlaceEnum)).GetValue(Convert.ToInt32(_sqlReader["place"])).ToString(),
                     });
                     item.Font = new Font(lvDirSigners.Font, FontStyle.Regular);
                     lvDirSigners.Items.Add(item);
@@ -1938,7 +1939,11 @@ namespace WorkDivision
                 _Document oDoc = GetDoc(Environment.CurrentDirectory + "\\DivisionTemplate.docx", true);
                 oDoc.SaveAs(FileName: Filename); //Сохраняем документ
                 oDoc.Close();
-                System.Diagnostics.Process.Start(Filename);  //Открыть документ разделения                                                        
+                //System.Diagnostics.Process.Start(Filename);  //Открыть документ разделения
+                System.Diagnostics.Process obj = new System.Diagnostics.Process();
+                obj.StartInfo.FileName = Filename;
+                obj.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Maximized; // it Maximized application  
+                obj.Start();
             }
             else
             {
@@ -1966,6 +1971,7 @@ namespace WorkDivision
             double absCount = 0;
             double absCost = 0;
             double absSum = 0;
+            double absCntInCard = 0;
             string query = "";
             try
             {
@@ -2007,7 +2013,7 @@ namespace WorkDivision
                     //Подписанты (2 первых)
                     try
                     {
-                        query = @"SELECT * FROM DirSigners where place="+(int)PlaceEnum.DivisionBottom+" ORDER BY ord LIMIT 2";
+                        query = @"SELECT * FROM DirSigners where place=" + (int)PlaceEnum.DivisionBottom + " ORDER BY ord LIMIT 2";
 
                         _m_sqlCmd = new SQLiteCommand(query, _dblite);
 
@@ -2069,6 +2075,7 @@ namespace WorkDivision
                             absCount += Math.Round(Convert.ToDouble(lvPieceWork.Items[row].SubItems[5].Text), 5);
                             absCost += Math.Round(Convert.ToDouble(lvPieceWork.Items[row].SubItems[6].Text), 5);
                             absSum += Math.Round(Convert.ToDouble(lvPieceWork.Items[row].SubItems[7].Text), 5);
+                            absCntInCard += Math.Round(Convert.ToDouble(lvPieceWork.Items[row].SubItems[8].Text), 5);
                         }
 
                         //ИТОГО
@@ -2076,6 +2083,7 @@ namespace WorkDivision
                         sumTable.Cell(1, 2).Range.Text = absCount.ToString();  //Суммарная расценка
                         sumTable.Cell(1, 3).Range.Text = absCost.ToString();     //Суммарная норма времени
                         sumTable.Cell(1, 4).Range.Text = absSum.ToString();    //Сумарная стоимость
+                        sumTable.Cell(1, 5).Range.Text = absCntInCard.ToString();    //Сумарное кол-во по картам
 
                     }
                     catch (Exception ex)
@@ -2411,6 +2419,7 @@ namespace WorkDivision
                     Convert.ToString(_sqlReader["cnt"]),
                     Convert.ToString(_sqlReader["Cost"]),
                     Convert.ToString(Math.Round(Convert.ToDouble(_sqlReader["Cost"])*Convert.ToDouble(_sqlReader["cnt"]),5)),
+                    Convert.ToString(_sqlReader["cnt_in_card"]),
                     });
                     item.Font = new Font(lvPieceWork.Font, FontStyle.Regular);
                     lvPieceWork.Items.Add(item);
@@ -2527,7 +2536,10 @@ namespace WorkDivision
                 _Document oDoc = GetDoc(Environment.CurrentDirectory + "\\PwbyDivTemplate.docx", false);
                 oDoc.SaveAs(FileName: Filename); //Сохраняем документ
                 oDoc.Close();
-                System.Diagnostics.Process.Start(Filename);  //Открыть документ начисления                                                        
+                System.Diagnostics.Process obj = new System.Diagnostics.Process();
+                obj.StartInfo.FileName = Filename;
+                obj.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Maximized; // it Maximized application  
+                obj.Start();  //Открыть документ начисления                                                        
             }
             else
             {
@@ -2542,9 +2554,24 @@ namespace WorkDivision
             {
                 string Filename = Environment.CurrentDirectory + "\\Reports\\Nachisl_" + dateTimePicker1.Value.ToString("MM_yyyy") + ".docx";
                 _Document oDoc = GetDocPW(Environment.CurrentDirectory + "\\PieceworkTemplate.docx");
-                oDoc.SaveAs(FileName: Filename); //Сохраняем документ
-                oDoc.Close();
-                System.Diagnostics.Process.Start(Filename);  //Открыть документ начисления                                                        
+                try
+                {
+                    oDoc.SaveAs(FileName: Filename); //Сохраняем документ
+                    oDoc.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Документ уже открыт!","Ошибка открытия документа", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+                //var prc = new System.Diagnostics.Process();
+                //prc.StartInfo.FileName = Filename;
+                //prc.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Maximized;
+                //prc.Start();  //Открыть документ начисления                                                        
+                System.Diagnostics.Process obj = new System.Diagnostics.Process();
+                obj.StartInfo.FileName = Filename;
+                obj.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Maximized; // it Maximized application  
+                obj.Start();
             }
             else
             {
@@ -2568,7 +2595,10 @@ namespace WorkDivision
             double absCount = 0;
             double absCost = 0;
             double absSum = 0;
+            double absCardCount = 0;
             string query = "";
+            List<string> tabList = new List<string>();
+            List<string> cardList = new List<string>();
 
             try
             {
@@ -2610,10 +2640,8 @@ namespace WorkDivision
                 _m_sqlCmd = new SQLiteCommand(query, _dblite);
 
                 _sqlReader = _m_sqlCmd.ExecuteReader();
-                i = 1;
+                i = 2;
 
-                List<string> tabList = new List<string>();
-                List<string> cardList = new List<string>();
                 while (await _sqlReader.ReadAsync())
                 {
                     i++;
@@ -2624,7 +2652,7 @@ namespace WorkDivision
                 }
 
                 //Номера карт
-                query = @"SELECT distinct cardnum FROM Piecework
+                query = @"SELECT distinct cardnum,ifnull(cnt_in_card,0) as cnt_in_card FROM Piecework
                 WHERE mm=" + dateTimePicker1.Value.Month.ToString() + " AND yy=" + dateTimePicker1.Value.Year.ToString() + " order by cardnum";
 
                 _m_sqlCmd = new SQLiteCommand(query, _dblite);
@@ -2636,39 +2664,50 @@ namespace WorkDivision
                     i++;
                     wTable.Rows.Add();  //Добавить запись
                     wTable.Cell(i + 2, 1).Range.Text = Convert.ToString(_sqlReader["cardnum"]);  //номера карт в первый столбец
+                    wTable.Cell(i + 2, 2).Range.Text = Convert.ToString(_sqlReader["cnt_in_card"]);  //кол-во по карте
 
+                    if (_sqlReader["cnt_in_card"] != DBNull.Value)
+                    {
+                        absCardCount += Convert.ToInt32(_sqlReader["cnt_in_card"]);
+                    }
+                    
                     cardList.Add(Convert.ToString(_sqlReader["cardnum"]));  //Собираем номера карт в список
                 }
+                wTable.Cell(i + 3, 1).Range.Text = "ИТОГО";
+                //wTable.Cell(i + 3, 2).Range.Text = absCardCount.ToString();  //Cумма по картам
 
                 for (int row = 0; row < cardList.Count; row++) //проход по строкам (номера карт)
                 {
                     for (int col = 0; col < tabList.Count; col++)  //проход по столбцам (табельные номера)
                     {
                         query = @"SELECT pw.cnt,
-                                IFNULL(ROUND(i.NVRforOper * dt.TAR_VR,5),0) as Cost
+                                IFNULL(ROUND(i.NVRforOper * dt.TAR_VR,5),0) as Cost,
+                                ROUND(SUM(IFNULL(ROUND(i.NVRforOper * dt.TAR_VR,5),0) * pw.cnt),5) as SumPW
                                 FROM PieceWork as pw
                                 LEFT JOIN inDivision as i on i.id = pw.id_indivision
                                 LEFT JOIN DirWorkers as dw on dw.id = pw.id_worker
                                 LEFT JOIN DirTarif as dt on dt.rank=i.rank
                 WHERE pw.mm=" + dateTimePicker1.Value.Month.ToString() + " AND pw.yy=" + dateTimePicker1.Value.Year.ToString() +
-                " AND cardnum=" + cardList[row] + " AND tab_nom=" + tabList[col];
+                " AND cardnum=" + cardList[row] + " AND tab_nom=" + tabList[col] + " GROUP BY cardnum";
 
                         _m_sqlCmd = new SQLiteCommand(query, _dblite);
 
                         _sqlReader = _m_sqlCmd.ExecuteReader();
-                        while (await _sqlReader.ReadAsync())
+                        if (_sqlReader.HasRows)
                         {
-                            if (_sqlReader.HasRows)
+                            while (await _sqlReader.ReadAsync())
                             {
-                                wTable.Cell(row + 3, col + 2).Range.Text = Math.Round(Convert.ToDouble(_sqlReader["Cost"]) 
-                                    * Convert.ToDouble(_sqlReader["cnt"]), 5).ToString();
+                                wTable.Cell(row + 3, col + 3).Range.Text = Convert.ToDouble(_sqlReader["SumPW"]).ToString();
                             }
-
                         }
-
-
+                        else
+                        {
+                            wTable.Cell(row + 3, col + 3).Range.Text = "0";
+                        }
                     }
                 }
+                for (int col = 0; col < tabList.Count+1; col++)
+                    wTable.Cell(i + 3, col+2).Formula("= SUM(ABOVE)");  //Cумма по картам
             }
             catch (Exception ex)
             {
