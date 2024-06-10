@@ -2,6 +2,7 @@
 using System.Data;
 using System.Data.SQLite;
 using System.Windows.Forms;
+using System.Xml;
 using DataTable = System.Data.DataTable;
 
 namespace WorkDivision
@@ -63,6 +64,7 @@ namespace WorkDivision
                 tbNVRbyItem.Text = "";
                 tbSumItem.Text = "";
                 tbCardnum.Text = "";
+                tbCardCount.Text = "";
                 tbCount.Text = "";
                 lblInDiv.Text = "";
                 GetPieceWork(id_rec);
@@ -81,6 +83,7 @@ namespace WorkDivision
                 tbNVRbyItem.Text = "";
                 tbSumItem.Text = "";
                 tbCardnum.Text = "";
+                tbCardCount.Text = "";
                 tbCount.Text = "";
                 lblInDiv.Text = "";
             }
@@ -184,14 +187,15 @@ namespace WorkDivision
                 if (id_rec == "")  //Если  id записи не передан (новая запись) 
                 {
 
-                    string querySQLite = @"INSERT INTO PieceWork (id_worker,id_indivision,id_division,cardnum,cnt,mm,yy) 
-                VALUES (@id_worker,@id_indivision,@id_division,@cardnum,@cnt,@mm,@yy)";
+                    string querySQLite = @"INSERT INTO PieceWork (id_worker,id_indivision,id_division,cardnum,cnt,cnt_in_card,mm,yy) 
+                VALUES (@id_worker,@id_indivision,@id_division,@cardnum,@cnt,@cnt_in_card,@mm,@yy)";
                     m_sqlCmd = new SQLiteCommand(querySQLite, _dblite);
                     m_sqlCmd.Parameters.AddWithValue("id_worker", cbSelectWorker.SelectedValue.ToString());
                     m_sqlCmd.Parameters.AddWithValue("id_indivision", cbSelectOper.SelectedValue.ToString());
                     m_sqlCmd.Parameters.AddWithValue("id_division", Division.id);
                     m_sqlCmd.Parameters.AddWithValue("cardnum", tbCardnum.Text);
                     m_sqlCmd.Parameters.AddWithValue("cnt", tbCount.Text.Replace(",", "."));
+                    m_sqlCmd.Parameters.AddWithValue("cnt_in_card", tbCardCount.Text);
                     m_sqlCmd.Parameters.AddWithValue("mm", Division.mm);
                     m_sqlCmd.Parameters.AddWithValue("yy", Division.yy);
 
@@ -200,12 +204,13 @@ namespace WorkDivision
                 else
                 {
                     string querySQLite = @"UPDATE PieceWork SET id_worker=@id_worker,id_indivision=@id_indivision,
-                id_division=@id_division,cardnum=@cardnum,cnt=@cnt,mm=@mm,yy=@yy WHERE id=" + id_rec;
+                id_division=@id_division,cardnum=@cardnum,cnt=@cnt, cnt_in_card=@cnt_in_card,mm=@mm,yy=@yy WHERE id=" + id_rec;
                     m_sqlCmd = new SQLiteCommand(querySQLite, _dblite);
                     m_sqlCmd.Parameters.AddWithValue("id_worker", cbSelectWorker.SelectedValue.ToString());
                     m_sqlCmd.Parameters.AddWithValue("id_indivision", lblInDiv.Text);
                     m_sqlCmd.Parameters.AddWithValue("id_division", Division.id);
                     m_sqlCmd.Parameters.AddWithValue("cardnum", tbCardnum.Text);
+                    m_sqlCmd.Parameters.AddWithValue("cnt_in_card", tbCardCount.Text);
                     m_sqlCmd.Parameters.AddWithValue("cnt", tbCount.Text.Replace(",", "."));
                     m_sqlCmd.Parameters.AddWithValue("mm", Division.mm);
                     m_sqlCmd.Parameters.AddWithValue("yy", Division.yy);
@@ -233,7 +238,7 @@ namespace WorkDivision
                                 CASE WHEN d.UCH between 1 and 2 THEN IFNULL(ROUND(i.NVRforOper * i.MatRate * i.workers_cnt,2),0) ELSE NVRforOper END as NVRbyItem,
                                 CASE WHEN d.UCH between 1 and 2 THEN IFNULL(ROUND(ROUND(i.NVRforOper * dt.TAR_VR,5) * i.MatRate * i.workers_cnt,5),0) 
                                     ELSE IFNULL(ROUND(i.NVRforOper * dt.TAR_VR * i.workers_cnt,5),0) END as SumItem,
-                                pw.cnt,pw.cardnum, dw.tab_nom || ' . '||dw.FIO as tabFIO
+                                pw.cnt,pw.cardnum,pw.cnt_in_card, dw.tab_nom || ' . '||dw.FIO as tabFIO
                                 FROM PieceWork as pw
                                 LEFT JOIN inDivision as i on pw.id_indivision=i.id 
                                 LEFT JOIN DirOpers as d on d.id=i.id_oper
@@ -249,6 +254,7 @@ namespace WorkDivision
                 {
                     lblInDiv.Text = Convert.ToString(_sqlReader["id_indivision"]);
                     tbCardnum.Text = Convert.ToString(_sqlReader["cardnum"]);
+                    tbCardCount.Text = Convert.ToString(_sqlReader["cnt_in_card"]);
                     tbCount.Text = Convert.ToString(_sqlReader["cnt"]);
                     tbRank.Text = Convert.ToString(_sqlReader["rank"]);              //Разряд
                     tbTarif.Text = Convert.ToString(_sqlReader["TAR_VR"]);           //Тарифная ставка
@@ -302,13 +308,56 @@ namespace WorkDivision
             }
         }
 
-        private void tbCardnum_KeyPress(object sender, KeyPressEventArgs e)
+        private async void tbCardnum_KeyPress(object sender, KeyPressEventArgs e)
         {
 
             // ограничение ввода
             if ((e.KeyChar < '0' | e.KeyChar > '9' && e.KeyChar != (char)Keys.Back && e.KeyChar != (char)Keys.Escape && e.KeyChar != (char)Keys.Delete) || (e.KeyChar == '.'))
             {
                 e.Handled = true;
+            }
+        }
+
+        private void tbCardCount_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // ограничение ввода
+            if ((e.KeyChar < '0' | e.KeyChar > '9' && e.KeyChar != (char)Keys.Back && e.KeyChar != (char)Keys.Escape && e.KeyChar != (char)Keys.Delete) || (e.KeyChar == '.'))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private async void tbCardCount_MouseClick(object sender, MouseEventArgs e)
+        {
+            string query = @"SELECT cnt_in_card FROM Piecework WHERE mm=" + Division.mm + " AND yy=" + Division.yy + " AND cardnum=" + tbCardnum.Text;
+            try
+            {
+                m_sqlCmd = new SQLiteCommand(query, _dblite);
+                //m_sqlCmd.Connection = dblite;
+
+                _sqlReader = m_sqlCmd.ExecuteReader();
+
+                if (_sqlReader.HasRows)
+                {
+                    while (await _sqlReader.ReadAsync())
+                    {
+                        tbCardCount.Text = Convert.ToString(_sqlReader["cnt_in_card"]);
+                    }
+                }
+                else
+                {
+                    tbCardCount.Text = "";
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка 5.03.07", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (_sqlReader != null && !_sqlReader.IsClosed)
+                    _sqlReader.Close();
             }
         }
     }

@@ -59,13 +59,15 @@
             this.tbOper = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.lblInDiv = new System.Windows.Forms.Label();
+            this.tbCardCount = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblID
             // 
             this.lblID.AutoSize = true;
-            this.lblID.Location = new System.Drawing.Point(27, 156);
+            this.lblID.Location = new System.Drawing.Point(29, 79);
             this.lblID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblID.Name = "lblID";
             this.lblID.Size = new System.Drawing.Size(0, 16);
@@ -86,7 +88,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(19, 151);
+            this.label2.Location = new System.Drawing.Point(21, 74);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(84, 16);
@@ -262,7 +264,7 @@
             // 
             this.cbSelectOper.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbSelectOper.FormattingEnabled = true;
-            this.cbSelectOper.Location = new System.Drawing.Point(159, 148);
+            this.cbSelectOper.Location = new System.Drawing.Point(161, 71);
             this.cbSelectOper.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cbSelectOper.Name = "cbSelectOper";
             this.cbSelectOper.Size = new System.Drawing.Size(708, 24);
@@ -303,7 +305,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label9.Location = new System.Drawing.Point(21, 81);
+            this.label9.Location = new System.Drawing.Point(21, 119);
             this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(107, 16);
@@ -314,7 +316,7 @@
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label12.Location = new System.Drawing.Point(501, 81);
+            this.label12.Location = new System.Drawing.Point(501, 119);
             this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(99, 16);
@@ -323,7 +325,7 @@
             // 
             // tbCardnum
             // 
-            this.tbCardnum.Location = new System.Drawing.Point(159, 78);
+            this.tbCardnum.Location = new System.Drawing.Point(159, 116);
             this.tbCardnum.Margin = new System.Windows.Forms.Padding(4);
             this.tbCardnum.Name = "tbCardnum";
             this.tbCardnum.Size = new System.Drawing.Size(216, 22);
@@ -332,7 +334,7 @@
             // 
             // tbCount
             // 
-            this.tbCount.Location = new System.Drawing.Point(631, 78);
+            this.tbCount.Location = new System.Drawing.Point(631, 116);
             this.tbCount.Margin = new System.Windows.Forms.Padding(4);
             this.tbCount.Name = "tbCount";
             this.tbCount.Size = new System.Drawing.Size(236, 22);
@@ -342,7 +344,7 @@
             // tbOper
             // 
             this.tbOper.Enabled = false;
-            this.tbOper.Location = new System.Drawing.Point(159, 148);
+            this.tbOper.Location = new System.Drawing.Point(161, 71);
             this.tbOper.Name = "tbOper";
             this.tbOper.Size = new System.Drawing.Size(708, 22);
             this.tbOper.TabIndex = 57;
@@ -351,7 +353,7 @@
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label13.Location = new System.Drawing.Point(21, 123);
+            this.label13.Location = new System.Drawing.Point(21, 58);
             this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(90, 16);
@@ -363,7 +365,7 @@
             // 
             this.lblInDiv.AutoSize = true;
             this.lblInDiv.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblInDiv.Location = new System.Drawing.Point(128, 123);
+            this.lblInDiv.Location = new System.Drawing.Point(128, 58);
             this.lblInDiv.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblInDiv.Name = "lblInDiv";
             this.lblInDiv.Size = new System.Drawing.Size(20, 16);
@@ -371,11 +373,34 @@
             this.lblInDiv.Text = "id";
             this.lblInDiv.Visible = false;
             // 
+            // tbCardCount
+            // 
+            this.tbCardCount.Location = new System.Drawing.Point(193, 155);
+            this.tbCardCount.Margin = new System.Windows.Forms.Padding(4);
+            this.tbCardCount.Name = "tbCardCount";
+            this.tbCardCount.Size = new System.Drawing.Size(182, 22);
+            this.tbCardCount.TabIndex = 61;
+            this.tbCardCount.MouseClick += new System.Windows.Forms.MouseEventHandler(this.tbCardCount_MouseClick);
+            this.tbCardCount.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbCardCount_KeyPress);
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label14.Location = new System.Drawing.Point(21, 158);
+            this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(156, 16);
+            this.label14.TabIndex = 60;
+            this.label14.Text = "Кол-во ед. по карте:";
+            // 
             // fAddPieceWork
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(895, 446);
+            this.Controls.Add(this.tbCardCount);
+            this.Controls.Add(this.label14);
             this.Controls.Add(this.lblInDiv);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.tbOper);
@@ -446,5 +471,7 @@
         private System.Windows.Forms.TextBox tbOper;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label lblInDiv;
+        private System.Windows.Forms.TextBox tbCardCount;
+        private System.Windows.Forms.Label label14;
     }
 }
