@@ -339,6 +339,7 @@
             this.tbCount.Name = "tbCount";
             this.tbCount.Size = new System.Drawing.Size(236, 22);
             this.tbCount.TabIndex = 56;
+            this.tbCount.MouseClick += new System.Windows.Forms.MouseEventHandler(this.tbCount_MouseClick);
             this.tbCount.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbCount_KeyPress);
             // 
             // tbOper

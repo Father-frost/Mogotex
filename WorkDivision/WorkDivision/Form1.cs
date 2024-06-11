@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
-using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
@@ -1937,8 +1936,15 @@ namespace WorkDivision
             {
                 string Filename = Environment.CurrentDirectory + "\\Reports\\Division" + dateTimePicker1.Value.ToString("MM_yyyy") + "_" + Division.model + ".docx";
                 _Document oDoc = GetDoc(Environment.CurrentDirectory + "\\DivisionTemplate.docx", true);
-                oDoc.SaveAs(FileName: Filename); //Сохраняем документ
-                oDoc.Close();
+                try
+                {
+                    oDoc.SaveAs(FileName: Filename); //Сохраняем документ
+                    oDoc.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Документ уже открыт!", "Ошибка открытия документа", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
                 //System.Diagnostics.Process.Start(Filename);  //Открыть документ разделения
                 System.Diagnostics.Process obj = new System.Diagnostics.Process();
                 obj.StartInfo.FileName = Filename;
@@ -2133,7 +2139,7 @@ namespace WorkDivision
 
         private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("ПО \"Разделение труда\", версия 2.0 (09.06.2024)", "О программе");
+            MessageBox.Show("ПО \"Разделение труда\", версия 2.1 (11.06.2024)", "О программе");
         }
 
         //Печать разделения из меню
@@ -2534,8 +2540,15 @@ namespace WorkDivision
             {
                 string Filename = Environment.CurrentDirectory + "\\Reports\\Nachisl_" + dateTimePicker1.Value.ToString("MM_yyyy") + "_" + Division.model + ".docx";
                 _Document oDoc = GetDoc(Environment.CurrentDirectory + "\\PwbyDivTemplate.docx", false);
-                oDoc.SaveAs(FileName: Filename); //Сохраняем документ
-                oDoc.Close();
+                try
+                {
+                    oDoc.SaveAs(FileName: Filename); //Сохраняем документ
+                    oDoc.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Документ уже открыт!", "Ошибка открытия документа", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
                 System.Diagnostics.Process obj = new System.Diagnostics.Process();
                 obj.StartInfo.FileName = Filename;
                 obj.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Maximized; // it Maximized application  
@@ -2561,7 +2574,7 @@ namespace WorkDivision
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Документ уже открыт!","Ошибка открытия документа", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Документ уже открыт!", "Ошибка открытия документа", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
                 //var prc = new System.Diagnostics.Process();
@@ -2670,7 +2683,7 @@ namespace WorkDivision
                     {
                         absCardCount += Convert.ToInt32(_sqlReader["cnt_in_card"]);
                     }
-                    
+
                     cardList.Add(Convert.ToString(_sqlReader["cardnum"]));  //Собираем номера карт в список
                 }
                 wTable.Cell(i + 3, 1).Range.Text = "ИТОГО";
@@ -2706,8 +2719,8 @@ namespace WorkDivision
                         }
                     }
                 }
-                for (int col = 0; col < tabList.Count+1; col++)
-                    wTable.Cell(i + 3, col+2).Formula("= SUM(ABOVE)");  //Cумма по картам
+                for (int col = 0; col < tabList.Count + 1; col++)
+                    wTable.Cell(i + 3, col + 2).Formula("= SUM(ABOVE)");  //Cумма по картам
             }
             catch (Exception ex)
             {
@@ -2722,6 +2735,12 @@ namespace WorkDivision
 
 
 
+        }
+
+        //Печать разделения за месяц из разделения
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            tsBtnPrintMonth_Click(this, null);
         }
     }
 }

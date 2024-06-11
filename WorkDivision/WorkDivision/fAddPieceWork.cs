@@ -360,5 +360,10 @@ namespace WorkDivision
                     _sqlReader.Close();
             }
         }
+
+        private void tbCount_MouseClick(object sender, MouseEventArgs e)
+        {
+            tbCardCount_MouseClick(this, null);
+        }
     }
 }
